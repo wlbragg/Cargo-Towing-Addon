@@ -9,9 +9,13 @@ addon-config.xml
     <!-- offset from wheelbase to top of rope in meters -->
 
     <!-- AirCrane -->
-    <!-- offset type="double">2.87</offset-->
+    <offset type="double">2.87</offset>
     <!-- UH-1 -->
-    <offset type="double">2.855</offset>
+    <offset type="double">2.86</offset>
+    <!-- ch47 -->
+    <offset type="double">2.86</offset>
+    <!-- Dauphin -->
+    <offset type="double">2.85</offset>
 
 cargotow.xml
 (lines 16-24)
@@ -20,13 +24,21 @@ cargotow.xml
 
     <offsets>
         <!-- AirCrane -->
-        <!--x-m>0.0</x-m>
+        <x-m>0.0</x-m>
         <y-m>0.0</y-m>
-        <z-m>0.0</z-m-->
+        <z-m>0.0</z-m>
         <!-- UH-1 -->
         <x-m>-2.5 </x-m>
         <y-m> 0.0 </y-m>
         <z-m> 0.05</z-m>
+        <!-- ch47 -->
+        <x-m>2.2</x-m>
+        <y-m>0.0</y-m>
+        <z-m>0.0</z-m>
+        <!-- dauphin -->
+        <x-m>0.7</x-m>
+        <y-m>0.0</y-m>
+        <z-m>0.0</z-m>
     </offsets>
 
 cargooperations.nas
@@ -34,8 +46,8 @@ cargooperations.nas
 
     <!-- pointmass designated for the cargo weight to be applied to -->
 
-    #AirCrane
-    #var cargo_load_on_aircraft = props.globals.getNode("sim/weight[3]/weight-lb", 1);
+    #AirCrane, ch47, dauphin
+    var cargo_load_on_aircraft = props.globals.getNode("sim/weight[3]/weight-lb", 1);
     #UH-1
     var cargo_load_on_aircraft = props.globals.getNode("sim/weight[6]/weight-lb", 1);
 
