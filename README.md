@@ -19,6 +19,8 @@ addon-config.xml
     <offset type="double">2.86</offset>
     <!-- Dauphin -->
     <offset type="double">2.84</offset>
+    <!-- H-C21 -->
+    <offset type="double">5.1</offset>
 
 cargotow.xml
 (lines 16-24)
@@ -42,6 +44,10 @@ cargotow.xml
         <x-m>0.7</x-m>
         <y-m>0.0</y-m>
         <z-m>0.0</z-m>
+        <!-- H-C21 -->
+        <x-m>-3.55</x-m>
+        <y-m>1.6</y-m>
+        <z-m>2.0</z-m>
     </offsets>
 
 cargooperations.nas
@@ -53,8 +59,13 @@ cargooperations.nas
     var cargo_load_on_aircraft = props.globals.getNode("sim/weight[3]/weight-lb", 1);
     #UH-1
     var cargo_load_on_aircraft = props.globals.getNode("sim/weight[6]/weight-lb", 1);
+    #H-C21
+    var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
 
 
 TODO:
-Add runtim weight pointmasses to all aircraft through a GUI/nasal interface or add permanent pointmas in the aircraft configuration file. 
+Add runtime weight pointmasses to all aircraft through a GUI/nasal interface or add permanent pointmas in the aircraft configuration file. 
 Add weight values through a GUI interface to all AI scenario entries
+GUI rope scale adjustment
+GUI per aircraft rope positioning dropdown configuration
+GUI slider rope positioning configuration

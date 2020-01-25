@@ -27,9 +27,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <y-m>0.0</y-m>
             <z-m>0.0</z-m-->
             <!-- dauphin -->
-            <x-m>0.7</x-m>
+            <!--x-m>0.7</x-m>
             <y-m>0.0</y-m>
-            <z-m>0.0</z-m>
+            <z-m>0.0</z-m-->
+            <!-- H-C21 -->
+            <x-m>-3.55</x-m>
+            <y-m>1.6</y-m>
+            <z-m>2.0</z-m>
         </offsets>
     </model>
 

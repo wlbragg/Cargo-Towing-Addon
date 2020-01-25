@@ -318,9 +318,11 @@ props.globals.initNode("sim/cargo/cargo-auto-hook", 0, "BOOL" );
 props.globals.initNode("sim/cargo/cargo-on-hook", 0, "BOOL" );
 
 #AirCrane, ch47, dauphin
-var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
+#var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
 #UH-1
 #var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
+#H-C21
+var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
 
 var AircraftCargo = {};
 var parents = [AircraftCargo];
