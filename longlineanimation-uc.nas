@@ -27,15 +27,15 @@ var n_segments_straight = 0;
 var n_segments = 90;
 var segment_length = getprop("/sim/cargo/rope/factor");
 
-var longline_animation = func (reset) {
+var longline_animation = func (reset, cargoWeight) {
 
     # add cargo weight to towing simulation
     # YASim
     #AirCrane
-    #var cargoWeight = props.globals.getNode("sim/weight[3]/weight-lb", 1);
+    #var cargoWeight = getprop("sim/weight[3]/weight-lb");
     #UH-1
     #var cargoWeight = props.globals.getNode("sim/weight[6]/weight-lb", 1);
-    var cargoWeight = getprop("sim/weight[6]/weight-lb");
+    #var cargoWeight = getprop("sim/weight[6]/weight-lb");
     # JSBSim
     #var cargoWeight = props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[0]", 1);
 

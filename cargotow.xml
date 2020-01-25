@@ -11,13 +11,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 <PropertyList>
 
     <model>
-        <path>[addon=org.flightgear.addons.CGTOW]Models/Cargo-Hauling/long-line-uc.xml</path>
-        <offsets>
-            <!-- position the rope model at the airframe-->
-            <x-m>-2.5 </x-m>
-            <y-m> 0.0 </y-m>
-            <z-m> 0.05</z-m>
-        </offsets>
+        <path>[addon=org.flightgear.addons.CGTOW]Models/long-line-uc.xml</path>
     </model>
 
 </PropertyList>

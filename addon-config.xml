@@ -38,12 +38,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <rope>
 
             <!-- offset from wheelbase to top of rope in meters -->
-            <!-- UH-1 -->
-            <offset type="double">2.85</offset>
             <!-- AirCrane -->
-            <!-- offset type="double">2.87</offset-->
-            <!-- Alouette -->
-            <!--offset type="double">4.8</offset-->
+            <offset type="double">2.87</offset>
+            <!-- UH-1 -->
+            <!--offset type="double">2.855</offset-->
 
             <bearing type="double">1.0</bearing>
             <pull-factor-pitch type="double">0.0</pull-factor-pitch>
