@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg (wlbragg)
+Copyright (C) 2020 Wayne Bragg
+keyboard.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<PropertyList>
+  
+  <keyboard>
+
+    <key n="15">
+      <name>Ctrl-O</name>
+      <desc>Auto Attach Cargo</desc>
+      <binding>
+        <command>property-toggle</command>
+        <property>/sim/cargo/cargo-auto-hook</property>
+      </binding>
+    </key>
+
+    <key n="79">
+      <name>O</name>
+      <desc>Attach Cargo</desc>
+      <binding>
+        <command>property-assign</command>
+        <property>sim/cargo/cargo-hook</property>
+        <value type="bool">true</value>
+      </binding>
+    </key>
+
+    <key n="111">
+      <name>o</name>
+      <desc>Release Cargo</desc>
+      <binding>
+        <command>property-assign</command>
+        <property>controls/cargo-release</property>
+        <value type="bool">true</value>
+      </binding>
+    </key>
+
+    <key n="87"> 
+      <name>W</name>
+      <desc>Winch down</desc>
+      <repeatable type="bool">true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          var connector = getprop("/sim/gui/dialogs/aicargo-dialog/connection");
+          if (connector == 1)
+            {
+              var segments = getprop("/sim/cargo/rope/segments-reeled-in");
+              if (segments > 0)
+                setprop("/sim/cargo/rope/segments-reeled-in", segments - 1);
+            }
+          else
+            screen.log.write("Winch required!");
+        </script>
+      </binding>
+    </key>
+
+    <key n="119"> 
+      <name>w</name>
+      <desc>Winch up</desc>
+      <repeatable type="bool">true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          var connector = getprop("/sim/gui/dialogs/aicargo-dialog/connection");
+          if (connector == 1)
+            {
+              var segments = getprop("/sim/cargo/rope/segments-reeled-in");
+              if (87 > segments)
+                setprop("/sim/cargo/rope/segments-reeled-in", segments + 1);
+            }
+          else
+            screen.log.write("Winch required!");
+        </script>
+      </binding>
+      </key>
+
+  </keyboard>
+  
+</PropertyList>

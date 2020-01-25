@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg (wlbragg)
+Copyright (C) 2020 Wayne Bragg
+cargotow.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<PropertyList>
+
+    <model>
+        <path>[addon=org.flightgear.addons.CGTOW]Models/Cargo-Hauling/long-line-uc.xml</path>
+        <offsets>
+            <!-- position the rope model at the airframe-->
+            <x-m>-2.5 </x-m>
+            <y-m> 0.0 </y-m>
+            <z-m> 0.05</z-m>
+        </offsets>
+    </model>
+
+</PropertyList>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg wlbragg
+Copyright (C) 2020 Wayne Bragg
+addon-metadata.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<PropertyList>
+  <meta>
+    <file-type type="string">FlightGear add-on metadata</file-type>
+    <format-version type="int">1</format-version>
+  </meta>
+
+  <addon>
+    <identifier type="string">org.flightgear.addons.CGTOW</identifier>
+    <name type="string">Cargo Towing</name>
+    <version type="string">1.0.0</version>
+
+    <authors>
+      <author>
+        <name type="string">Wayne Bragg (wlbragg)</name>
+        <email type="string">wlbragg@cox.net</email>
+        <url type="string"></url>
+      </author>      
+    </authors>
+
+    <maintainers>
+      <maintainer>
+        <name type="string">Wayne Bragg (wlbragg)</name>
+        <url type="string">
+          https://github.com/wlbragg/AirCrane
+        </url>
+      </maintainer>
+    </maintainers>
+
+    <short-description type="string">
+      Cargo Towing capability for Flightgear
+    </short-description>
+
+    <long-description type="string">
+      Provides support for Cargo Towing adaptable for any FlightGear helocopter.
+    </long-description>
+
+    <license>
+      <designation type="string">
+        GNU Public License v3+ (GNU GPL version 3+)
+      </designation>
+
+      <file type="string">
+        <!-- Use a relative, slash-separated path to a file under the add-on
+             base directory that contains the add-on license text. -->
+      </file>
+
+      <url type="string">
+        https://www.gnu.org/licenses/gpl-3.0.html
+      </url>
+    </license>
+
+    <min-FG-version type="string">2018.3</min-FG-version>
+    <max-FG-version type="string">none</max-FG-version>
+
+    <urls>
+      <home-page type="string">
+        https://github.com/wlbragg/AirCrane
+      </home-page>
+
+      <download type="string">
+        https://github.com/wlbragg/AirCrane
+      </download>
+
+      <support type="string">
+        https://github.com/wlbragg/AirCrane
+      </support>
+
+      <code-repository type="string">
+        https://github.com/wlbragg/AirCrane
+      </code-repository>
+    </urls>
+
+    <tags>
+      <tag type="string">Wayne Bragg</tag>
+      <tag type="string">Cargo Towing</tag>
+      <tag type="string">helicopter</tag>
+      <tag type="string">cargo</tag>
+      <tag type="string">stacking</tag>
+      <tag type="string">transporting</tag>
+    </tags>
+  </addon>
+</PropertyList>

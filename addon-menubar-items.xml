@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg wlbragg
+Copyright (C) 2020 Wayne Bragg
+addon-menubar-items.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<PropertyList>
+    <meta>
+        <file-type type="string">FlightGear add-on menu bar items</file-type>
+        <format-version type="int">1</format-version>
+    </meta>
+
+    <menubar-items>
+
+        <menu>
+            <label>Cargo Towing</label>
+            <enabled type="bool">true</enabled>
+
+            <item>
+                <label>Cargo Settings</label>
+                <binding>
+                    <command>dialog-show</command>
+                    <dialog-name>aicargo-dialog</dialog-name>
+                </binding>
+            </item>
+            <item>
+                <label>Ranging</label>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/sim/gui/show-range</property>
+                </binding>
+            </item>
+        </menu>
+
+    </menubar-items>
+  
+</PropertyList>
