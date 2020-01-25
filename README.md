@@ -56,9 +56,9 @@ cargooperations.nas
     <!-- pointmass designated for the cargo weight to be applied to -->
 
     #AirCrane, ch47, dauphin
-    var cargo_load_on_aircraft = props.globals.getNode("sim/weight[3]/weight-lb", 1);
+    var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
     #UH-1
-    var cargo_load_on_aircraft = props.globals.getNode("sim/weight[6]/weight-lb", 1);
+    var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
     #H-C21
     var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
 
