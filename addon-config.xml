@@ -43,7 +43,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <!-- UH-1, h47 -->
             <!--offset type="double">2.86</offset-->
             <!-- Dauphin -->
-            <offset type="double">2.85</offset>
+            <offset type="double">2.84</offset>
 
             <bearing type="double">1.0</bearing>
             <pull-factor-pitch type="double">0.0</pull-factor-pitch>

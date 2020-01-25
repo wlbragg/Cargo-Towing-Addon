@@ -3,6 +3,9 @@ Allows for a quick and easy method (addon) to add cargo hauling and stacking cap
 
 Configuration required:
 
+For now, insure the aircraft this addon is applied to has the added pointmass entries if needed,including
+UH-1, ch47, dauphin 
+
 addon-config.xml
 (lines 40-46)
 
@@ -15,7 +18,7 @@ addon-config.xml
     <!-- ch47 -->
     <offset type="double">2.86</offset>
     <!-- Dauphin -->
-    <offset type="double">2.85</offset>
+    <offset type="double">2.84</offset>
 
 cargotow.xml
 (lines 16-24)
@@ -52,3 +55,6 @@ cargooperations.nas
     var cargo_load_on_aircraft = props.globals.getNode("sim/weight[6]/weight-lb", 1);
 
 
+TODO:
+Add runtim weight pointmasses to all aircraft through a GUI/nasal interface or add permanent pointmas in the aircraft configuration file. 
+Add weight values through a GUI interface to all AI scenario entries
