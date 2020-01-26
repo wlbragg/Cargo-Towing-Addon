@@ -11,30 +11,57 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 <PropertyList>
 
     <model>
+        <name>ropeorigin</name>
         <path>[addon=org.flightgear.addons.CGTOW]Models/long-line-uc.xml</path>
-        <!-- position the rope model at the airframe-->
-        <offsets>
-            <!-- AirCrane -->
-            <!--x-m>0.0</x-m>
-            <y-m>0.0</y-m>
-            <z-m>0.0</z-m-->
-            <!-- UH-1 -->
-            <!--x-m>-2.5 </x-m>
-            <y-m> 0.0 </y-m>
-            <z-m> 0.05</z-m-->
-            <!-- ch47 -->
-            <!--x-m>2.2</x-m>
-            <y-m>0.0</y-m>
-            <z-m>0.0</z-m-->
-            <!-- dauphin -->
-            <!--x-m>0.7</x-m>
-            <y-m>0.0</y-m>
-            <z-m>0.0</z-m-->
-            <!-- H-C21 -->
-            <x-m>-3.55</x-m>
-            <y-m>1.6</y-m>
-            <z-m>2.0</z-m>
-        </offsets>
     </model>
+
+    <animation>
+        <type>translate</type>
+        <object-name>ropeorigin</object-name>
+        <property>sim/gui/dialogs/rope-dialog/settings/x-pos</property>
+        <factor>1</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>translate</type>
+        <object-name>ropeorigin</object-name>
+        <property>sim/gui/dialogs/rope-dialog/settings/y-pos</property>
+        <factor>1</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>translate</type>
+        <object-name>ropeorigin</object-name>
+        <property>sim/gui/dialogs/rope-dialog/settings/z-pos</property>
+        <factor>1</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+    </animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>ropeorigin</object-name>
+        <property>/sim/gui/dialogs/rope-dialog/settings/size</property>
+        <factor>1</factor>
+        <!--x-offset>0.7</x-offset>
+        <y-offset>0.7</y-offset-->
+        <z-offset>0.0</z-offset>
+        <!--center>
+          <x-m>-1.22448</x-m>
+          <y-m>-1.32749</y-m>
+          <z-m>0.99333</z-m>
+        </center-->
+	</animation>
 
 </PropertyList>

@@ -261,25 +261,91 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         </cargo>
 
         <gui>
-          <dialogs>
-            <aicargo-dialog>
-              <longline type="bool">true</longline>
-              <connection type="bool">true</connection>
-              <alt-origin type="bool">false</alt-origin>
-            </aicargo-dialog>
-          </dialogs>
+            <dialogs>
+                <aicargo-dialog>
+                    <!--longline type="bool">true</longline>
+                    <connection type="bool">true</connection>
+                    <alt-origin type="bool">false</alt-origin-->
+                </aicargo-dialog>
+                <rope-dialog>
+                    <longline type="bool">true</longline>
+                    <connection type="bool">true</connection>
+                    <alt-origin type="bool">false</alt-origin>
+                    <settings>
+                        <aircraft n="0">
+                            <name type="string">AirCrane</name>
+                            <x-pos type="double">0.0</x-pos>
+                            <y-pos type="double">0.0</y-pos>
+                            <z-pos type="double">0.0</z-pos>
+                            <offset type="double">2.87</offset>
+                            <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+                        </aircraft>
+                        <aircraft n="1">
+                            <name type="string">UH-1</name>
+                            <x-pos type="double">-2.5</x-pos>
+                            <y-pos type="double"> 0.0</y-pos>
+                            <z-pos type="double"> 0.05</z-pos>
+                            <offset type="double">2.86</offset>
+                            <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+                        </aircraft>
+                        <aircraft n="2">
+                            <name type="string">ch47</name>
+                            <x-pos type="double">2.2</x-pos>
+                            <y-pos type="double">0.0</y-pos>
+                            <z-pos type="double">0.0</z-pos>
+                            <offset type="double">2.86</offset>
+                            <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+                        </aircraft>
+                        <aircraft n="3">
+                            <name type="string">Dauphin</name>
+                            <x-pos type="double">0.7</x-pos>
+                            <y-pos type="double">0.0</y-pos>
+                            <z-pos type="double">0.0</z-pos>
+                            <offset type="double">2.84</offset>
+                            <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+                        </aircraft>
+                        <aircraft n="4">
+                            <name type="string">H-C21</name>
+                            <x-pos type="double">-3.55</x-pos>
+                            <y-pos type="double"> 1.6</y-pos>
+                            <z-pos type="double"> 2.0</z-pos>
+                            <offset type="double">5.1</offset>
+                            <loadpoint type="string">sim/weight[5]/weight-lb</loadpoint>
+                        </aircraft>
+                        <diameter n="0">
+                            <name type="string">Small</name>
+                            <size type="double">0.5</size>
+                        </diameter>
+                        <diameter n="1">
+                            <name type="string">Medium</name>
+                            <size type="double">0.75</size>
+                        </diameter>
+                        <diameter n="2">
+                            <name type="string">Large</name>
+                            <size type="double">1</size>
+                        </diameter>
+                        <size type="double">1</size>
+                        <offset type="double">1</offset>
+
+                        <x-pos type="double">0.0</x-pos>
+                        <y-pos type="double">0.0</y-pos>
+                        <z-pos type="double">0.0</z-pos>
+                        <aircraft>
+                            <list type="string">H-C21 0.0 0.0 0.0 1.0</list>
+                        </aircraft>
+                    </settings>
+                </rope-dialog>
+            </dialogs>
         </gui>
 
         <aircraft-data>
           <path>/sim/model/hitch/enabled</path>
-     
-          <!-- cargo hauling feature -->
+          <path>/sim/gui/dialogs/aircraft/list</path>
           <path>/sim/gui/dialogs/aicargo-dialog/longline</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connection</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connector</path>
           <path>/sim/gui/dialogs/aicargo-dialog/alt-origin</path>
           <path>/sim/gui/show-range</path>
-          <!-- end cargo hauling feature -->
         </aircraft-data> 
 
         <multiplay>
@@ -295,6 +361,12 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         </multiplay>
         
         <!--help include="help.xml"/-->
+
+        <!--weight n="2">
+            <name>Right Passenger</name>
+            <weight-lb>0</weight-lb>
+            <max-lb>300</max-lb>
+        </weight-->
 
     </sim>
 

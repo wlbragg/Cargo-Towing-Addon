@@ -21,17 +21,24 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <enabled type="bool">true</enabled>
 
             <item>
+                <label>Cargo Ranging</label>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/sim/gui/show-range</property>
+                </binding>
+            </item>
+            <item>
+                <label>Rope Settings</label>
+                <binding>
+                    <command>dialog-show</command>
+                    <dialog-name>rope-dialog</dialog-name>
+                </binding>
+            </item>
+            <item>
                 <label>Cargo Settings</label>
                 <binding>
                     <command>dialog-show</command>
                     <dialog-name>aicargo-dialog</dialog-name>
-                </binding>
-            </item>
-            <item>
-                <label>Ranging</label>
-                <binding>
-                    <command>property-toggle</command>
-                    <property>/sim/gui/show-range</property>
                 </binding>
             </item>
         </menu>

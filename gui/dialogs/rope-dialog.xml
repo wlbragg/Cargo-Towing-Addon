@@ -1,0 +1,447 @@
+<?xml version="1.0"?>
+<!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg wlbragg
+Copyright (C) 2020 Wayne Bragg
+rope-dialog.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<PropertyList>
+	<name>rope-dialog</name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+	<default-padding>3</default-padding>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>1</default-padding>
+		<empty><stretch>true</stretch></empty>
+		<text>
+			<label>Rope Positioning</label>
+		</text>
+		<empty><stretch>true</stretch></empty>
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<nasal>
+		<open><![CDATA[
+
+            var dlgRoot = cmdarg();
+            var DIALOG_ROOT  = "/sim/gui/dialogs/rope-dialog";
+
+            # Fill in the rope diameter
+            var ropesize = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/", 1).getChildren("diameter");
+
+            var rdselect = gui.findElementByName(dlgRoot, "rdselect");
+            forindex (var ropesize_index; ropesize) {
+              var rd = ropesize[ropesize_index];
+              var rd_id = "unknown";
+                if ((rd.getNode("name") != nil) and (rd.getNode("name").getValue() != nil)) {
+                  rd_id = rd.getNode("name").getValue() ~
+                    " " ~ rd.getNode("size").getValue();
+                }
+                rdselect.getNode("value[" ~ ropesize_index ~ "]", 1).setValue(rd_id);
+            }
+
+            # Fill in the pre-configured aircraft names
+            var aircraft = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings", 1).getChildren("aircraft");
+
+            var list = gui.findElementByName(dlgRoot, "list");
+            forindex (var aircraft_index; aircraft) {
+              var ac = aircraft[aircraft_index];
+              var ac_id = "unknown";
+                if ((ac.getNode("name") != nil) and (ac.getNode("name").getValue() != nil)) {
+                  ac_id = ac.getNode("name").getValue() ~
+                    " " ~ ac.getNode("x-pos").getValue() ~
+                    " " ~ ac.getNode("y-pos").getValue() ~
+                    " " ~ ac.getNode("z-pos").getValue() ~
+                    " " ~ ac.getNode("offset").getValue() ~
+                    " " ~ ac.getNode("loadpoint").getValue();
+                }
+                list.getNode("value[" ~ aircraft_index ~ "]", 1).setValue(ac_id);
+            }
+
+            # Cargo Hauling option
+            var p = getprop("sim/gui/dialogs/aicargo-dialog/connection");
+            setprop("/sim/model/aircrane/cargo_connection_flag_0", 0);
+            setprop("/sim/model/aircrane/cargo_connection_flag_1", 0);
+            setprop("/sim/model/aircrane/cargo_connection_flag_" ~ p, 1);
+
+            # Long Line option
+            p = getprop("sim/gui/dialogs/aicargo-dialog/longline");
+            setprop("/sim/model/aircrane/longline_flag_0",0);
+	        setprop("/sim/model/aircrane/longline_flag_1",0);
+            setprop("/sim/model/aircrane/longline_flag_" ~ p, 1);
+
+		]]></open>
+		<close><![CDATA[
+		]]></close>
+	</nasal>
+
+	<!--group>
+		<layout>hbox</layout>
+		<default-padding>1</default-padding>
+		<empty><stretch>true</stretch></empty>
+
+        <checkbox>
+            <halign>left</halign>
+            <label>Adjust using slider On/Off</label>
+            <property>/sim/gui/show-range</property>
+            <binding>
+                <command>property-toggle</command>
+                <property>/sim/gui/slider</property>
+            </binding>
+        </checkbox>
+	</group>
+
+    <hrule/-->
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>Cargo Connection Type</label>
+			<halign>left</halign>
+		</text>
+        <radio>
+            <halign>right</halign>
+            <label>Hard Docked</label>
+            <property>sim/model/aircrane/cargo_connection_flag_0</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                    <not>
+                        <property>/sim/cargo/cargo-on-hook</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/aicargo-dialog/connection";
+                    setprop(p, var i = 0);
+                    gui.popupTip("Cargo connection " ~ (i ? "Long Line" : "Hard Docked"));
+                    setprop("sim/model/aircrane/cargo_connection_flag_0",1);
+                    setprop("sim/model/aircrane/cargo_connection_flag_1",0);
+                </script>
+            </binding>
+        </radio>
+        <radio>
+            <halign>right</halign>
+            <label>Long Line</label>
+            <property>sim/model/aircrane/cargo_connection_flag_1</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                    <not>
+                        <property>/sim/cargo/cargo-on-hook</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/aicargo-dialog/connection";
+                    setprop(p, var i = 1);
+                    gui.popupTip("Cargo connection " ~ (i ? "Long Line" : "Hard Docked"));
+                    setprop("sim/model/aircrane/cargo_connection_flag_0",0);
+                    setprop("sim/model/aircrane/cargo_connection_flag_1",1);
+                    setprop("sim/model/firetank/enabled", 0);
+                </script>
+            </binding>
+        </radio>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+		<text>
+			<label>Line Type</label>
+			<halign>right</halign>
+		</text>
+        <radio>
+            <halign>right</halign>
+            <label>Rope</label>
+            <property>sim/model/aircrane/longline_flag_0</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/aicargo-dialog/longline";
+                    setprop(p, var i = 0);
+                    gui.popupTip("Line type " ~ (i ? "Cable" : "Rope"));
+                    setprop("sim/model/aircrane/longline_flag_0",1);
+                    setprop("sim/model/aircrane/longline_flag_1",0);
+                </script>
+            </binding>
+        </radio>
+        <radio>
+            <halign>right</halign>
+            <label>Cable</label>
+            <property>sim/model/aircrane/longline_flag_1</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/aicargo-dialog/longline";
+                    setprop(p, var i = 1);
+                    gui.popupTip("Line type " ~ (i ? "Cable" : "Rope"));
+                    setprop("sim/model/aircrane/longline_flag_0",0);
+                    setprop("sim/model/aircrane/longline_flag_1",1);
+                </script>
+            </binding>
+        </radio>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
+        <text>
+            <halign>left</halign>
+            <label>Rope Diameter</label>
+        </text>
+
+        <combo>
+            <name>rdselect</name>
+            <halign>left</halign>
+            <property>/sim/gui/dialogs/rope-dialog/ropesize/rdselect</property>
+            <pref-width>150</pref-width>
+            <binding>
+                <command>dialog-apply</command>
+                <object-name>rdselect</object-name>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var rdparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/ropesize/rdselect"));
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/description", rdparams[0]);
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/size", rdparams[1]);
+                </script>
+            </binding>
+        </combo>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
+        <default-padding>5</default-padding>
+        <text>
+            <halign>left</halign>
+            <label>Select from aircraft below to configure the longline</label>
+        </text>
+    </group>
+    <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
+        <default-padding>0</default-padding>
+        <list>
+            <name>list</name>
+            <pref-width>360</pref-width>
+            <pref-height>260</pref-height>
+            <halign>fill</halign>
+            <valign>fill</valign>
+            <stretch>true</stretch>
+            <property>/sim/gui/dialogs/rope-dialog/aircraft/list</property>
+            <binding>
+                <command>dialog-apply</command>
+                <object-name>list</object-name>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var posparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/aircraft/list"));
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", posparams[1]);
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", posparams[3]);
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/name", posparams[0]);
+                    setprop("sim/cargo/rope/offset", posparams[4]);
+                    setprop("/sim/gui/dialogs/rope-dialog/settings/weight", posparams[5]);
+
+                </script>
+            </binding>
+        </list>
+    </group>
+
+    <group>
+        <layout>hbox</layout>
+        <valign>top</valign>
+        <halign>fill</halign>
+        <group>
+            <layout>vbox</layout>
+            <text>
+                <halign>left</halign>
+                <label>Aircraft</label>
+                <enable>
+                    <not>
+                        <property>/sim/rendering/rembrandt/enabled</property>
+                    </not>
+                </enable>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/name</property>
+                <format>%s</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>0.4</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+        </group>
+        <group>
+            <layout>vbox</layout>
+            <text>
+                <halign>left</halign>
+                <label>x-pos</label>
+                <enable>
+                    <not>
+                        <property>/sim/rendering/rembrandt/enabled</property>
+                    </not>
+                </enable>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/x-pos</property>
+                <format>%.03f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>0.4</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+        </group>
+        <group>
+          <layout>vbox</layout>
+          <text>
+          <halign>left</halign>
+          <label>y-pos</label>
+          <enable>
+            <not>
+              <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+          </enable>
+          </text>
+          <text>
+            <halign>left</halign>
+            <property>/sim/gui/dialogs/rope-dialog/settings/y-pos</property>
+            <format>%.03f</format>
+            <live>true</live>
+            <color>
+              <red>0.9</red>
+              <green>0.4</green>
+              <blue>0.2</blue>
+              <alpha>1</alpha>
+            </color>
+          </text>
+        </group>
+        <group>
+          <layout>vbox</layout>
+          <text>
+            <halign>left</halign>
+            <label>z-pos</label>
+            <enable>
+              <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+              </not>
+            </enable>
+          </text>
+          <text>
+            <halign>left</halign>
+            <property>/sim/gui/dialogs/rope-dialog/settings/z-pos</property>
+            <format>%.03f</format>
+            <live>true</live>
+            <color>
+              <red>0.9</red>
+              <green>0.4</green>
+              <blue>0.2</blue>
+              <alpha>1</alpha>
+            </color>
+          </text>
+        </group>
+        <group>
+          <layout>vbox</layout>
+          <text>
+            <halign>left</halign>
+            <label>offset</label>
+            <enable>
+              <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+              </not>
+            </enable>
+          </text>
+          <text>
+            <halign>left</halign>
+            <property>/sim/gui/dialogs/rope-dialog/settings/offset</property>
+            <format>%.03f</format>
+            <live>true</live>
+            <color>
+              <red>0.9</red>
+              <green>0.4</green>
+              <blue>0.2</blue>
+              <alpha>1</alpha>
+            </color>
+          </text>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <!-- Button bar -->
+    <group>
+        <layout>hbox</layout>
+        <empty>
+            <stretch>true</stretch>
+        </empty>
+        <button>
+            <legend>Close</legend>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+        <empty>
+            <stretch>true</stretch>
+        </empty>
+    </group>
+
+</PropertyList>

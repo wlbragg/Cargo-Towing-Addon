@@ -71,12 +71,11 @@ var main = func(addon) {
     # initialization
     setlistener("/sim/signals/fdm-initialized", func {
 
-      if (getprop("/sim/gui/show-range")) {
+        if (getprop("/sim/gui/show-range")) {
             fgcommand("dialog-show", props.Node.new({"dialog-name": "range-dialog"}));
-      } else {
+        } else {
           fgcommand("dialog-close", props.Node.new({"dialog-name": "range-dialog"}));
-      }
-
+        }
     });
 
     setlistener("/sim/gui/show-range", func (node) {      

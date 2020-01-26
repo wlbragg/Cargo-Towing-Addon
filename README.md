@@ -3,8 +3,8 @@ Allows for a quick and easy method (addon) to add cargo hauling and stacking cap
 
 Configuration required:
 
-For now, insure the aircraft this addon is applied to has the added pointmass entries if needed,including
-UH-1, ch47, dauphin 
+For now, insure the aircraft this addon is applied to has the added pointmass entries if needed, including
+UH-1, ch47, dauphin, H-C21
 
 addon-config.xml
 (lines 40-46)
@@ -55,13 +55,16 @@ cargooperations.nas
 
     <!-- pointmass designated for the cargo weight to be applied to -->
 
+    #JSBSim -
+    var aircraftPointmass = props.globals.getNode("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 1);
+
+    #YASim -
     #AirCrane, ch47, dauphin
     var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
     #UH-1
     var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
     #H-C21
     var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
-
 
 TODO:
 Add runtime weight pointmasses to all aircraft through a GUI/nasal interface or add permanent pointmas in the aircraft configuration file. 
