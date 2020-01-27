@@ -3,53 +3,43 @@ Allows for a quick and easy method (addon) to add cargo hauling and stacking cap
 
 Configuration required:
 
-For now, insure the aircraft this addon is applied to has the added pointmass entries if needed, including
-UH-1, ch47, dauphin, H-C21
+For now, insure the aircraft this addon is applied to has the added pointmass or weight entries needed.
 
-addon-config.xml
-(lines 40-46)
+EXAMPLES...
 
-    <!-- offset from wheelbase to top of rope in meters -->
+YASim
+FDM
+<weight x="1.364" y="1.623"  z="1.753" mass-prop="/sim/weight[3]/weight-lb"/>
+.set
+<weight n="3">
+	<name>Longline</name>
+	<weight-lb>0</weight-lb>
+	<max-lb>50000</max-lb>
+</weight>
 
-    <!-- AirCrane -->
-    <offset type="double">2.87</offset>
-    <!-- UH-1 -->
-    <offset type="double">2.86</offset>
-    <!-- ch47 -->
-    <offset type="double">2.86</offset>
-    <!-- Dauphin -->
-    <offset type="double">2.84</offset>
-    <!-- H-C21 -->
-    <offset type="double">5.1</offset>
 
-cargotow.xml
-(lines 16-24)
+JSBSim
+FDM
+<pointmass name="Longline">
+    <weight unit="LBS"> 0 </weight>
+    <location name="POINTMASS" unit="IN">
+        <x> 30.29 </x>
+        <y>  0 </y>
+        <z> 26.6 </z>
+    </location>
+</pointmass>
+.set
+<payload>
+    <weight>
+        <name type="string">Longline</name>
+        <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]"/>
+        <arm-in alias="/fdm/jsbsim/inertia/pointmass-location-X-inches[0]"/>
+        <min-lb type="double">0.0</min-lb>
+        <max-lb type="double">50000.0</max-lb>
+    </weight>
+</payload>
 
-    <!-- position the rope model at the airframe-->
-
-    <offsets>
-        <!-- AirCrane -->
-        <x-m>0.0</x-m>
-        <y-m>0.0</y-m>
-        <z-m>0.0</z-m>
-        <!-- UH-1 -->
-        <x-m>-2.5 </x-m>
-        <y-m> 0.0 </y-m>
-        <z-m> 0.05</z-m>
-        <!-- ch47 -->
-        <x-m>2.2</x-m>
-        <y-m>0.0</y-m>
-        <z-m>0.0</z-m>
-        <!-- dauphin -->
-        <x-m>0.7</x-m>
-        <y-m>0.0</y-m>
-        <z-m>0.0</z-m>
-        <!-- H-C21 -->
-        <x-m>-3.55</x-m>
-        <y-m>1.6</y-m>
-        <z-m>2.0</z-m>
-    </offsets>
-
+ADDON
 cargooperations.nas
 (lines 320-323)
 
@@ -58,13 +48,18 @@ cargooperations.nas
     #JSBSim -
     var aircraftPointmass = props.globals.getNode("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 1);
 
-    #YASim -
-    #AirCrane, ch47, dauphin
+These weight designation positions are entries I have been making to aircraft in fgaddon locally to my FlightGear.
+Eventually I may push them to fgaddon so users don't have to configure it.
+
+    #AirCrane, ch47, dauphin, Lynx WG13
     var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
-    #UH-1
+    #UH-1, bo105, ec135, OH-1
     var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
-    #H-C21
+    #H-21C
     var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
+    #ka50
+    var aircraftPointmass = props.globals.getNode("sim/weight[4]/weight-lb", 1);
+
 
 TODO:
 Add runtime weight pointmasses to all aircraft through a GUI/nasal interface or add permanent pointmas in the aircraft configuration file. 
@@ -72,3 +67,5 @@ Add weight values through a GUI interface to all AI scenario entries
 GUI rope scale adjustment
 GUI per aircraft rope positioning dropdown configuration
 GUI slider rope positioning configuration
+Model a winch swing arm
+GUI positioning of the winch swing arm

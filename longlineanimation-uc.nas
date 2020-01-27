@@ -28,7 +28,9 @@ var n_segments = 90;
 var segment_length = getprop("/sim/cargo/rope/factor");
 var rope_scale = 1;
 
+#segment_length = segment_length;
 segment_length = segment_length  * getprop("/sim/gui/dialogs/rope-dialog/settings/size");
+
 var longline_animation = func (reset, cargoWeight) {
 
     # add cargo weight to towing simulation
@@ -41,16 +43,17 @@ var longline_animation = func (reset, cargoWeight) {
     # JSBSim
     #var cargoWeight = props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[0]", 1);
 
-    rope_scale = getprop("/sim/gui/dialogs/rope-dialog/settings/size");
-    segment_length = segment_length * rope_scale;
-
     var overland = getprop("gear/gear/ground-is-solid");
     if (getprop("sim/gui/dialogs/aicargo-dialog/alt-origin"))
         var altitude = getprop("/position/altitude-agl-ft") - 13.3;
     else
         var altitude = getprop("position/true-agl-ft");
 
-    var alt_agl = altitude * 0.3048 + getprop("/sim/cargo/rope/offset");
+    var rope_scale = getprop("/sim/gui/dialogs/rope-dialog/settings/size");
+    segment_length = segment_length * rope_scale;
+
+    var offset = getprop("/sim/cargo/rope/offset");
+    var alt_agl = altitude * 0.3048 + offset;
 
     var cargo_on_hook = getprop("sim/cargo/cargo-on-hook");
     var cargo_height = getprop("/sim/cargo/cargoheight");

@@ -91,24 +91,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 		]]></close>
 	</nasal>
 
-	<!--group>
-		<layout>hbox</layout>
-		<default-padding>1</default-padding>
-		<empty><stretch>true</stretch></empty>
-
-        <checkbox>
-            <halign>left</halign>
-            <label>Adjust using slider On/Off</label>
-            <property>/sim/gui/show-range</property>
-            <binding>
-                <command>property-toggle</command>
-                <property>/sim/gui/slider</property>
-            </binding>
-        </checkbox>
-	</group>
-
-    <hrule/-->
-
 	<group>
 		<layout>hbox</layout>
 		<text>
@@ -231,6 +213,16 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     <group>
         <layout>hbox</layout>
         <halign>left</halign>
+        <default-padding>5</default-padding>
+        <text>
+            <halign>left</halign>
+            <label>1) Select rope size</label>
+        </text>
+    </group>
+
+    <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
         <text>
             <halign>left</halign>
             <label>Rope Diameter</label>
@@ -251,6 +243,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var rdparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/ropesize/rdselect"));
                     setprop("/sim/gui/dialogs/rope-dialog/settings/description", rdparams[0]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/size", rdparams[1]);
+
+                    #setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", getprop("/sim/gui/dialogs/rope-dialog/settings/x-pos") * rdparams[1]);
+                    #setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", getprop("/sim/gui/dialogs/rope-dialog/settings/y-pos") * rdparams[1]);
+                    #setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", getprop("/sim/gui/dialogs/rope-dialog/settings/z-pos") *rdparams[1]);
                 </script>
             </binding>
         </combo>
@@ -264,80 +260,66 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <default-padding>5</default-padding>
         <text>
             <halign>left</halign>
-            <label>Select from aircraft below to configure the longline</label>
+            <label>2) Select from aircraft list then adjust sliders if needed</label>
         </text>
     </group>
     <group>
         <layout>hbox</layout>
-        <halign>left</halign>
-        <default-padding>0</default-padding>
-        <list>
-            <name>list</name>
-            <pref-width>360</pref-width>
-            <pref-height>260</pref-height>
-            <halign>fill</halign>
-            <valign>fill</valign>
-            <stretch>true</stretch>
-            <property>/sim/gui/dialogs/rope-dialog/aircraft/list</property>
-            <binding>
-                <command>dialog-apply</command>
-                <object-name>list</object-name>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>
-                    var posparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/aircraft/list"));
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", posparams[1]);
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", posparams[3]);
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/name", posparams[0]);
-                    setprop("sim/cargo/rope/offset", posparams[4]);
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/weight", posparams[5]);
-
-                </script>
-            </binding>
-        </list>
-    </group>
-
-    <group>
-        <layout>hbox</layout>
-        <valign>top</valign>
-        <halign>fill</halign>
         <group>
             <layout>vbox</layout>
-            <text>
-                <halign>left</halign>
-                <label>Aircraft</label>
-                <enable>
-                    <not>
-                        <property>/sim/rendering/rembrandt/enabled</property>
-                    </not>
-                </enable>
-            </text>
-            <text>
-                <halign>left</halign>
-                <property>/sim/gui/dialogs/rope-dialog/settings/name</property>
-                <format>%s</format>
-                <live>true</live>
-                <color>
-                    <red>0.9</red>
-                    <green>0.4</green>
-                    <blue>0.2</blue>
-                    <alpha>1</alpha>
-                </color>
-            </text>
+            <halign>left</halign>
+            <default-padding>0</default-padding>
+            <list>
+                <name>list</name>
+                <pref-width>120</pref-width>
+                <pref-height>160</pref-height>
+                <halign>fill</halign>
+                <valign>fill</valign>
+                <stretch>true</stretch>
+                <property>/sim/gui/dialogs/rope-dialog/aircraft/list</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>list</object-name>
+                </binding>
+                <binding>
+                    <command>nasal</command>
+                    <script>
+                        var posparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/aircraft/list"));
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/name", posparams[0]);
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", posparams[1]);
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", posparams[3]);
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/offset", posparams[4]);
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/loadpoint", posparams[5]);
+
+                        setprop("/sim/cargo/rope/offset", posparams[4]);
+                    </script>
+                </binding>
+            </list>
         </group>
         <group>
             <layout>vbox</layout>
+            <halign>left</halign>
             <text>
-                <halign>left</halign>
-                <label>x-pos</label>
-                <enable>
-                    <not>
-                        <property>/sim/rendering/rembrandt/enabled</property>
-                    </not>
-                </enable>
+	            <halign>left</halign>
+	            <label>x-pos</label>
             </text>
+            <text>
+	            <halign>left</halign>
+	            <label>y-pos</label>
+            </text>
+            <text>
+	            <halign>left</halign>
+	            <label>z-pos</label>
+            </text>
+            <text>
+	            <halign>left</halign>
+	            <label>offset</label>
+            </text>
+        </group>
+
+        <group>
+            <layout>vbox</layout>
             <text>
                 <halign>left</halign>
                 <property>/sim/gui/dialogs/rope-dialog/settings/x-pos</property>
@@ -345,83 +327,181 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <live>true</live>
                 <color>
                     <red>0.9</red>
-                    <green>0.4</green>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/y-pos</property>
+                <format>%.03f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/z-pos</property>
+                <format>%.03f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/offset</property>
+                <format>%.03f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+        </group>
+
+        <group>
+            <layout>vbox</layout>
+            <slider>
+	            <name>x-pos</name>
+	            <min>-5.0</min>
+	            <max> 5.0</max>
+	            <step> 0.0001</step>
+	            <fraction>0.0001</fraction>
+	            <live>true</live>
+	            <property>/sim/gui/dialogs/rope-dialog/settings/x-pos</property>
+	            <binding>
+		            <command>dialog-apply</command>
+		            <object-name>x-pos</object-name>
+	            </binding>
+            </slider>
+            <slider>
+	            <name>y-pos</name>
+	            <enable>
+		            <not>
+			            <property>/sim/rendering/rembrandt/enabled</property>
+		            </not>
+	            </enable>
+	            <min>-5.0</min>
+	            <max> 5.0</max>
+	            <step> 0.0001</step>
+	            <fraction>0.0001</fraction>
+	            <live>true</live>
+	            <property>/sim/gui/dialogs/rope-dialog/settings/y-pos</property>
+	            <binding>
+		            <command>dialog-apply</command>
+		            <object-name>y-pos</object-name>
+	            </binding>
+            </slider>
+            <slider>
+	            <name>z-pos</name>
+	            <enable>
+		            <not>
+			            <property>/sim/rendering/rembrandt/enabled</property>
+		            </not>
+	            </enable>
+	            <min>-5.0</min>
+	            <max> 5.0</max>
+	            <step> 0.0001</step>
+	            <fraction>0.0001</fraction>
+	            <live>true</live>
+	            <property>/sim/gui/dialogs/rope-dialog/settings/z-pos</property>
+	            <binding>
+		            <command>dialog-apply</command>
+		            <object-name>z-pos</object-name>
+	            </binding>
+            </slider>
+            <slider>
+	            <name>offset</name>
+	            <enable>
+		            <not>
+			            <property>/sim/rendering/rembrandt/enabled</property>
+		            </not>
+	            </enable>
+	            <min>-10.0</min>
+	            <max> 10.0</max>
+	            <step> 0.0001</step>
+	            <fraction>0.0001</fraction>
+	            <live>true</live>
+	            <property>/sim/gui/dialogs/rope-dialog/settings/offset</property>
+	            <binding>
+		            <command>dialog-apply</command>
+		            <object-name>offset</object-name>
+	            </binding>
+                <binding>
+                    <command>nasal</command>
+                    <script>
+                        var offset = getprop("/sim/gui/dialogs/rope-dialog/settings/offset");
+                        setprop("/sim/cargo/rope/offset", offset);
+                    </script>
+                </binding>
+            </slider>
+        </group>
+	</group>
+    <group>
+        <layout>hbox</layout>
+        <default-padding>2</default-padding>
+       
+        <group>
+            <layout>vbox</layout>
+            <halign>left</halign>
+            <pref-width>50</pref-width>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/name</property>
+                <format>%</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
                     <blue>0.2</blue>
                     <alpha>1</alpha>
                 </color>
             </text>
         </group>
         <group>
-          <layout>vbox</layout>
-          <text>
-          <halign>left</halign>
-          <label>y-pos</label>
-          <enable>
-            <not>
-              <property>/sim/rendering/rembrandt/enabled</property>
-            </not>
-          </enable>
-          </text>
-          <text>
+            <layout>vbox</layout>
             <halign>left</halign>
-            <property>/sim/gui/dialogs/rope-dialog/settings/y-pos</property>
-            <format>%.03f</format>
-            <live>true</live>
-            <color>
-              <red>0.9</red>
-              <green>0.4</green>
-              <blue>0.2</blue>
-              <alpha>1</alpha>
-            </color>
-          </text>
+            <pref-width>120</pref-width>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/loadpoint</property>
+                <format>%</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
         </group>
         <group>
-          <layout>vbox</layout>
-          <text>
+            <layout>vbox</layout>
             <halign>left</halign>
-            <label>z-pos</label>
-            <enable>
-              <not>
-                <property>/sim/rendering/rembrandt/enabled</property>
-              </not>
-            </enable>
-          </text>
-          <text>
-            <halign>left</halign>
-            <property>/sim/gui/dialogs/rope-dialog/settings/z-pos</property>
-            <format>%.03f</format>
-            <live>true</live>
-            <color>
-              <red>0.9</red>
-              <green>0.4</green>
-              <blue>0.2</blue>
-              <alpha>1</alpha>
-            </color>
-          </text>
-        </group>
-        <group>
-          <layout>vbox</layout>
-          <text>
-            <halign>left</halign>
-            <label>offset</label>
-            <enable>
-              <not>
-                <property>/sim/rendering/rembrandt/enabled</property>
-              </not>
-            </enable>
-          </text>
-          <text>
-            <halign>left</halign>
-            <property>/sim/gui/dialogs/rope-dialog/settings/offset</property>
-            <format>%.03f</format>
-            <live>true</live>
-            <color>
-              <red>0.9</red>
-              <green>0.4</green>
-              <blue>0.2</blue>
-              <alpha>1</alpha>
-            </color>
-          </text>
+            <pref-width>30</pref-width>
+            <text>
+                <halign>left</halign>
+                <property>/sim/weight[4]/weight-lb</property>
+                <format>%.00f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
         </group>
     </group>
 

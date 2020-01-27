@@ -402,10 +402,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <format>%s</format>
         <live>true</live>
         <color>
-          <red>0.9</red>
-          <green>0.4</green>
-          <blue>0.2</blue>
-          <alpha>1</alpha>
+            <red>0.9</red>
+            <green>1</green>
+            <blue>0.2</blue>
+            <alpha>1</alpha>
         </color>
       </text>
     </group>
@@ -426,10 +426,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <format>%f</format>
         <live>true</live>
         <color>
-          <red>0.9</red>
-          <green>0.4</green>
-          <blue>0.2</blue>
-          <alpha>1</alpha>
+            <red>0.9</red>
+            <green>1</green>
+            <blue>0.2</blue>
+            <alpha>1</alpha>
         </color>
       </text>
     </group>
@@ -450,10 +450,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <format>%f</format>
         <live>true</live>
         <color>
-          <red>0.9</red>
-          <green>0.4</green>
-          <blue>0.2</blue>
-          <alpha>1</alpha>
+            <red>0.9</red>
+            <green>1</green>
+            <blue>0.2</blue>
+            <alpha>1</alpha>
         </color>
       </text>
     </group>
@@ -474,10 +474,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <format>%f</format>
         <live>true</live>
         <color>
-          <red>0.9</red>
-          <green>0.4</green>
-          <blue>0.2</blue>
-          <alpha>1</alpha>
+            <red>0.9</red>
+            <green>1</green>
+            <blue>0.2</blue>
+            <alpha>1</alpha>
         </color>
       </text>
     </group>
@@ -498,10 +498,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <format>%f</format>
         <live>true</live>
         <color>
-          <red>0.9</red>
-          <green>0.4</green>
-          <blue>0.2</blue>
-          <alpha>1</alpha>
+            <red>0.9</red>
+            <green>1</green>
+            <blue>0.2</blue>
+            <alpha>1</alpha>
         </color>
       </text>
     </group>

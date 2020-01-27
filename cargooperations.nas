@@ -317,12 +317,14 @@ props.globals.initNode("sim/cargo/cargo-hook", 0, "BOOL" );
 props.globals.initNode("sim/cargo/cargo-auto-hook", 0, "BOOL" );
 props.globals.initNode("sim/cargo/cargo-on-hook", 0, "BOOL" );
 
-#AirCrane, ch47, dauphin
-#var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
-#UH-1
+#AirCrane, ch47, dauphin, Lynx WG13
+var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
+#UH-1, bo105, ec135, OH-1
 #var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
-#H-C21
-var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
+#H-21C
+#var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
+#ka50
+#var aircraftPointmass = props.globals.getNode("sim/weight[4]/weight-lb", 1);
 
 var AircraftCargo = {};
 var parents = [AircraftCargo];
@@ -388,7 +390,9 @@ var cargo_tow = func () {
     var elvPos = getprop("/position/ground-elev-ft") + (getprop("/position/altitude-agl-ft") - 3.9);
 
     var n_seg_reeled = getprop("/sim/cargo/rope/segments-reeled-in");
-    var rope_length = (ropeSegments - n_seg_reeled) * seg_length;
+    #var rope_length = (ropeSegments - n_seg_reeled) * seg_length;
+    var rope_length = (ropeSegments - n_seg_reeled) * (seg_length*getprop("/sim/gui/dialogs/rope-dialog/settings/size"));
+
     setprop("/sim/cargo/rope/length", rope_length * 3.28);
 
     if (longline){
