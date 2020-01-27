@@ -355,7 +355,11 @@ var cargo_pos = geo.Coord.new();
 var stack_pos = geo.Coord.new();
 var bearing = 0.0;
 var cargo_dist = 0.0;
+
+#var seg_length = getprop("/sim/cargo/rope/factor");
 var seg_length = getprop("/sim/cargo/rope/factor");
+seg_length = seg_length  * getprop("/sim/gui/dialogs/rope-dialog/settings/size");
+
 var offset = getprop("/sim/cargo/rope/coil-angle");
 var cargoIndex = 0;
 
@@ -390,8 +394,7 @@ var cargo_tow = func () {
     var elvPos = getprop("/position/ground-elev-ft") + (getprop("/position/altitude-agl-ft") - 3.9);
 
     var n_seg_reeled = getprop("/sim/cargo/rope/segments-reeled-in");
-    #var rope_length = (ropeSegments - n_seg_reeled) * seg_length;
-    var rope_length = (ropeSegments - n_seg_reeled) * (seg_length*getprop("/sim/gui/dialogs/rope-dialog/settings/size"));
+    var rope_length = (ropeSegments - n_seg_reeled) * seg_length;
 
     setprop("/sim/cargo/rope/length", rope_length * 3.28);
 
@@ -476,7 +479,7 @@ setprop("cargoName", cargoName);
                                   haulable = 0;
 						                    
                                 if (longline or haulable) {
-                                    longline_animation(1, cargoWeight);
+                                    longline_animation(1, cargoWeight, seg_length);
                                     currentLat = props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/latitude-deg").getValue();
                                     currentLon = props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/longitude-deg").getValue();
 
@@ -590,7 +593,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
                 setprop("/sim/cargo/rope/damping", .6);
                 setprop("/sim/cargo/rope/load-damping", 1);
 
-                longline_animation(1, cargoWeight);
+                longline_animation(1, cargoWeight, seg_length);
                 setprop("sim/cargo/rope/pulling", 1);
 
                 currentYaw = (headNode+(headNode-originalYaw))-headNode;
@@ -755,7 +758,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
     if (releaseNode)
         setprop("/controls/cargo-release", 0);
 
-    longline_animation(0, cargoWeight);
+    longline_animation(0, cargoWeight, seg_length);
 
     settimer(cargo_tow, interval);
 }

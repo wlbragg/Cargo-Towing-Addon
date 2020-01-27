@@ -91,15 +91,15 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">7.143</offset>
         <loadpoint type="string">sim/weight[4]/weight-lb</loadpoint>
     </aircraft>
-    <!--aircraft n="9">
+    <aircraft n="9">
         <!--weight x="1.364" y="1.623"  z="1.753" mass-prop="/sim/weight[3]/weight-lb"/-->
-        <name type="string">Lynx WG13</name>
+        <name type="string">Lynx-WG13</name>
         <x-pos type="double">1.364</x-pos>
         <y-pos type="double">1.623</y-pos>
         <z-pos type="double">1.753</z-pos>
         <offset type="double">4.545</offset>
         <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
-    </aircraft-->
+    </aircraft>
 
 
 

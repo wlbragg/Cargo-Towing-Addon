@@ -25,13 +25,11 @@ var ground_contact = 0;
 var n_segments_piled = 0; 
 var n_segments_straight = 0;
 var n_segments = 90;
-var segment_length = getprop("/sim/cargo/rope/factor");
 var rope_scale = 1;
 
-#segment_length = segment_length;
-segment_length = segment_length  * getprop("/sim/gui/dialogs/rope-dialog/settings/size");
+#var segment_length = getprop("/sim/cargo/rope/factor");
 
-var longline_animation = func (reset, cargoWeight) {
+var longline_animation = func (reset, cargoWeight, segment_length) {
 
     # add cargo weight to towing simulation
     # YASim

@@ -94,7 +94,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 	<group>
 		<layout>hbox</layout>
 		<text>
-			<label>Cargo Connection Type</label>
+			<label>Connection Type</label>
 			<halign>left</halign>
 		</text>
         <radio>
@@ -158,7 +158,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <layout>hbox</layout>
 		<text>
 			<label>Line Type</label>
-			<halign>right</halign>
+			<halign>left</halign>
 		</text>
         <radio>
             <halign>right</halign>
@@ -206,6 +206,29 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </script>
             </binding>
         </radio>
+    </group>
+
+    <hrule/>
+
+    <group>
+      <layout>hbox</layout>
+      <checkbox>
+        <halign>left</halign>
+        <label>Cargo Effects Rope</label>
+        <property>/sim/gui/dialogs/aicargo-dialog/alt-origin</property>
+        <live>true</live>
+        <enable>
+            <and>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+                <property>/sim/gui/dialogs/aicargo-dialog/connection</property>
+            </and>
+        </enable>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
+        </checkbox>
     </group>
 
     <hrule/>
@@ -320,18 +343,18 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
         <group>
             <layout>vbox</layout>
-            <text>
-                <halign>left</halign>
-                <property>/sim/gui/dialogs/rope-dialog/settings/x-pos</property>
-                <format>%.03f</format>
-                <live>true</live>
-                <color>
-                    <red>0.9</red>
-                    <green>1</green>
-                    <blue>0.2</blue>
-                    <alpha>1</alpha>
-                </color>
-            </text>
+<text>
+    <halign>left</halign>
+    <property>/sim/gui/dialogs/rope-dialog/settings/x-pos</property>
+    <format>%.03f</format>
+    <live>true</live>
+    <color>
+        <red>0.9</red>
+        <green>1</green>
+        <blue>0.2</blue>
+        <alpha>1</alpha>
+    </color>
+</text>
             <text>
                 <halign>left</halign>
                 <property>/sim/gui/dialogs/rope-dialog/settings/y-pos</property>
