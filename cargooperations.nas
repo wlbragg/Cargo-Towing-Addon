@@ -318,7 +318,7 @@ props.globals.initNode("sim/cargo/cargo-auto-hook", 0, "BOOL" );
 props.globals.initNode("sim/cargo/cargo-on-hook", 0, "BOOL" );
 
 #AirCrane, ch47, dauphin, Lynx WG13
-var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
+#var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
 #UH-1, bo105, ec135, OH-1
 #var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
 #H-21C
@@ -364,6 +364,9 @@ var offset = getprop("/sim/cargo/rope/coil-angle");
 var cargoIndex = 0;
 
 var cargo_tow = func () {
+
+    var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
+    var aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
 
     var hookNode = getprop("sim/cargo/cargo-hook");
     var autoHookNode = getprop("sim/cargo/cargo-auto-hook");
@@ -413,6 +416,9 @@ var cargo_closest=0;
         #gui.popupTip("In ranging", 1);
         foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")) {
 
+            var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
+            var aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
+
             #AI
             cargoIndex = cargoN.getNode("ai").getValue();
             if (cargoIndex) {
@@ -455,9 +461,6 @@ if(cargo_comp == 0) {
 
 						        cargoParent = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
                                 cargoName = cargoN.getNode("callsign").getValue();
-
-setprop("cargoParent", cargoParent);
-setprop("cargoName", cargoName);
 
                                 #maybe condition to only if longline
                                 currentYaw = (headNode+(headNode-cargoN.getNode("heading-deg").getValue()))-headNode;
@@ -521,7 +524,6 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
                 #setprop("sim/weight[3]/weight-lb", cargoWeight);
                 aircraftPointmass.setValue(cargoWeight);
-              
 
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/elevation-ft").setDoubleValue(elvPos);
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/latitude-deg").setDoubleValue(latNode);

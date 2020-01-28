@@ -263,14 +263,14 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <gui>
             <dialogs>
                 <aicargo-dialog>
-                    <!--longline type="bool">true</longline>
-                    <connection type="bool">true</connection>
-                    <alt-origin type="bool">false</alt-origin-->
                 </aicargo-dialog>
                 <rope-dialog>
                     <longline type="bool">true</longline>
                     <connection type="bool">true</connection>
                     <alt-origin type="bool">false</alt-origin>
+                    <ropesize>
+                        <rdselect type="string">Large 1</rdselect>
+                    </ropesize>
                     <settings include="aircraft.xml">
                         <diameter n="0">
                             <name type="string">Small</name>
@@ -285,14 +285,20 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                             <size type="double">1</size>
                         </diameter>
                         <size type="double">1</size>
-                        <offset type="double">1</offset>
-
-                        <x-pos type="double">0.0</x-pos>
+                        <x-pos type="double">2.2</x-pos>
                         <y-pos type="double">0.0</y-pos>
                         <z-pos type="double">0.0</z-pos>
+                        <offset type="double">2.860</offset>
                         <aircraft>
-                            <list type="string">H-C21 0.0 0.0 0.0 1.0</list>
+                            <list type="string">ch42 2.2 0.0 0.0 2.860</list>
                         </aircraft>
+                        <loadpoints>
+                            <list type="string">Default</list>
+                        </loadpoints>
+                        <index type="int">0</index>
+                        <pointname type="string">Default</pointname>
+                        <description type="string">Large</description>
+                        <size type="double">1</size>
                     </settings>
                 </rope-dialog>
             </dialogs>
@@ -313,8 +319,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <generic> 
 
             <int type="int" n="10" alias="/controls/armament/trigger">0</int>          <!-- 10 reserved for bombable mode -->
-            <float n="9" alias="/sim/model/hitch/hitchhook/position-norm"/>
-            <float n="10" alias="/sim/model/hitch/hitchstop/position-norm"/>
+            <!--float n="9" alias="/sim/model/hitch/hitchhook/position-norm"/>
+            <float n="10" alias="/sim/model/hitch/hitchstop/position-norm"/-->
 
             <string n="9" type="string" />
           </generic>

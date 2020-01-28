@@ -54,14 +54,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 		<object-name>ropeorigin</object-name>
         <property>/sim/gui/dialogs/rope-dialog/settings/size</property>
         <factor>1</factor>
-        <!--x-offset>1</x-offset>
-        <y-offset>1</y-offset>
-        <z-offset>1</z-offset-->
-        <!--center>
-          <x-m>-3.55</x-m>
-          <y-m> 1.6 </y-m>
-          <z-m> 2.0 </z-m>
-        </center-->
 	</animation>
 
 </PropertyList>

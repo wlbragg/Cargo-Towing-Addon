@@ -45,18 +45,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         # Fill in the cargo names
         var cargo = props.globals.getNode("/models/cargo", 1).getChildren("cargo");
 
-        #var cgselect = gui.findElementByName(dlgRoot, "cgselect");
-        #forindex (var cargo_index; cargo) {
-        #  var cg = cargo[cargo_index];
-        #  var cg_id = "unknown";
-        #  if (string.match(cg.getNode("callsign").getValue(), "cargo*")){
-        #    if ((cg.getNode("callsign") != nil) and (cg.getNode("callsign").getValue() != nil)) {
-        #      cg_id = cg.getNode("callsign").getValue();
-        #    }
-        #    cgselect.getNode("value[" ~ cargo_index ~ "]", 1).setValue(cg_id);
-        #  }
-        #}
-
         var list = gui.findElementByName(dlgRoot, "list");
         forindex (var cargo_index; cargo) {
           var cg = cargo[cargo_index];
@@ -237,55 +225,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
   </group>
 
   <group>
-	  <layout>hbox</layout>
-	  <halign>left</halign>
-    <!--combo>
-      <name>cgselect</name>
-      <halign>left</halign>
-      <property>/sim/gui/dialogs/aicargo-dialog/selected-cargo</property>
-      <pref-width>350</pref-width>
-      <binding>
-        <command>dialog-apply</command>
-        <object-name>cgselect</object-name>
-      </binding>
-      <binding>
-        <command>nasal</command>
-        <script>
-          var aic_id = "none";
-          var cargo = props.globals.getNode( "/models/cargo", 1 ).getChildren( "cargo" );
-          var cargo_choice = getprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo");
-          forindex (var cargo_index; cargo) {
-            var cg = cargo[cargo_index];
-            if (string.match(cg.getNode("callsign").getValue(), cargo_choice)){
-              aic_id = cg.getNode("callsign").getParent().getName() ~ "[" ~ cg.getNode("callsign").getParent().getIndex() ~ "]";
-              setprop("/sim/gui/dialogs/aicargo-dialog/ai-path", aic_id);
-            }
-          }
-
-          setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat",  getprop("/models/cargo/"~aic_id~"/latitude-deg"));
-          setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon",  getprop("/models/cargo/"~aic_id~"/longitude-deg"));
-          setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt",  getprop("/models/cargo/"~aic_id~"/elevation-ft"));
-          setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head", getprop("/models/cargo/"~aic_id~"/heading-deg"));
-          setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_desc", getprop("/models/cargo/"~aic_id~"/description"));
-
-          var cargo = getprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo");
-          if (getprop("/sim/model/aircrane/"~cargo~"/saved") == 1) {
-            setprop("/sim/gui/dialogs/aicargo-dialog/save", 1);
-            setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
-            setprop("/sim/model/aircrane/"~cargo~"/random", 0);
-          } else
-            if (getprop("/sim/model/aircrane/"~cargo~"/random") == 1) {
-              setprop("/sim/gui/dialogs/aicargo-dialog/random", 1);
-              setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
-              setprop("/sim/model/aircrane/"~cargo~"/saved", 0);
-            } else {
-              setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
-              setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
-              setprop("/sim/model/aircrane/"~cargo~"/random", 0);
-            }
-        </script>
-      </binding>
-    </combo-->
+	<layout>hbox</layout>
+	<halign>left</halign>
     <button>
       <legend>Reset</legend>
       <default>true</default>

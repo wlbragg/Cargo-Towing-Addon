@@ -70,12 +70,28 @@ var main = func(addon) {
 
     # initialization
     setlistener("/sim/signals/fdm-initialized", func {
-
         if (getprop("/sim/gui/show-range")) {
             fgcommand("dialog-show", props.Node.new({"dialog-name": "range-dialog"}));
         } else {
           fgcommand("dialog-close", props.Node.new({"dialog-name": "range-dialog"}));
         }
+
+        var aircraftName = split(".", getprop("/sim/aircraft"));
+        forindex(var ctr; aircraftName) {
+            setprop("/sim/gui/dialogs/rope-dialog/settings/name", aircraftName[ctr]);
+        }
+        var aircraft = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/", 1).getChildren("aircraft");
+        forindex (var ctr; aircraft) {
+            var ac = aircraft[ctr];
+            if (ac.getNode("name").getValue() == getprop("/sim/gui/dialogs/rope-dialog/settings/name")) {
+                setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", ac.getNode("x-pos").getValue());
+                setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", ac.getNode("y-pos").getValue());
+                setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", ac.getNode("z-pos").getValue());
+                setprop("/sim/gui/dialogs/rope-dialog/settings/offset", ac.getNode("offset").getValue());
+
+                setprop("/sim/cargo/rope/offset", ac.getNode("offset").getValue());
+            }
+        }       
     });
 
     setlistener("/sim/gui/show-range", func (node) {      

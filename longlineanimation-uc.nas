@@ -31,16 +31,6 @@ var rope_scale = 1;
 
 var longline_animation = func (reset, cargoWeight, segment_length) {
 
-    # add cargo weight to towing simulation
-    # YASim
-    #AirCrane
-    #var cargoWeight = getprop("sim/weight[3]/weight-lb");
-    #UH-1
-    #var cargoWeight = props.globals.getNode("sim/weight[6]/weight-lb", 1);
-    #var cargoWeight = getprop("sim/weight[6]/weight-lb");
-    # JSBSim
-    #var cargoWeight = props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[0]", 1);
-
     var overland = getprop("gear/gear/ground-is-solid");
     if (getprop("sim/gui/dialogs/aicargo-dialog/alt-origin"))
         var altitude = getprop("/position/altitude-agl-ft") - 13.3;

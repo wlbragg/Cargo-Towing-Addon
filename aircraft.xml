@@ -93,14 +93,39 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </aircraft>
     <aircraft n="9">
         <!--weight x="1.364" y="1.623"  z="1.753" mass-prop="/sim/weight[3]/weight-lb"/-->
-        <name type="string">Lynx-WG13</name>
+        <name type="string">Lynx</name>
         <x-pos type="double">1.364</x-pos>
         <y-pos type="double">1.623</y-pos>
         <z-pos type="double">1.753</z-pos>
         <offset type="double">4.545</offset>
         <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
     </aircraft>
-
-
+    <aircraft n="10">
+        <!--weight x="0.0325" y="0.0" z="-3.831" mass-prop="/sim/weight[1]/weight-lb"/-->
+        <name type="string">mi12</name>
+        <x-pos type="double">0.0325</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">-3.831</z-pos>
+        <offset type="double">-1.169</offset>
+        <loadpoint type="string">sim/weight[0]/weight-lb</loadpoint>
+    </aircraft>
+    <aircraft n="11">
+        <!--weight x="-0.065" y="0.0" z="-0.974" mass-prop="/sim/weight[4]/weight-lb"/-->
+        <name type="string">mi24</name>
+        <x-pos type="double">-0.065</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">-0.974</z-pos>
+        <offset type="double">1.94</offset>
+        <loadpoint type="string">sim/weight[0]/weight-lb</loadpoint>
+    </aircraft>
+    <aircraft n="11">
+        <!--weight x="-0.065" y="0.0" z="-0.974" mass-prop="/sim/weight[4]/weight-lb"/-->
+        <name type="string">mi24</name>
+        <x-pos type="double">-0.065</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">-0.974</z-pos>
+        <offset type="double">1.94</offset>
+        <loadpoint type="string">sim/weight[0]/weight-lb</loadpoint>
+    </aircraft>
 
 </PropertyList>

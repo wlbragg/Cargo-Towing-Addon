@@ -64,8 +64,5 @@ Eventually I may push them to fgaddon so users don't have to configure it.
 TODO:
 Add runtime weight pointmasses to all aircraft through a GUI/nasal interface or add permanent pointmas in the aircraft configuration file. 
 Add weight values through a GUI interface to all AI scenario entries
-GUI rope scale adjustment
-GUI per aircraft rope positioning dropdown configuration
-GUI slider rope positioning configuration
 Model a winch swing arm
 GUI positioning of the winch swing arm
