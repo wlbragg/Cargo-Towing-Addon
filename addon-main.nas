@@ -10,13 +10,6 @@ var main = func(addon) {
 
     printlog("alert", "CGTOW addon initialized from path ", addon.basePath);
 
-    foreach(var script; ['cargooperations.nas', 'longlineanimation-uc.nas', 'js.nas']) {
-        var fname = addon.basePath ~ "/" ~ script;
-
-        printlog("alert", "Load ", fname, " module");
-        io.load_nasal(fname, "CGTOW");
-    }
-
     setlistener("/sim/signals/click", func {
         if (__kbd.shift.getBoolValue()) {
             var click_pos = geo.click_position();
@@ -76,22 +69,44 @@ var main = func(addon) {
           fgcommand("dialog-close", props.Node.new({"dialog-name": "range-dialog"}));
         }
 
+        # Find loaded aircraft name
         var aircraftName = split(".", getprop("/sim/aircraft"));
         forindex(var ctr; aircraftName) {
-            setprop("/sim/gui/dialogs/rope-dialog/settings/name", aircraftName[ctr]);
+            setprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name", aircraftName[ctr]);
         }
+
+        # Adjust rope for loaded aircraft
         var aircraft = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/", 1).getChildren("aircraft");
         forindex (var ctr; aircraft) {
             var ac = aircraft[ctr];
-            if (ac.getNode("name").getValue() == getprop("/sim/gui/dialogs/rope-dialog/settings/name")) {
+            var name = ac.getNode("name").getValue();
+            if (name == getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name")) {
                 setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", ac.getNode("x-pos").getValue());
                 setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", ac.getNode("y-pos").getValue());
                 setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", ac.getNode("z-pos").getValue());
                 setprop("/sim/gui/dialogs/rope-dialog/settings/offset", ac.getNode("offset").getValue());
+                setprop("sim/gui/dialogs/rope-dialog/settings/diameter", ac.getNode("diameter").getValue());
 
                 setprop("/sim/cargo/rope/offset", ac.getNode("offset").getValue());
+
+                # Save assigned weights for availible pointmass
+                var loadpoints = props.globals.getNode("/sim", 1).getChildren("weight");
+                forindex (var loadpoints_index; loadpoints) {
+                    var lp = loadpoints[loadpoints_index];
+                    setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/"~name, lp.getNode("name").getValue());
+                    setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/weight-lb", lp.getNode("weight-lb").getValue());
+                    setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/max-lb", lp.getNode("max-lb").getValue());
+                }
             }
-        }       
+        }
+
+        foreach(var script; ['cargooperations.nas', 'longlineanimation-uc.nas', 'js.nas']) {
+            var fname = addon.basePath ~ "/" ~ script;
+
+            printlog("alert", "Load ", fname, " module");
+            io.load_nasal(fname, "CGTOW");
+        }
+
     });
 
     setlistener("/sim/gui/show-range", func (node) {      

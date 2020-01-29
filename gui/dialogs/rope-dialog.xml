@@ -42,19 +42,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             var dlgRoot = cmdarg();
             var DIALOG_ROOT  = "/sim/gui/dialogs/rope-dialog";
 
-            # Fill in the rope diameter
-            var ropesize = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings", 1).getChildren("diameter");
-            var rdselect = gui.findElementByName(dlgRoot, "rdselect");
-            forindex (var ropesize_index; ropesize) {
-              var rd = ropesize[ropesize_index];
-              var rd_id = "unknown";
-                if ((rd.getNode("name") != nil) and (rd.getNode("name").getValue() != nil)) {
-                  rd_id = rd.getNode("name").getValue() ~
-                    " " ~ rd.getNode("size").getValue();
-                }
-                rdselect.getNode("value[" ~ ropesize_index ~ "]", 1).setValue(rd_id);
-            }
-
             # Fill in the pre-configured aircraft names
             var aircraft = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings", 1).getChildren("aircraft");
             var list = gui.findElementByName(dlgRoot, "list");
@@ -67,6 +54,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     " " ~ ac.getNode("y-pos").getValue() ~
                     " " ~ ac.getNode("z-pos").getValue() ~
                     " " ~ ac.getNode("offset").getValue() ~
+                    " " ~ ac.getNode("diameter").getValue() ~
                     " " ~ ac.getNode("loadpoint").getValue();
                 }
                 list.getNode("value[" ~ aircraft_index ~ "]", 1).setValue(ac_id);
@@ -160,7 +148,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     gui.popupTip("Cargo connection " ~ (i ? "Long Line" : "Hard Docked"));
                     setprop("sim/model/aircrane/cargo_connection_flag_0",0);
                     setprop("sim/model/aircrane/cargo_connection_flag_1",1);
-                    setprop("sim/model/firetank/enabled", 0);
                 </script>
             </binding>
         </radio>
@@ -253,47 +240,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <default-padding>5</default-padding>
         <text>
             <halign>left</halign>
-            <label>1) Select rope size</label>
-        </text>
-    </group>
-
-    <group>
-        <layout>hbox</layout>
-        <halign>left</halign>
-        <text>
-            <halign>left</halign>
-            <label>Rope Diameter</label>
-        </text>
-
-        <combo>
-            <name>rdselect</name>
-            <halign>left</halign>
-            <property>/sim/gui/dialogs/rope-dialog/ropesize/rdselect</property>
-            <pref-width>150</pref-width>
-            <binding>
-                <command>dialog-apply</command>
-                <object-name>rdselect</object-name>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>
-                    var rdparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/ropesize/rdselect"));
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/description", rdparams[0]);
-                    setprop("/sim/gui/dialogs/rope-dialog/settings/size", rdparams[1]);
-                </script>
-            </binding>
-        </combo>
-    </group>
-
-    <hrule/>
-
-    <group>
-        <layout>hbox</layout>
-        <halign>left</halign>
-        <default-padding>5</default-padding>
-        <text>
-            <halign>left</halign>
-            <label>2) Select from aircraft list then adjust sliders if needed</label>
+            <label>1) Select from aircraft list then adjust sliders if needed</label>
         </text>
     </group>
     <group>
@@ -323,6 +270,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
                         setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", posparams[3]);
                         setprop("/sim/gui/dialogs/rope-dialog/settings/offset", posparams[4]);
+                        setprop("/sim/gui/dialogs/rope-dialog/settings/diameter", posparams[5]);
 
                         setprop("/sim/cargo/rope/offset", posparams[4]);
                     </script>
@@ -336,6 +284,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <group>
             <layout>vbox</layout>
             <halign>left</halign>
+            <pref-width>30</pref-width>
             <text>
 	            <halign>left</halign>
 	            <label>x-pos</label>
@@ -351,6 +300,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <text>
 	            <halign>left</halign>
 	            <label>offset</label>
+            </text>
+            <text>
+	            <halign>left</halign>
+	            <label>diameter</label>
             </text>
         </group>
 
@@ -396,6 +349,18 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <halign>left</halign>
                 <property>/sim/gui/dialogs/rope-dialog/settings/offset</property>
                 <format>%.03f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/diameter</property>
+                <format>%.02f</format>
                 <live>true</live>
                 <color>
                     <red>0.9</red>
@@ -482,6 +447,24 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     </script>
                 </binding>
             </slider>
+            <slider>
+	            <name>diameter</name>
+	            <enable>
+		            <not>
+			            <property>/sim/rendering/rembrandt/enabled</property>
+		            </not>
+	            </enable>
+	            <min>0.5</min>
+	            <max>1.0</max>
+	            <step>0.25</step>
+	            <fraction>0.25</fraction>
+	            <live>true</live>
+	            <property>/sim/gui/dialogs/rope-dialog/settings/diameter</property>
+	            <binding>
+		            <command>dialog-apply</command>
+		            <object-name>diameter</object-name>
+	            </binding>
+            </slider>
         </group>
 	</group>
 
@@ -493,7 +476,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <default-padding>5</default-padding>
         <text>
             <halign>left</halign>
-            <label>3) Choose an availible load point</label>
+            <label>2) Choose an availible load point</label>
         </text>
     </group>
 
@@ -515,6 +498,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <binding>
                 <command>nasal</command>
                 <script>
+                    var name = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
+                    # Re assign original weights for availible pointmass
+                    var loadpoints = props.globals.getNode("/sim", 1).getChildren("weight");
+                    forindex (var loadpoints_index; loadpoints) {
+                        var lp = loadpoints[loadpoints_index];
+                        setprop("/sim/weight["~loadpoints_index~"]/weight-lb", getprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/weight-lb"));
+                    }
                     var lpparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/loadpoints/list"));
                     setprop("/sim/gui/dialogs/rope-dialog/settings/pointname", lpparams[0]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/weight-lb", lpparams[1]);
@@ -538,7 +528,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             </text>
             <text>
                 <halign>left</halign>
-                <property>/sim/gui/dialogs/rope-dialog/settings/name</property>
+                <property>/sim/gui/dialogs/rope-dialog/settings/aircraft-name</property>
                 <live>true</live>
                 <color>
                     <red>0.9</red>
@@ -598,7 +588,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             </text>
             <text>
                 <halign>left</halign>
-                <property>/sim/weight[4]/weight-lb</property>
+                <property>/sim/gui/dialogs/rope-dialog/settings/weight-lb</property>
                 <format>%.00f</format>
                 <live>true</live>
                 <color>

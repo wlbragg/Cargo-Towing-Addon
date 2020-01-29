@@ -356,17 +356,21 @@ var stack_pos = geo.Coord.new();
 var bearing = 0.0;
 var cargo_dist = 0.0;
 
-#var seg_length = getprop("/sim/cargo/rope/factor");
 var seg_length = getprop("/sim/cargo/rope/factor");
 seg_length = seg_length  * getprop("/sim/gui/dialogs/rope-dialog/settings/size");
 
 var offset = getprop("/sim/cargo/rope/coil-angle");
 var cargoIndex = 0;
 
+var aircraftName = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/aircraft-name", 1);
+var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
+var existingPointWeight = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
+var aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
+
 var cargo_tow = func () {
 
-    var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
-    var aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
+    existingPointWeight = props.globals.getNode("/sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
+    aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
 
     var hookNode = getprop("sim/cargo/cargo-hook");
     var autoHookNode = getprop("sim/cargo/cargo-auto-hook");
@@ -416,8 +420,8 @@ var cargo_closest=0;
         #gui.popupTip("In ranging", 1);
         foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")) {
 
-            var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
-            var aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
+            existingPointWeight = props.globals.getNode("/sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
+            aircraftPointmass = props.globals.getNode("sim/weight["~index.getValue()~"]/weight-lb", 1);
 
             #AI
             cargoIndex = cargoN.getNode("ai").getValue();
@@ -523,7 +527,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                 setprop("sim/cargo/cargoalt", 0);
 
                 #setprop("sim/weight[3]/weight-lb", cargoWeight);
-                aircraftPointmass.setValue(cargoWeight);
+                aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
 
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/elevation-ft").setDoubleValue(elvPos);
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/latitude-deg").setDoubleValue(latNode);
@@ -556,7 +560,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                 setprop("sim/cargo/harnessalt", (-hitchOffset + -rope_length) - (n_seg_reeled*.19));
 
                 #setprop("sim/weight[3]/weight-lb", cargoWeight);
-                aircraftPointmass.setValue(cargoWeight);
+                aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
 
                 currentLat = latNode;
                 currentLon = lonNode;
@@ -604,7 +608,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
                 setprop("/sim/cargo/currentyaw", currentYaw);
                
                 #setprop("sim/weight[3]/weight-lb", 0);
-                aircraftPointmass.setValue(0);
+                aircraftPointmass.setValue(existingPointWeight.getValue());
 
                 cargo_pos.set_latlon(currentLat, currentLon);
                 cargo_dist = aircraft_pos.distance_to(cargo_pos);
@@ -626,7 +630,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
                     setprop("sim/cargo/rope/pulling", 2);
 
                     #setprop("sim/weight[3]/weight-lb", cargoWeight);
-                    aircraftPointmass.setValue(cargoWeight);
+                    aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
            
                     #x and y transformation to move cargo (incrementally) towards aircrane as rope is taut and pulling cargo
                     #this needs to be calculated precisely
@@ -692,7 +696,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
     }
     if (cargoReleased == 1) {
         #setprop("sim/weight[3]/weight-lb", 0);
-        aircraftPointmass.setValue(0);
+        aircraftPointmass.setValue(existingPointWeight.getValue());
 
         setprop("/sim/cargo/rope/damping", .6);
         setprop("/sim/cargo/rope/load-damping", 1);

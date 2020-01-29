@@ -268,27 +268,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     <longline type="bool">true</longline>
                     <connection type="bool">true</connection>
                     <alt-origin type="bool">false</alt-origin>
-                    <ropesize>
-                        <rdselect type="string">Large 1</rdselect>
-                    </ropesize>
                     <settings include="aircraft.xml">
-                        <diameter n="0">
-                            <name type="string">Small</name>
-                            <size type="double">0.5</size>
-                        </diameter>
-                        <diameter n="1">
-                            <name type="string">Medium</name>
-                            <size type="double">0.75</size>
-                        </diameter>
-                        <diameter n="2">
-                            <name type="string">Large</name>
-                            <size type="double">1</size>
-                        </diameter>
                         <size type="double">1</size>
                         <x-pos type="double">2.2</x-pos>
                         <y-pos type="double">0.0</y-pos>
                         <z-pos type="double">0.0</z-pos>
                         <offset type="double">2.860</offset>
+                        <diameter type="double">1</diameter>
                         <aircraft>
                             <list type="string">ch42 2.2 0.0 0.0 2.860</list>
                         </aircraft>
@@ -297,8 +283,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         </loadpoints>
                         <index type="int">0</index>
                         <pointname type="string">Default</pointname>
-                        <description type="string">Large</description>
-                        <size type="double">1</size>
                     </settings>
                 </rope-dialog>
             </dialogs>
