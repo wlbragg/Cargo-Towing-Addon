@@ -561,26 +561,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <group>
             <layout>vbox</layout>
             <halign>left</halign>
-            <pref-width>20</pref-width>
-            <text>
-	            <halign>left</halign>
-	            <label>Index</label>
-            </text>
-            <text>
-                <halign>left</halign>
-                <property>/sim/gui/dialogs/rope-dialog/settings/index</property>
-                <live>true</live>
-                <color>
-                    <red>0.9</red>
-                    <green>1</green>
-                    <blue>0.2</blue>
-                    <alpha>1</alpha>
-                </color>
-            </text>
-        </group>
-        <group>
-            <layout>vbox</layout>
-            <halign>left</halign>
             <pref-width>30</pref-width>
             <text>
 	            <halign>left</halign>
@@ -590,6 +570,26 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <halign>left</halign>
                 <property>/sim/gui/dialogs/rope-dialog/settings/weight-lb</property>
                 <format>%.00f</format>
+                <live>true</live>
+                <color>
+                    <red>0.9</red>
+                    <green>1</green>
+                    <blue>0.2</blue>
+                    <alpha>1</alpha>
+                </color>
+            </text>
+        </group>
+       <group>
+            <layout>vbox</layout>
+            <halign>left</halign>
+            <pref-width>20</pref-width>
+            <text>
+	            <halign>left</halign>
+	            <label>Max LB</label>
+            </text>
+            <text>
+                <halign>left</halign>
+                <property>/sim/gui/dialogs/rope-dialog/settings/max-lb</property>
                 <live>true</live>
                 <color>
                     <red>0.9</red>
