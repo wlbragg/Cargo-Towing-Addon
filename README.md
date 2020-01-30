@@ -10,7 +10,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 Allows for a quick and easy method (addon) to add cargo hauling and stacking capability to any FlightGear aircraft.
 
 ##########################################################
-Configuration required
+Configuration
 (not manditory if existing load points are alvailible)
 ##########################################################
 
@@ -55,8 +55,10 @@ FDM
 See aircraft.xml for list of preset load points you can add to existing aircraft (optional)
 
 ##########################################################
-
+Availible global variables for aircraft use
 ##########################################################
+sim/cargo/rope/length
+sim/cargo/load/weight
 
 #########################################################
 TODO:

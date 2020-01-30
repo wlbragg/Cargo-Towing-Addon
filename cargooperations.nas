@@ -363,6 +363,8 @@ var aircraftPointlimit = props.globals.getNode("sim/weight["~index.getValue()~"]
 
 props.Node.new({ "sim/cargo/rope/rope-length":0 });
 var rope_length = props.globals.getNode("sim/cargo/rope/length", 1);
+props.Node.new({ "sim/cargo/load/weight":0 });
+var load_weight = props.globals.getNode("sim/cargo/load/weight", 1);
 
 var cargo_tow = func () {
 
@@ -525,6 +527,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
                 aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
                 aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
+                load_weight.setValue(cargoWeight);
 
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/elevation-ft").setDoubleValue(elvPos);
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/latitude-deg").setDoubleValue(latNode.getValue());
@@ -558,6 +561,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
                 aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
                 aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
+                load_weight.setValue(cargoWeight);
 
                 currentLat = latNode.getValue();
                 currentLon = lonNode.getValue();
@@ -606,6 +610,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
                
                 aircraftPointmass.setValue(existingPointWeight.getValue());
                 aircraftPointlimit.setValue(existingPointLimit.getValue());
+                load_weight.setValue(0);
 
                 cargo_pos.set_latlon(currentLat, currentLon);
                 cargo_dist = aircraft_pos.distance_to(cargo_pos);
@@ -628,6 +633,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
 
                     aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
                     aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
+                    load_weight.setValue(cargoWeight);
            
                     #x and y transformation to move cargo (incrementally) towards aircrane as rope is taut and pulling cargo
                     #this needs to be calculated precisely
@@ -694,6 +700,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
     if (cargoReleased == 1) {
         aircraftPointmass.setValue(existingPointWeight.getValue());
         aircraftPointlimit.setValue(existingPointLimit.getValue());
+        load_weight.setValue(0);
 
         setprop("/sim/cargo/rope/damping", .6);
         setprop("/sim/cargo/rope/load-damping", 1);
