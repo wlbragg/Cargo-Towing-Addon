@@ -67,7 +67,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <coil-angle type="double">13.8</coil-angle>
             <yaw1  type="double">0.0</yaw1>
             <segments-reeled-in type="int">0</segments-reeled-in>
-
+            <segments type="int">90</segments>
             <length type="int">0</length>
 
             <pitch1  type="double">0.0</pitch1>
