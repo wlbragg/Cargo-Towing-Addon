@@ -1,11 +1,24 @@
-# Cargo-Towing-Addon
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg (wlbragg)
+Copyright (C) 2020 Wayne Bragg
+Rope animation code by Thorsten Renk (Thorsten)
+Copyright (C) 2017 Thorsten Renk
+README.md
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+
 Allows for a quick and easy method (addon) to add cargo hauling and stacking capability to any FlightGear aircraft.
 
-Configuration required:
+##########################################################
+Configuration required
+(not manditory if existing load points are alvailible)
+##########################################################
 
-For now, insure the aircraft this addon is applied to has the added pointmass or weight entries needed.
+For now, insure the aircraft using this addon has any additional
+load points added to the FDM and .set, or use defaults availible
+in the existing airceaft configuration.
 
-EXAMPLES...
+EXAMPLES... (not manditory if existing load points are alvailible)
 
 YASim
 FDM
@@ -39,29 +52,15 @@ FDM
     </weight>
 </payload>
 
-ADDON
-cargooperations.nas
-(lines 320-323)
+See aircraft.xml for list of preset load points you can add to existing aircraft (optional)
 
-    <!-- pointmass designated for the cargo weight to be applied to -->
+##########################################################
 
-    #JSBSim -
-    var aircraftPointmass = props.globals.getNode("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 1);
+##########################################################
 
-These weight designation positions are entries I have been making to aircraft in fgaddon locally to my FlightGear.
-Eventually I may push them to fgaddon so users don't have to configure it.
-
-    #AirCrane, ch47, dauphin, Lynx WG13
-    var aircraftPointmass = props.globals.getNode("sim/weight[3]/weight-lb", 1);
-    #UH-1, bo105, ec135, OH-1
-    var aircraftPointmass = props.globals.getNode("sim/weight[6]/weight-lb", 1);
-    #H-21C
-    var aircraftPointmass = props.globals.getNode("sim/weight[5]/weight-lb", 1);
-    #ka50
-    var aircraftPointmass = props.globals.getNode("sim/weight[4]/weight-lb", 1);
-
-
+#########################################################
 TODO:
+#########################################################
 Add permanent pointmas in the aircraft configuration file. 
 Add weight values through a GUI interface to all AI scenario entries
 Model a winch swing arm

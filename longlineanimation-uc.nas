@@ -1,6 +1,6 @@
 # Cargo Towing - Cargo Towing capability for Flightgear
-# Written and developer by Wayne Bragg (wlbragg)
-# Copyright (C) 2020 Wayne Bragg
+# Written and developer by Thorsten Renk (Thorsten) and Wayne Bragg (wlbragg)
+# Copyright (C) 2017 Thorsten Renk and Wayne Bragg
 # longlineanimation-uc.nas
 # Launcher script
 # Version 1.0.0 beta 1/21/2020
