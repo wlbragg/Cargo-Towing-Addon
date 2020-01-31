@@ -55,6 +55,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     " " ~ ac.getNode("z-pos").getValue() ~
                     " " ~ ac.getNode("offset").getValue() ~
                     " " ~ ac.getNode("diameter").getValue() ~
+                    " " ~ ac.getNode("wincharm").getValue() ~
                     " " ~ ac.getNode("loadpoint").getValue();
                 }
                 list.getNode("value[" ~ aircraft_index ~ "]", 1).setValue(ac_id);
@@ -78,15 +79,24 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
             # Cargo Hauling option
             var p = getprop("sim/gui/dialogs/aicargo-dialog/connection");
-            setprop("/sim/model/aircrane/cargo_connection_flag_0", 0);
-            setprop("/sim/model/aircrane/cargo_connection_flag_1", 0);
-            setprop("/sim/model/aircrane/cargo_connection_flag_" ~ p, 1);
+            setprop("/sim/cargo/cargo_connection_flag_0", 0);
+            setprop("/sim/cargo/cargo_connection_flag_1", 0);
+            setprop("/sim/cargo/cargo_connection_flag_" ~ p, 1);
 
             # Long Line option
             p = getprop("sim/gui/dialogs/aicargo-dialog/longline");
-            setprop("/sim/model/aircrane/longline_flag_0",0);
-	        setprop("/sim/model/aircrane/longline_flag_1",0);
-            setprop("/sim/model/aircrane/longline_flag_" ~ p, 1);
+            setprop("/sim/cargo/longline_flag_0",0);
+	        setprop("/sim/cargo/longline_flag_1",0);
+            setprop("/sim/cargo/longline_flag_" ~ p, 1);
+
+            # Winch Arm option
+            p = getprop("sim/gui/dialogs/rope-dialog/settings/wincharm");
+            setprop("/sim/cargo/wincharm_flag_0",0);
+	        setprop("/sim/cargo/wincharm_flag_1",0);
+	        setprop("/sim/cargo/wincharm_flag_2",0);
+	        setprop("/sim/cargo/wincharm_flag_3",0);
+	        setprop("/sim/cargo/wincharm_flag_4",0);
+            setprop("/sim/cargo/wincharm_flag_" ~ p, 1);
 
 		]]></open>
 		<close><![CDATA[
@@ -102,7 +112,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <radio>
             <halign>right</halign>
             <label>Hard Docked</label>
-            <property>sim/model/aircrane/cargo_connection_flag_0</property>
+            <property>sim/cargo/cargo_connection_flag_0</property>
             <live>true</live>
             <enable>
                 <and>
@@ -120,15 +130,15 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var p = "sim/gui/dialogs/aicargo-dialog/connection";
                     setprop(p, var i = 0);
                     gui.popupTip("Cargo connection " ~ (i ? "Long Line" : "Hard Docked"));
-                    setprop("sim/model/aircrane/cargo_connection_flag_0",1);
-                    setprop("sim/model/aircrane/cargo_connection_flag_1",0);
+                    setprop("sim/cargo/cargo_connection_flag_0",1);
+                    setprop("sim/cargo/cargo_connection_flag_1",0);
                 </script>
             </binding>
         </radio>
         <radio>
             <halign>right</halign>
             <label>Long Line</label>
-            <property>sim/model/aircrane/cargo_connection_flag_1</property>
+            <property>sim/cargo/cargo_connection_flag_1</property>
             <live>true</live>
             <enable>
                 <and>
@@ -146,8 +156,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var p = "sim/gui/dialogs/aicargo-dialog/connection";
                     setprop(p, var i = 1);
                     gui.popupTip("Cargo connection " ~ (i ? "Long Line" : "Hard Docked"));
-                    setprop("sim/model/aircrane/cargo_connection_flag_0",0);
-                    setprop("sim/model/aircrane/cargo_connection_flag_1",1);
+                    setprop("sim/cargo/cargo_connection_flag_0",0);
+                    setprop("sim/cargo/cargo_connection_flag_1",1);
                 </script>
             </binding>
         </radio>
@@ -164,7 +174,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <radio>
             <halign>right</halign>
             <label>Rope</label>
-            <property>sim/model/aircrane/longline_flag_0</property>
+            <property>sim/cargo/longline_flag_0</property>
             <live>true</live>
             <enable>
                 <and>
@@ -179,15 +189,15 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var p = "sim/gui/dialogs/aicargo-dialog/longline";
                     setprop(p, var i = 0);
                     gui.popupTip("Line type " ~ (i ? "Cable" : "Rope"));
-                    setprop("sim/model/aircrane/longline_flag_0",1);
-                    setprop("sim/model/aircrane/longline_flag_1",0);
+                    setprop("sim/cargo/longline_flag_0",1);
+                    setprop("sim/cargo/longline_flag_1",0);
                 </script>
             </binding>
         </radio>
         <radio>
             <halign>right</halign>
             <label>Cable</label>
-            <property>sim/model/aircrane/longline_flag_1</property>
+            <property>sim/cargo/longline_flag_1</property>
             <live>true</live>
             <enable>
                 <and>
@@ -202,8 +212,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var p = "sim/gui/dialogs/aicargo-dialog/longline";
                     setprop(p, var i = 1);
                     gui.popupTip("Line type " ~ (i ? "Cable" : "Rope"));
-                    setprop("sim/model/aircrane/longline_flag_0",0);
-                    setprop("sim/model/aircrane/longline_flag_1",1);
+                    setprop("sim/cargo/longline_flag_0",0);
+                    setprop("sim/cargo/longline_flag_1",1);
                 </script>
             </binding>
         </radio>
@@ -265,12 +275,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     <command>nasal</command>
                     <script>
                         var posparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/aircraft/list"));
-                        setprop("/sim/gui/dialogs/rope-dialog/settings/name", posparams[0]);
-                        setprop("/sim/gui/dialogs/rope-dialog/settings/x-pos", posparams[1]);
-                        setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
-                        setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", posparams[3]);
-                        setprop("/sim/gui/dialogs/rope-dialog/settings/offset", posparams[4]);
-                        setprop("/sim/gui/dialogs/rope-dialog/settings/diameter", posparams[5]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/name", posparams[0]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/x-pos", posparams[1]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/z-pos", posparams[3]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/offset", posparams[4]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/diameter", posparams[5]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/wincharm", posparams[6]);
 
                         setprop("/sim/cargo/rope/offset", posparams[4]);
                     </script>
@@ -468,6 +479,149 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         </group>
 	</group>
 
+    <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
+        <default-padding>5</default-padding>
+        <text>
+            <halign>left</halign>
+            <label>2) Choose a winch arm if needed</label>
+        </text>
+    </group>
+    <group>
+		<layout>hbox</layout>
+        <radio>
+            <halign>right</halign>
+            <label>None</label>
+            <property>sim/cargo/wincharm_flag_0</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
+                    setprop(p, 0);
+                    gui.popupTip("Winch Arm type " ~ "None");
+                    setprop("sim/cargo/wincharm_flag_0",1);
+                    setprop("sim/cargo/wincharm_flag_1",0);
+                    setprop("sim/cargo/wincharm_flag_2",0);
+                    setprop("sim/cargo/wincharm_flag_3",0);
+                    setprop("sim/cargo/wincharm_flag_4",0);
+                </script>
+            </binding>
+        </radio>
+        <radio>
+            <halign>right</halign>
+            <label>Left Int</label>
+            <property>sim/cargo/wincharm_flag_1</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
+                    setprop(p, 1);
+                    gui.popupTip("Winch Arm type " ~ "Left Interior");
+                    setprop("sim/cargo/wincharm_flag_0",0);
+                    setprop("sim/cargo/wincharm_flag_1",1);
+                    setprop("sim/cargo/wincharm_flag_2",0);
+                    setprop("sim/cargo/wincharm_flag_3",0);
+                    setprop("sim/cargo/wincharm_flag_4",0);
+                </script>
+            </binding>
+        </radio>
+        <radio>
+            <halign>right</halign>
+            <label>Left Ext</label>
+            <property>sim/cargo/wincharm_flag_2</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
+                    setprop(p, 2);
+                    gui.popupTip("Winch Arm type " ~ "Left Exterior");
+                    setprop("sim/cargo/wincharm_flag_0",0);
+                    setprop("sim/cargo/wincharm_flag_1",0);
+                    setprop("sim/cargo/wincharm_flag_2",1);
+                    setprop("sim/cargo/wincharm_flag_3",0);
+                    setprop("sim/cargo/wincharm_flag_4",0);
+                </script>
+            </binding>
+        </radio>
+        <radio>
+            <halign>right</halign>
+            <label>Right Int</label>
+            <property>sim/cargo/wincharm_flag_3</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
+                    setprop(p, 3);
+                    gui.popupTip("Winch Arm type " ~ "Right Interior");
+                    setprop("sim/cargo/wincharm_flag_0",0);
+                    setprop("sim/cargo/wincharm_flag_1",0);
+                    setprop("sim/cargo/wincharm_flag_2",0);
+                    setprop("sim/cargo/wincharm_flag_3",1);
+                    setprop("sim/cargo/wincharm_flag_4",0);
+                </script>
+            </binding>
+        </radio>
+        <radio>
+            <halign>right</halign>
+            <label>Right Ext</label>
+            <property>sim/cargo/wincharm_flag_4</property>
+            <live>true</live>
+            <enable>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
+            </enable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
+                    setprop(p, 4);
+                    gui.popupTip("Winch Arm type " ~ "Right Exterior");
+                    setprop("sim/cargo/wincharm_flag_0",0);
+                    setprop("sim/cargo/wincharm_flag_1",0);
+                    setprop("sim/cargo/wincharm_flag_2",0);
+                    setprop("sim/cargo/wincharm_flag_3",0);
+                    setprop("sim/cargo/wincharm_flag_4",1);
+                </script>
+            </binding>
+        </radio>
+    </group>
+
     <hrule/>
 
     <group>
@@ -476,7 +630,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <default-padding>5</default-padding>
         <text>
             <halign>left</halign>
-            <label>2) Choose an availible load point</label>
+            <label>3) Choose an availible load point</label>
         </text>
     </group>
 

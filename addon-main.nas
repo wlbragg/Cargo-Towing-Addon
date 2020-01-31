@@ -86,6 +86,7 @@ var main = func(addon) {
                 setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", ac.getNode("z-pos").getValue());
                 setprop("/sim/gui/dialogs/rope-dialog/settings/offset", ac.getNode("offset").getValue());
                 setprop("sim/gui/dialogs/rope-dialog/settings/diameter", ac.getNode("diameter").getValue());
+                setprop("sim/gui/dialogs/rope-dialog/settings/wincharm", ac.getNode("wincharm").getValue());
 
                 setprop("/sim/cargo/rope/offset", ac.getNode("offset").getValue());
 

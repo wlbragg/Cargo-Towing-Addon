@@ -861,6 +861,50 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
   </model>
 
   <animation>
+    <object-name>wincharmleftint</object-name>
+    <type>select</type>
+    <condition>
+        <equals>
+            <property>sim/gui/dialogs/rope-dialog/settings/wincharm</property>
+            <value>1</value>
+        </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <object-name>wincharmrightint</object-name>
+    <type>select</type>
+    <condition>
+        <equals>
+            <property>sim/gui/dialogs/rope-dialog/settings/wincharm</property>
+            <value>3</value>
+        </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <object-name>wincharmleftext</object-name>
+    <type>select</type>
+    <condition>
+        <equals>
+            <property>sim/gui/dialogs/rope-dialog/settings/wincharm</property>
+            <value>2</value>
+        </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <object-name>wincharmrightext</object-name>
+    <type>select</type>
+    <condition>
+        <equals>
+            <property>sim/gui/dialogs/rope-dialog/settings/wincharm</property>
+            <value>4</value>
+        </equals>
+    </condition>
+  </animation>
+
+  <animation>
     <object-name>hook</object-name>
     <object-name>hookstop</object-name>
     <type>select</type>

@@ -63,8 +63,7 @@ sim/cargo/load/weight
 #########################################################
 TODO:
 #########################################################
-Add permanent pointmas in the aircraft configuration file. 
-Add weight values through a GUI interface to all AI scenario entries
-Model a winch swing arm
-GUI positioning of the winch swing arm
-Set default rope config after scaling rope to fit aircraft size
+Attach a height and weight field to AI scenario models for user input.
+Add rope animations to AI scenario models
+Fix bug in AI scenario model sync with rope length
+Select pre-selections in the lists in the rope configuration GUI

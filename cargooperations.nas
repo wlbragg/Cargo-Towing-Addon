@@ -247,31 +247,31 @@ var cargo_init = func () {
             setprop("sim/cargo/"~cargoN.getNode("callsign").getValue()~"-onhook", 0);
             setprop("controls/release-"~cargoN.getNode("callsign").getValue(), 0);
 
-            if (getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/saved") == 1) {
+            if (getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/saved") == 1) {
 
                 #AI
                 var isAI = cargoN.getNode("ai").getValue();
                 if (isAI != -1) {
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/latitude-deg", getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/longitude-deg", getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/altitude-ft", getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/orientation/true-heading-deg", getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/latitude-deg", getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/longitude-deg", getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/altitude-ft", getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/orientation/true-heading-deg", getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
                 }
 
-                cargoN.getNode("latitude-deg").setDoubleValue(getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
-                cargoN.getNode("longitude-deg").setDoubleValue(getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
-                cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
-                cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
-                cargoN.getNode("ai").setDoubleValue(getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/ai"));
-                aircraft.data.add("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
-                    "/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
-                    "/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft",
-                    "/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg",
-                    "/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/ai",
-                    "/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/saved");
+                cargoN.getNode("latitude-deg").setDoubleValue(getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
+                cargoN.getNode("longitude-deg").setDoubleValue(getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
+                cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
+                cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
+                cargoN.getNode("ai").setDoubleValue(getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/ai"));
+                aircraft.data.add("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
+                    "/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
+                    "/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft",
+                    "/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg",
+                    "/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/ai",
+                    "/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/saved");
                 aircraft.data.save();
             } else
-                  if (getprop("/sim/model/aircrane/"~cargoN.getNode("callsign").getValue()~"/random") == 1) {
+                  if (getprop("/sim/cargo/"~cargoN.getNode("callsign").getValue()~"/random") == 1) {
                     var factor = ct + rand() * .001;
 	                  var heading = getprop("orientation/heading-deg") + 90;
                         var x = math.cos(heading*0.0174533);
@@ -635,7 +635,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
                     aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
                     load_weight.setValue(cargoWeight);
            
-                    #x and y transformation to move cargo (incrementally) towards aircrane as rope is taut and pulling cargo
+                    #x and y transformation to move cargo (incrementally) towards aircraft as rope is taut and pulling cargo
                     #this needs to be calculated precisely
                     currentLat = currentLat - ((currentLat-latNode.getValue())*.03);
                     currentLon = currentLon - ((currentLon-lonNode.getValue())*.03);
@@ -735,18 +735,18 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                 setprop("/models/cargo/"~cargoParent~"/elevation-ft", (geo.elevation(latNode.getValue(), lonNode.getValue()) + cargoHeight) * 3.2808);
         }
 
-        if (getprop("/sim/model/aircrane/"~cargoName~"/saved")) {
+        if (getprop("/sim/cargo/"~cargoName~"/saved")) {
             #gui.popupTip(cargoName~" position saved", 1);
-            setprop("/sim/model/aircrane/"~cargoName~"/position/latitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/latitude-deg"));
-            setprop("/sim/model/aircrane/"~cargoName~"/position/longitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/longitude-deg"));
-            setprop("/sim/model/aircrane/"~cargoName~"/position/altitude-ft", getprop("/models/cargo/" ~ cargoParent ~ "/elevation-ft"));
-            setprop("/sim/model/aircrane/"~cargoName~"/orientation/true-heading-deg", getprop("/models/cargo/" ~ cargoParent ~ "/heading-deg"));
-            setprop("/sim/model/aircrane/"~cargoName~"/ai", getprop("/models/cargo/" ~ cargoParent ~ "/ai"));
-            aircraft.data.add("/sim/model/aircrane/"~cargoName~"/position/latitude-deg",
-                              "/sim/model/aircrane/"~cargoName~"/position/longitude-deg",
-                              "/sim/model/aircrane/"~cargoName~"/position/altitude-ft",
-                              "/sim/model/aircrane/"~cargoName~"/orientation/true-heading-deg",
-                              "/sim/model/aircrane/"~cargoName~"/ai");
+            setprop("/sim/cargo/"~cargoName~"/position/latitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/latitude-deg"));
+            setprop("/sim/cargo/"~cargoName~"/position/longitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/longitude-deg"));
+            setprop("/sim/cargo/"~cargoName~"/position/altitude-ft", getprop("/models/cargo/" ~ cargoParent ~ "/elevation-ft"));
+            setprop("/sim/cargo/"~cargoName~"/orientation/true-heading-deg", getprop("/models/cargo/" ~ cargoParent ~ "/heading-deg"));
+            setprop("/sim/cargo/"~cargoName~"/ai", getprop("/models/cargo/" ~ cargoParent ~ "/ai"));
+            aircraft.data.add("/sim/cargo/"~cargoName~"/position/latitude-deg",
+                              "/sim/cargo/"~cargoName~"/position/longitude-deg",
+                              "/sim/cargo/"~cargoName~"/position/altitude-ft",
+                              "/sim/cargo/"~cargoName~"/orientation/true-heading-deg",
+                              "/sim/cargo/"~cargoName~"/ai");
             aircraft.data.save();
         }
         cargoName="";
@@ -801,7 +801,7 @@ var enableOSD = func {
   var left  = screen.display.new(20, 10);
   var right = screen.display.new(-300, 10);
 
-  left.add("/sim/model/aircrane/state");
+  left.add("/sim/cargo/state");
 
   right.add("/controls/switches/app-master");
 }

@@ -36,15 +36,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <cargoheight type="double">0.0</cargoheight>
           <cargoharness type="double">0.0</cargoharness>
           <rope>
-
             <!-- offset from wheelbase to top of rope in meters -->
-            <!-- AirCrane -->
-            <!--offset type="double">2.87</offset-->
-            <!-- UH-1, h47 -->
-            <!--offset type="double">2.86</offset-->
-            <!-- Dauphin -->
-            <!--offset type="double">2.84</offset-->
-            <!-- H-C21 -->
             <offset type="double">5.1</offset>
 
             <bearing type="double">1.0</bearing>
@@ -283,6 +275,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         </loadpoints>
                         <index type="int">0</index>
                         <pointname type="string">Default</pointname>
+                        <wincharm type="int">0</wincharm>
                     </settings>
                 </rope-dialog>
             </dialogs>
@@ -293,6 +286,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <path>/sim/gui/dialogs/aircraft/list</path>
           <path>/sim/gui/dialogs/aicargo-dialog/longline</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connection</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/wincharm</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connector</path>
           <path>/sim/gui/dialogs/aicargo-dialog/alt-origin</path>
           <path>/sim/gui/show-range</path>
