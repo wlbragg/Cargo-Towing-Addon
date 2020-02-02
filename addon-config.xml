@@ -27,7 +27,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <model>
             <path>[addon=org.flightgear.addons.CGTOW]cargotow.xml</path>
         </model>
-
         <cargo>
           <enabled type="bool">true</enabled>
           <currentyaw type="double">0.0</currentyaw>
@@ -35,6 +34,12 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <harnessalt type="double">0.0</harnessalt>
           <cargoheight type="double">0.0</cargoheight>
           <cargoharness type="double">0.0</cargoharness>
+          <cargo-hook type="bool">false</cargo-hook>
+          <cargo-auto-hook type="bool">false</cargo-auto-hook>
+          <cargo-on-hook type="bool">false</cargo-on-hook>
+          <load>
+            <weight type="int">0</weight>
+          </load>
           <rope>
             <!-- offset from wheelbase to top of rope in meters -->
             <offset type="double">5.1</offset>
@@ -43,6 +48,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <pull-factor-pitch type="double">0.0</pull-factor-pitch>
             <pull-factor-roll type="double">0.0</pull-factor-roll>
             <pull-force type="double">9</pull-force>
+            <pulling type="int">0</pulling>
 
             <flex-force type="double">0.09</flex-force>
             <!--factor = rope segment length in M -->
@@ -61,7 +67,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <segments-reeled-in type="int">0</segments-reeled-in>
             <segments type="int">90</segments>
             <length type="int">0</length>
-
             <pitch1  type="double">0.0</pitch1>
             <pitch2  type="double">0.0</pitch2>
             <pitch3  type="double">0.0</pitch3>
@@ -307,6 +312,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <!--help include="help.xml"/-->
 
     </sim>
+
+    <controls>
+        <cargo-release type="bool">false</cargo-release>
+    </controls>
 
     <input include="keyboard.xml"/>
 

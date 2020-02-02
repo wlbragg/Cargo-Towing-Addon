@@ -32,6 +32,9 @@ var rope_scale = 1;
 var longline_animation = func (reset, cargoWeight, segment_length) {
 
     var overland = getprop("gear/gear/ground-is-solid");
+    if (getprop("sim/flight-model") == "jsb")
+        overland = getprop("fdm/jsbsim/environment/terrain-solid");
+
     if (getprop("sim/gui/dialogs/aicargo-dialog/alt-origin"))
         var altitude = getprop("/position/altitude-agl-ft") - 13.3;
     else
@@ -97,12 +100,22 @@ var longline_animation = func (reset, cargoWeight, segment_length) {
       reset = 0;
     }
 
+setprop("aoverland", overland);
+
   if (overland)
     {
       if ((((alt_agl+1.6) - ((n_segments - n_segments_reeled) * segment_length)) + cargo_harness + cargo_height) < 0.0)
         cargoOnGround_flag = 1;
       else
         cargoOnGround_flag = 0;
+
+
+setprop("aonground", (((alt_agl+1.6) - ((n_segments - n_segments_reeled) * segment_length)) + cargo_harness + cargo_height));
+setprop("aalt_agl", alt_agl+1.6);
+setprop("an_segments", n_segments);
+setprop("an_segments_reeled", n_segments_reeled);
+setprop("acargo_harness", cargo_harness);
+setprop("acargo_height", cargo_height);
 
       setprop("/sim/cargo/hitsground", cargoOnGround_flag);
 

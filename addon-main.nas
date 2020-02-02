@@ -40,22 +40,23 @@ var main = func(addon) {
                         setprop("/ai/models/aircraft[" ~ getprop("/models/cargo/cargo["~aic~"]/ai") ~ "]/orientation/true-heading-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
                     }
 
+                    var aircraft = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
                     if (getprop("/sim/gui/dialogs/aicargo-dialog/save")) {
-                        setprop("/sim/model/aircrane/"~cargo~"/saved", 1);
-                        setprop("/sim/model/aircrane/"~cargo~"/position/latitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
-                        setprop("/sim/model/aircrane/"~cargo~"/position/longitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
-                        setprop("/sim/model/aircrane/"~cargo~"/position/altitude-ft", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
-                        setprop("/sim/model/aircrane/"~cargo~"/orientation/true-heading-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
-                        setprop("/sim/model/aircrane/"~cargo~"/ai", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
-                        aircraft.data.add("/sim/model/aircrane/"~cargo~"/position/latitude-deg",
-                        "/sim/model/aircrane/"~cargo~"/position/longitude-deg",
-                        "/sim/model/aircrane/"~cargo~"/position/altitude-ft",
-                        "/sim/model/aircrane/"~cargo~"/orientation/true-heading-deg",
-                        "/sim/model/aircrane/"~cargo~"/ai");
+                        setprop("/sim/model/"~cargo~"/saved", 1);
+                        setprop("/sim/model/"~aircraft~"/"~cargo~"/position/latitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
+                        setprop("/sim/model/"~aircraft~"/"~cargo~"/position/longitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
+                        setprop("/sim/model/"~aircraft~"/"~cargo~"/position/altitude-ft", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
+                        setprop("/sim/model/"~aircraft~"/"~cargo~"/orientation/true-heading-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
+                        setprop("/sim/model/"~aircraft~"/"~cargo~"/ai", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
+                        aircraft.data.add("/sim/model/"~aircraft~"/"~cargo~"/position/latitude-deg",
+                        "/sim/model/"~aircraft~"/"~cargo~"/position/longitude-deg",
+                        "/sim/model/"~aircraft~"/"~cargo~"/position/altitude-ft",
+                        "/sim/model/"~aircraft~"/"~cargo~"/orientation/true-heading-deg",
+                        "/sim/model/"~aircraft~"/"~cargo~"/ai");
                         aircraft.data.save();
                     }
                 } else {
-                    gui.popupTip("No Cargo Selected, first select cargo to move in the AirCrane's Cargo Menu", 3);
+                    gui.popupTip("No Cargo Selected, first select cargo to move in the Cargo Towing Menu", 3);
                 }
             }
         }
@@ -91,7 +92,9 @@ var main = func(addon) {
                 setprop("/sim/cargo/rope/offset", ac.getNode("offset").getValue());
 
                 # Save assigned weights for availible pointmass
-                var loadpoints = props.globals.getNode("/sim", 1).getChildren("weight");
+                var location = "/sim";
+                if (getprop("sim/flight-model") == "jsb") location = "/payload";
+                var loadpoints = props.globals.getNode(location, 1).getChildren("weight");
                 forindex (var loadpoints_index; loadpoints) {
                     var lp = loadpoints[loadpoints_index];
                     setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/"~name, lp.getNode("name").getValue());

@@ -7,7 +7,7 @@
 # Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
 var autostart = func (msg=1) {
-    aircrane.autostart();
+      js.autostart();
 };
 
 var slewProp = func(prop, delta) {
