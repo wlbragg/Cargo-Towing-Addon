@@ -297,5 +297,16 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <wincharm type="int">0</wincharm>
         <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
     </aircraft>
+    <aircraft n="26">
+        <!-- JSBSIM x="35.623" y="0.0" z="3.312" /fdm/jsbsim/inertia/pointmass-weight-lbs[3]"/-->
+        <name type="string">ZF_Navy_free_balloon</name>
+        <x-pos type="double">35.623</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">0.312</z-pos>
+        <offset type="double">6.104</offset>
+        <diameter type="double">1</diameter>
+        <wincharm type="int">0</wincharm>
+        <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+    </aircraft>
   
 </PropertyList>

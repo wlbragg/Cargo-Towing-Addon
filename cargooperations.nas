@@ -350,8 +350,9 @@ var aircraftName = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/a
 var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
 
 var location = "sim";
-var fdm = props.globals.getNode("sim/flight-model", 1);
+var fdm = getprop("sim/flight-model");
 if (fdm == "jsb") location = "payload";
+
 var existingPointWeight = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
 var aircraftPointmass = props.globals.getNode(location~"/weight["~index.getValue()~"]/weight-lb", 1);
 var existingPointLimit = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/max-lb", 1);
@@ -373,10 +374,6 @@ var current_yaw = props.globals.getNode("sim/cargo/currentyaw", 1);
 
 var cargo_tow = func () {
 
-    #existingPointWeight = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
-    #aircraftPointmass = props.globals.getNode(location~"/weight["~index.getValue()~"]/weight-lb", 1);
-    #existingPointLimit = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/max-lb", 1);
-    #aircraftPointlimit = props.globals.getNode(location~"/weight["~index.getValue()~"]/max-lb", 1);
     existingPointWeight.getValue();
     aircraftPointmass.getValue();
     existingPointLimit.getValue();
@@ -401,7 +398,9 @@ var cargo_tow = func () {
 
     var onGround = props.globals.getNode("gear/gear/wow", 1).getValue() * props.globals.getNode("gear/gear[1]/wow", 1).getValue() * props.globals.getNode("gear/gear[2]/wow", 1).getValue();
     var cargoOnGround = props.globals.getNode("sim/cargo/hitsground", 1);
-    var overland = props.globals.getNode("gear/gear/ground-is-solid", 1);
+    var overland = getprop("gear/gear/ground-is-solid");
+    if (getprop("sim/flight-model") == "jsb")
+        overland = getprop("fdm/jsbsim/ground/solid");
 
     var longline = props.globals.getNode("sim/gui/dialogs/aicargo-dialog/connection", 1);
 
