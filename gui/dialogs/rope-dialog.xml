@@ -284,6 +284,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         setprop("sim/gui/dialogs/rope-dialog/settings/offset", posparams[4]);
                         setprop("sim/gui/dialogs/rope-dialog/settings/diameter", posparams[5]);
                         setprop("sim/gui/dialogs/rope-dialog/settings/wincharm", posparams[6]);
+                        setprop("sim/gui/dialogs/rope-dialog/settings/loadpoint", posparams[7]);
 
                         setprop("/sim/cargo/rope/offset", posparams[4]);
                     </script>

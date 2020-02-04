@@ -69,10 +69,32 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
 	<group>
 		<layout>hbox</layout>
-		<default-padding>1</default-padding>
+		<default-padding>3</default-padding>
+        <button>
+          <legend>Refresh AI Cargo List</legend>
+          <binding>
+            <command>property-assign</command>
+            <property>/sim/gui/dialogs/aicargo-dialog/refresh</property>
+            <value>1</value>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+                gui.popupTip("Not availible yet!");
+                return;
+                var refresh_cargo = getprop("/sim/gui/dialogs/aicargo-dialog/refresh");
+                if (refresh_cargo){
+                    ai_init();
+                    cargo_init();
+                }
+                setprop("/sim/gui/dialogs/aicargo-dialog/refresh", 0);
+            </script>
+          </binding>
+        </button>
 		<empty><stretch>true</stretch></empty>
         <checkbox>
             <halign>left</halign>
+            <pref-width>130</pref-width>
             <label>Ranging On/Off</label>
             <property>/sim/gui/show-range</property>
             <binding>
@@ -118,37 +140,42 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       <col>2</col>
       <row>0</row>
       <halign>right</halign>
-      <label>Persistent</label>
-      <property>/sim/gui/dialogs/aicargo-dialog/save</property>
+      <label>Save Selected Cargo Position</label>
+      <property>sim/gui/dialogs/aicargo-dialog/save</property>
       <live>true</live>
       <binding>
         <command>property-toggle</command>
-        <property>/sim/gui/dialogs/aicargo-dialog/save</property>
+        <property>sim/gui/dialogs/aicargo-dialog/save</property>
       </binding>
       <binding>
         <command>nasal</command>
         <script>
-          var cargo = getprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo");
-          if (getprop("/sim/gui/dialogs/aicargo-dialog/save") == 1) {
-            setprop("/sim/model/aircrane/"~cargo~"/saved", 1);
-            setprop("/sim/model/aircrane/"~cargo~"/random", 0);
-            setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
-            setprop("/sim/model/aircrane/"~cargo~"/position/latitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
-            setprop("/sim/model/aircrane/"~cargo~"/position/longitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
-            setprop("/sim/model/aircrane/"~cargo~"/position/altitude-ft", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
-            setprop("/sim/model/aircrane/"~cargo~"/orientation/true-heading-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
-            setprop("/sim/model/aircrane/"~cargo~"/ai", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
-          } else
-              setprop("/sim/model/aircrane/"~cargo~"/saved", 0);
+            var listSelected = getprop("/sim/gui/dialogs/cargo/list");
+            if (!listSelected == nil) {
+                var aircraftName = getprop("sim/gui/dialogs/rope-dialog/settings/aircraft-name");
+                var cargo = getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo");
+                if (getprop("/sim/gui/dialogs/aicargo-dialog/save") == 1) {
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/saved", 1);
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/random", 0);
+                    setprop("sim/gui/dialogs/aicargo-dialog/random", 0);
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
+                    setprop("sim/model/"~aircraftName~"/"~cargo~"/ai", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
+                } else
+                    setprop("sim/model/"~aircraft~"/"~cargo~"/saved", 0);
 
-          aircraft.data.add("/sim/model/aircrane/"~cargo~"/position/latitude-deg",
-            "/sim/model/aircrane/"~cargo~"/position/longitude-deg",
-            "/sim/model/aircrane/"~cargo~"/position/altitude-ft",
-            "/sim/model/aircrane/"~cargo~"/orientation/true-heading-deg",
-            "/sim/model/aircrane/"~cargo~"/saved",
-            "/sim/model/aircrane/"~cargo~"/random",
-            "/sim/model/aircrane/"~cargo~"/ai");
-          aircraft.data.save();
+                aircraft.data.add(
+                    "sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg",
+                    "sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg",
+                    "sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft",
+                    "sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg",
+                    "sim/model/"~aircraftName~"/"~cargo~"/saved",
+                    "sim/model/"~aircraftName~"/"~cargo~"/random",
+                    "sim/model/"~aircraftName~"/"~cargo~"/ai");
+                aircraft.data.save();
+            }
         </script>
       </binding>
     </checkbox>
@@ -166,12 +193,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       <binding>
         <command>nasal</command>
         <script>
+          var aircraft = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
           var cargo = getprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo");
           if (getprop("/sim/gui/dialogs/aicargo-dialog/random") == 1) {
             var aic = getprop("/sim/gui/dialogs/aicargo-dialog/ai-path");
             
-            setprop("/sim/model/aircrane/"~cargo~"/random", 1);
-            setprop("/sim/model/aircrane/"~cargo~"/saved", 0);
+            setprop("/sim/model/"~aircraft~"/"~cargo~"/random", 1);
+            setprop("/sim/model/"~aircraft~"/"~cargo~"/saved", 0);
             setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
 
             var heading = getprop("orientation/heading-deg")+90;
@@ -196,8 +224,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_desc",getprop("/models/cargo/"~aic~"/description"));
           }
 
-          aircraft.data.add("/sim/model/aircrane/"~cargo~"/saved",
-            "/sim/model/aircrane/"~cargo~"/random");
+          aircraft.data.add(
+            "/sim/model/"~aircraft~"/"~cargo~"/saved",
+            "/sim/model/"~aircraft~"/"~cargo~"/random");
           aircraft.data.save();
         </script>
       </binding>
@@ -238,16 +267,17 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       <binding>
         <command>nasal</command>
         <script>
+          var aircraft = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
           var reset_cargo = getprop("/sim/gui/dialogs/aicargo-dialog/reset");
           var cargo = getprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo");
           var aic = getprop("/sim/gui/dialogs/aicargo-dialog/ai-path");
           if (reset_cargo){
-            setprop("/sim/model/aircrane/"~cargo~"/saved", 0);
+            setprop("/sim/model/"~aircraft~"/"~cargo~"/saved", 0);
             setprop("/models/cargo/"~aic~"/elevation-ft", -1000);
             setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt",  0);
             setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
             setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
-            setprop("/sim/model/aircrane/"~cargo~"/random", 0);
+            setprop("/sim/model/"~aircraft~"/"~cargo~"/random", 0);
           }
           setprop("/sim/gui/dialogs/aicargo-dialog/reset", 0);
         </script>
@@ -279,6 +309,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <binding>
                 <command>nasal</command>
                 <script>
+                    var aircraft = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
                     var cargoparams = split(" ", getprop("/sim/gui/dialogs/cargo/list"));
                     setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo", cargoparams[0]);
                     var cargo = string.trim(cargoparams[0], -1, string.isalpha)-1;
@@ -300,19 +331,19 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_desc", getprop("/models/cargo/cargo["~cargo~"]/description"));
                     setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai",getprop("/models/cargo/cargo["~cargo~"]/ai"));
 
-                    if (getprop("/sim/model/aircrane/"~cargoparams[0]~"/saved") == 1) {
+                    if (getprop("/sim/model/"~aircraft~"/"~cargoparams[0]~"/saved") == 1) {
                         setprop("/sim/gui/dialogs/aicargo-dialog/save", 1);
                         setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
-                        setprop("/sim/model/aircrane/"~cargoparams[0]~"/random", 0);
+                        setprop("/sim/model/"~aircraft~"/"~cargoparams[0]~"/random", 0);
                     } else
-                        if (getprop("/sim/model/aircrane/"~cargoparams[0]~"/random") == 1) {
+                        if (getprop("/sim/model/"~aircraft~"/"~cargoparams[0]~"/random") == 1) {
                           setprop("/sim/gui/dialogs/aicargo-dialog/random", 1);
                           setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
-                          setprop("/sim/model/aircrane/"~cargoparams[0]~"/saved", 0);
+                          setprop("/sim/model/"~aircraft~"/"~cargoparams[0]~"/saved", 0);
                         } else {
                           setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
                           setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
-                          setprop("/sim/model/aircrane/"~cargoparams[0]~"/random", 0);
+                          setprop("/sim/model/"~aircraft~"/"~cargoparams[0]~"/random", 0);
                         }
 
                     #var cargoa = split(" ",string.trim(getprop("/sim/gui/dialogs/cargo/list"), -1, string.isalpha));

@@ -19,7 +19,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.87</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+        <loadpoint type="int">3</loadpoint>
     </aircraft>
     <aircraft n="1">
         <!--weight x="4.9" y="0" z="-1.3" mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -30,7 +30,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.86</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="2">
         <!--weight x="0" y="0" z="0" mass-prop="/sim/weight[3]/weight-lb"/-->
@@ -41,7 +41,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.86</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+        <loadpoint type="int">3</loadpoint>
     </aircraft>
     <aircraft n="3">
         <!--weight x="0" y="0" z="0" mass-prop="/sim/weight[3]/weight-lb"/-->
@@ -52,7 +52,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.84</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+        <loadpoint type="int">3</loadpoint>
     </aircraft>
     <aircraft n="4">
         <!--weight x="3.571" y="1.493" z="1.753" mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -63,7 +63,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">5.584</offset>
         <diameter type="double">0.75</diameter>
         <wincharm type="int">4</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="5">
         <!--weight x="1" y="1.0" z="-1.4" mass-prop="/sim/weight[5]/weight-lb"/-->
@@ -74,7 +74,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">5.1</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[5]/weight-lb</loadpoint>
+        <loadpoint type="int">5</loadpoint>
     </aircraft>
     <aircraft n="6">
         <!--weight x="-4.481" y="-1.234" z="1.83"   mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -85,7 +85,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">4.545</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="7">
         <!--weight x="2.533" y="0" z="0.195" mass-prop="/sim/weight[4]/weight-lb"/-->
@@ -96,7 +96,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.987</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[4]/weight-lb</loadpoint>
+        <loadpoint type="int">4</loadpoint>
     </aircraft>
     <aircraft n="8">
         <!--weight x="1.364" y="0"  z="1.623" mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -107,7 +107,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">7.143</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="9">
         <!--weight x="1.364" y="1.623"  z="1.753" mass-prop="/sim/weight[3]/weight-lb"/-->
@@ -118,7 +118,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">4.545</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+        <loadpoint type="int">3</loadpoint>
     </aircraft>
     <aircraft n="10">
         <!--weight x="0.0325" y="0.0" z="-3.831" mass-prop="/sim/weight[1]/weight-lb"/-->
@@ -129,7 +129,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">-1.169</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[1]/weight-lb</loadpoint>
+        <loadpoint type="int">1</loadpoint>
     </aircraft>
     <aircraft n="11">
         <!--weight x="-0.065" y="0.0" z="-0.974" mass-prop="/sim/weight[4]/weight-lb"/-->
@@ -140,7 +140,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">1.94</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[4]/weight-lb</loadpoint>
+        <loadpoint type="int">4</loadpoint>
     </aircraft>
     <aircraft n="12">
         <!--weight  x="1.234" y="0.974" z="1.104"  mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -151,7 +151,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">5.844</offset>
         <diameter type="double">0.5</diameter>
         <wincharm type="int">3</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="13">
         <!--weight x="-0.844" y="0.195" z="1.623" mass-prop="/sim/weight[2]/weight-lb"/-->
@@ -162,7 +162,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">4.545</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[2]/weight-lb</loadpoint>
+        <loadpoint type="int">2</loadpoint>
     </aircraft>
     <aircraft n="14">
         <!--weight x="0.974" y="0.0" z="-1.493" mass-prop="/sim/weight[2]/weight-lb"/-->
@@ -173,7 +173,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.208</offset>
         <diameter type="double">0.5</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[2]/weight-lb</loadpoint>
+        <loadpoint type="int">2</loadpoint>
     </aircraft>
     <aircraft n="15">
         <!--weight x="-1.104" y="0.0" z="-0.584" mass-prop="/sim/weight[5]/weight-lb"/-->
@@ -184,7 +184,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">3.247</offset>
         <diameter type="double">0.5</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[5]/weight-lb</loadpoint>
+        <loadpoint type="int">5</loadpoint>
     </aircraft>
     <aircraft n="16">
         <!--weight x="-0.662" y="0.0" z="-0.546" mass-prop="/sim/weight[7]/weight-lb"/-->
@@ -195,7 +195,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">3.247</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[7]/weight-lb</loadpoint>
+        <loadpoint type="int">7</loadpoint>
     </aircraft>
     <aircraft n="17">
         <!--weight x="1.104" y="1.364" z="2.143" mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -206,7 +206,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">5.065</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="18">
         <!--weight x="2.237" y="0.0" z="-1.364" mass-prop="/sim/weight[2]/weight-lb"/-->
@@ -217,7 +217,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">1.169</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[2]/weight-lb</loadpoint>
+        <loadpoint type="int">2</loadpoint>
     </aircraft>
     <aircraft n="19">
         <!--weight x="-0.065" y="-1.0"  z="2.531" mass-prop="/sim/weight[1]/weight-lb"/-->
@@ -228,7 +228,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">6.623</offset>
         <diameter type="double">0.75</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[1]/weight-lb</loadpoint>
+        <loadpoint type="int">1</loadpoint>
     </aircraft>
     <aircraft n="20">
         <!--weight x="-0.454" y="2.403" z="0.844" mass-prop="/sim/weight[1]/weight-lb"/-->
@@ -239,7 +239,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">3.766</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">3</wincharm>
-        <loadpoint type="string">sim/weight[1]/weight-lb</loadpoint>
+        <loadpoint type="int">1</loadpoint>
     </aircraft>
     <aircraft n="21">
         <!--weight x="-3.701" y="2.792" z="0.974" mass-prop="/sim/weight[0]/weight-lb"/-->
@@ -250,7 +250,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">4.026</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">4</wincharm>
-        <loadpoint type="string">sim/weight[1]/weight-lb</loadpoint>
+        <loadpoint type="int">1</loadpoint>
     </aircraft>
     <aircraft n="22">
         <!-- JSBSIM x="1.623" y="0.0" z="3.312" /fdm/jsbsim/inertia/pointmass-weight-lbs[10]"/-->
@@ -284,7 +284,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">5.844</offset>
         <diameter type="double">0.5</diameter>
         <wincharm type="int">3</wincharm>
-        <loadpoint type="string">sim/weight[4]/weight-lb</loadpoint>
+        <loadpoint type="int">4</loadpoint>
     </aircraft>
     <aircraft n="25">
        <!--weight  x="-0.714" y="0.0" z="-0.844"  mass-prop="/sim/weight[6]/weight-lb"/-->
@@ -295,7 +295,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">2.727</offset>
         <diameter type="double">0.5</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[6]/weight-lb</loadpoint>
+        <loadpoint type="int">6</loadpoint>
     </aircraft>
     <aircraft n="26">
         <!-- JSBSIM x="35.623" y="0.0" z="3.312" /fdm/jsbsim/inertia/pointmass-weight-lbs[3]"/-->
@@ -306,7 +306,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">6.104</offset>
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
-        <loadpoint type="string">sim/weight[3]/weight-lb</loadpoint>
+        <loadpoint type="int">3</loadpoint>
     </aircraft>
   
 </PropertyList>
