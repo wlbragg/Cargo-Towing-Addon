@@ -744,20 +744,20 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                 setprop("/models/cargo/"~cargoParent~"/elevation-ft", (geo.elevation(latNode.getValue(), lonNode.getValue()) + cargoHeight) * 3.2808);
         }
 
-        if (getprop("/sim/model/"~aircraftName~"/"~cargoName~"/saved")) {
+        if (getprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/saved")  == 1) {
             #gui.popupTip(cargoName~" position saved", 1);
-            setprop("/sim/model/"~aircraftName~"/"~cargoName~"/position/latitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/latitude-deg"));
-            setprop("/sim/model/"~aircraftName~"/"~cargoName~"/position/longitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/longitude-deg"));
-            setprop("/sim/model/"~aircraftName~"/"~cargoName~"/position/altitude-ft", getprop("/models/cargo/" ~ cargoParent ~ "/elevation-ft"));
-            setprop("/sim/model/"~aircraftName~"/"~cargoName~"/orientation/true-heading-deg", getprop("/models/cargo/" ~ cargoParent ~ "/heading-deg"));
-            setprop("/sim/model/"~aircraftName~"/"~cargoName~"/ai", getprop("/models/cargo/" ~ cargoParent ~ "/ai"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/latitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/latitude-deg"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/longitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/longitude-deg"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/altitude-ft", getprop("/models/cargo/" ~ cargoParent ~ "/elevation-ft"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/orientation/true-heading-deg", getprop("/models/cargo/" ~ cargoParent ~ "/heading-deg"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/ai", getprop("/models/cargo/" ~ cargoParent ~ "/ai"));
             aircraft.data.add(
-                "/sim/model/"~aircraftName~"/"~cargoName~"/position/latitude-deg",
-                "/sim/model/"~aircraftName~"/"~cargoName~"/position/longitude-deg",
-                "/sim/model/"~aircraftName~"/"~cargoName~"/position/altitude-ft",
-                "/sim/model/"~aircraftName~"/"~cargoName~"/orientation/true-heading-deg",
-                "/sim/model/"~aircraftName~"/"~cargoName~"/ai",
-                "/sim/model/"~aircraftName~"/"~cargoName~"/saved");
+                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/latitude-deg",
+                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/longitude-deg",
+                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/altitude-ft",
+                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/orientation/true-heading-deg",
+                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/ai",
+                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/saved");
             aircraft.data.save();
         }
         cargoName="";
