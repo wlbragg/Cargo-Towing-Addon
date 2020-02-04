@@ -46,6 +46,7 @@ var cargo35 = {};
 var cargo36 = {};
 var cargo37 = {};
 var cargo38 = {};
+var cargo39 = {};
 
 setlistener("/sim/signals/fdm-initialized", func (n) {
 
@@ -101,7 +102,7 @@ setlistener("/sim/signals/fdm-initialized", func (n) {
   cargo5 =  place_model( "5",    4, "ground-tank",      model_path, 22,     6.44,   2000, 2.42, 6.44, lat, lon, alt,    0, 0, 0, -1);
   cargo6 =  place_model( "6",    5, "ground-tank-lg",   model_path, 22,     6.02,   4200, 4.18, 6.02, lat, lon, alt-90, 0, 0, 0, -1);
   cargo7 =  place_model( "7",    6, "ground-tank-tall", model_path, 22,     6.02,   3000, 3.69, 6.02, lat, lon, alt-90, 0, 0, 0, -1);
-  cargo8 =  place_model( "8",    7, "tank-stand",       model_path, 13,     6.08,    250, 2.12, 6.08, lat, lon, alt,    0, 0, 0, -1);
+  cargo8 =  place_model( "8",    7, "tank-stand",       model_path, 13,     6.08,    250, 2.12, 6.08, lat, lon, alt-90, 0, 0, 0, -1);
   cargo9 =  place_model( "9",    8, "pine-tree",        model_path, 13,     0.0,     150, 2.08, 6.12, lat, lon, alt,    0, 0, 0, -1);
   cargo10 = place_model("10",    9, "pine-tree",        model_path, 13,     0.0,     150, 2.08, 6.12, lat, lon, alt,    0, 0, 0, -1);
   cargo11 = place_model("11",   10, "pine-tree",        model_path, 13,     0.0,     150, 2.08, 6.12, lat, lon, alt,    0, 0, 0, -1);
@@ -131,7 +132,8 @@ setlistener("/sim/signals/fdm-initialized", func (n) {
   cargo35 = place_model("35",   34, "wind-tower-gen",   model_path, 33,     4.90,   1200, 4.90, 8.52, lat, lon, alt-90, 0, 0, 0, -1);
   cargo36 = place_model("36",   35, "wind-tower-hub",   model_path, 34,    37.83,   1200,60.91, 8.52, lat, lon, alt-90, 0, 0, 0, -1);
   cargo37 = place_model("37",   36, "hvac",             model_path,  0,     7.64,  24000, 7.64,15.45, lat, lon, alt,    0, 0, 0, -1);
-  cargo38 = place_model("38",   37, "ball",             model_path, -1,    0.564,   1200, 0.76, 0.01, lat, lon, alt-90, 0, 0, 0, -1);
+  cargo38 = place_model("38",   37, "tank",             model_path,  7,     1.00,    500, 3.00, 6.08, lat, lon, alt-90, 0, 0, 0, -1);
+  cargo39 = place_model("39",   38, "ball",             model_path, -1,    0.564,   1200, 0.76, 0.01, lat, lon, alt-90, 0, 0, 0, -1);
 
   settimer(func {
       ai_init();
@@ -203,7 +205,7 @@ var place_model = func(number, position, desc, path, stack, drop, weight, height
 
 var ai_init = func () {
 
-    var modelNum = 38;
+    var modelNum = 39;
     foreach(var cargoN; props.globals.getNode("/ai/models", 1).getChildren("aircraft")){
 
         var desc = "";

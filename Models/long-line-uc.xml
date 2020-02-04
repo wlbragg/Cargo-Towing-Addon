@@ -819,6 +819,47 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </and>
     </condition>
   </model>
+
+  <model>
+    <path>tank.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo38-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>tankstandharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo38-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <animation>
+    <name>cargo</name>
+    <object-name>tank</object-name>
+    <object-name>stand</object-name>
+    <object-name>ropesegment.072</object-name>
+    <!--object-name>accesories</object-name-->
+  </animation>
+
   <model>
     <path>ball.ac</path>
      <offsets>
@@ -828,7 +869,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
      </offsets>
     <condition>
       <and>
-        <property>sim/cargo/cargo37-onhook</property>
+        <property>sim/cargo/cargo39-onhook</property>
         <property>sim/gui/dialogs/aicargo-dialog/connection</property>
       </and>
     </condition>

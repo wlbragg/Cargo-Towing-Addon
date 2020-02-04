@@ -8,10 +8,8 @@
 <PropertyList>
 
   <model>
-    <path>tank.ac</path>
-    <name>tank</name>
-    <name>stand</name>
-    <name>accesories</name>
+    <path>ball.ac</path>
+    <name>ball</name>
     <condition>
       <and>
         <property>sim/cargo/enabled</property>
@@ -22,12 +20,12 @@
           <and>
             <property>sim/gui/dialogs/aicargo-dialog/connection</property>
             <property>sim/cargo/hitsground</property>
-            <property>sim/cargo/cargo38-onhook</property>
+            <property>sim/cargo/cargo39-onhook</property>
           </and>
           <and>
             <property>sim/gui/dialogs/aicargo-dialog/connection</property>
             <not>        
-              <property>sim/cargo/cargo38-onhook</property>
+              <property>sim/cargo/cargo39-onhook</property>
             </not>
           </and>
         </or>
@@ -35,19 +33,8 @@
     </condition>
   </model>
 
-  <animation>
-    <type>select</type>
-    <name>tank</name>
-    <name>accesories</name>
-    <condition>
-          <not>
-            <property>sim/model/firetank/enabled</property>
-          </not>
-    </condition>
-  </animation>
-
   <!--animation>
-    <object-name>tank</object-name>
+    <object-name>ball</object-name>
     <enable-hot type="bool">false</enable-hot>
   </animation-->
 

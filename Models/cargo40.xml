@@ -10,8 +10,6 @@
   <model>
     <path>tank.ac</path>
     <name>tank</name>
-    <name>stand</name>
-    <name>accesories</name>
     <condition>
       <and>
         <property>sim/cargo/enabled</property>
@@ -34,17 +32,6 @@
       </and>
     </condition>
   </model>
-
-  <animation>
-    <type>select</type>
-    <name>tank</name>
-    <name>accesories</name>
-    <condition>
-          <not>
-            <property>sim/model/firetank/enabled</property>
-          </not>
-    </condition>
-  </animation>
 
   <!--animation>
     <object-name>tank</object-name>
