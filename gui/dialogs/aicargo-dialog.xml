@@ -158,11 +158,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                           setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
                           setprop("/sim/model/"~aircraft~"/"~cargoparams[0]~"/random", 0);
                         }
-
-                    #var cargoa = split(" ",string.trim(getprop("/sim/gui/dialogs/cargo/list"), -1, string.isalpha));
-                    #var cargo=cargoa[0]-1;
-                    #fgcommand("dialog-close", props.Node.new({"dialog-name": "aicargo-dialog"}));
-                    #fgcommand("dialog-show", props.Node.new({"dialog-name": "aicargo-dialog"}));
                 </script>
             </binding>
         </list>
