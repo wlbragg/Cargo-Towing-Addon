@@ -290,7 +290,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <path>/sim/gui/dialogs/aicargo-dialog/longline</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connection</path>
           <path>/sim/gui/dialogs/rope-dialog/settings/wincharm</path>
-          <path>/sim/gui/dialogs/aicargo-dialog/connector</path>
           <path>/sim/gui/dialogs/aicargo-dialog/alt-origin</path>
           <path>/sim/gui/show-range</path>
         </aircraft-data> 
