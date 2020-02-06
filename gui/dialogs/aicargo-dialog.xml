@@ -134,12 +134,12 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         }
                     }
                     print("Cargo=" ~ cargo ~ "  " ~ cargoparams[0]);
-                    setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat",  getprop("/models/cargo/cargo["~cargo~"]/latitude-deg"));
-                    setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon",  getprop("/models/cargo/cargo["~cargo~"]/longitude-deg"));
-                    setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt",  getprop("/models/cargo/cargo["~cargo~"]/elevation-ft"));
-                    setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head", getprop("/models/cargo/cargo["~cargo~"]/heading-deg"));
-                    setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_desc", getprop("/models/cargo/cargo["~cargo~"]/description"));
-                    setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai",getprop("/models/cargo/cargo["~cargo~"]/ai"));
+                    setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-lat",  getprop("/models/cargo/cargo["~cargo~"]/latitude-deg"));
+                    setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-lon",  getprop("/models/cargo/cargo["~cargo~"]/longitude-deg"));
+                    setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-alt",  getprop("/models/cargo/cargo["~cargo~"]/elevation-ft"));
+                    setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-head", getprop("/models/cargo/cargo["~cargo~"]/heading-deg"));
+                    setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-desc", getprop("/models/cargo/cargo["~cargo~"]/description"));
+                    setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-ai",getprop("/models/cargo/cargo["~cargo~"]/ai"));
 
                     setprop("/sim/gui/dialogs/cargo/weight", getprop("/models/cargo/cargo["~cargo~"]/weight"));
                     setprop("/sim/gui/dialogs/cargo/height", getprop("/models/cargo/cargo["~cargo~"]/height"));
@@ -174,7 +174,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <text>
           <pref-width>170</pref-width>
           <halign>left</halign>
-          <property>/sim/gui/dialogs/aicargo-dialog/selected_cargo_desc</property>
+          <property>/sim/gui/dialogs/aicargo-dialog/selected-cargo-desc</property>
           <format>%s</format>
           <live>true</live>
           <color>
@@ -204,7 +204,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                       if (reset_cargo){
                         setprop("/sim/model/"~aircraft~"/"~cargo~"/saved", 0);
                         setprop("/models/cargo/"~aic~"/elevation-ft", -1000);
-                        setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt",  0);
+                        setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-alt",  0);
                         setprop("/sim/gui/dialogs/aicargo-dialog/save", 0);
                         setprop("/sim/gui/dialogs/aicargo-dialog/random", 0);
                         setprop("/sim/model/"~aircraft~"/"~cargo~"/random", 0);
@@ -233,28 +233,29 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <command>nasal</command>
             <script>
                 var listSelected = getprop("/sim/gui/dialogs/cargo/list");
-                if (!listSelected == nil) {
+                if (listSelected != nil) {
                     var aircraftName = getprop("sim/gui/dialogs/rope-dialog/settings/aircraft-name");
                     var cargo = getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo");
+
                     if (getprop("/sim/gui/dialogs/aicargo-dialog/save") == 1) {
                         setprop("sim/model/"~aircraftName~"/"~cargo~"/saved", 1);
                         setprop("sim/model/"~aircraftName~"/"~cargo~"/random", 0);
                         setprop("sim/gui/dialogs/aicargo-dialog/random", 0);
-                        setprop("sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
-                        setprop("sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
-                        setprop("sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
-                        setprop("sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
-                        setprop("sim/model/"~aircraftName~"/"~cargo~"/ai", getprop("sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
+                        setprop("sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo-lat"));
+                        setprop("sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo-lon"));
+                        setprop("sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft", getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo-alt"));
+                        setprop("sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg", getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo-head"));
+                        setprop("sim/model/"~aircraftName~"/"~cargo~"/ai", getprop("sim/gui/dialogs/aicargo-dialog/selected-cargo-ai"));
                     } else
                         setprop("sim/model/"~aircraft~"/"~cargo~"/saved", 0);
 
                     aircraft.data.add(
+                        "sim/model/"~aircraftName~"/"~cargo~"/saved",
+                        "sim/model/"~aircraftName~"/"~cargo~"/random",
                         "sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg",
                         "sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg",
                         "sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft",
                         "sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg",
-                        "sim/model/"~aircraftName~"/"~cargo~"/saved",
-                        "sim/model/"~aircraftName~"/"~cargo~"/random",
                         "sim/model/"~aircraftName~"/"~cargo~"/ai");
                     aircraft.data.save();
                 }
@@ -299,11 +300,11 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             var alt_offset = getprop("/models/cargo/"~aic~"/elev-offset");
             setprop("/models/cargo/"~aic~"/elevation-ft", elev_m * 3.2808 + alt_offset);
 
-            setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat", getprop("/models/cargo/"~aic~"/latitude-deg"));
-            setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon", getprop("/models/cargo/"~aic~"/longitude-deg"));
-            setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt", getprop("/models/cargo/"~aic~"/elevation-ft"));
-            setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head",getprop("/models/cargo/"~aic~"/heading-deg"));
-            setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_desc",getprop("/models/cargo/"~aic~"/description"));
+            setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-lat", getprop("/models/cargo/"~aic~"/latitude-deg"));
+            setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-lon", getprop("/models/cargo/"~aic~"/longitude-deg"));
+            setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-alt", getprop("/models/cargo/"~aic~"/elevation-ft"));
+            setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-head",getprop("/models/cargo/"~aic~"/heading-deg"));
+            setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo-desc",getprop("/models/cargo/"~aic~"/description"));
           }
 
           aircraft.data.add(
@@ -359,7 +360,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </text>
       <text>
         <halign>left</halign>
-        <property>/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat</property>
+        <property>/sim/gui/dialogs/aicargo-dialog/selected-cargo-lat</property>
         <format>%f</format>
         <live>true</live>
         <color>
@@ -384,7 +385,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </text>
       <text>
         <halign>left</halign>
-        <property>/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon</property>
+        <property>/sim/gui/dialogs/aicargo-dialog/selected-cargo-lon</property>
         <format>%f</format>
         <live>true</live>
         <color>
@@ -409,7 +410,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </text>
       <text>
         <halign>left</halign>
-        <property>/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt</property>
+        <property>/sim/gui/dialogs/aicargo-dialog/selected-cargo-alt</property>
         <format>%.00f</format>
         <live>true</live>
         <color>
@@ -434,7 +435,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </text>
       <text>
         <halign>left</halign>
-        <property>/sim/gui/dialogs/aicargo-dialog/selected_cargo_head</property>
+        <property>/sim/gui/dialogs/aicargo-dialog/selected-cargo-head</property>
         <format>%.00f</format>
         <live>true</live>
         <color>
