@@ -677,7 +677,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
         #gui.popupTip(cargoName~" in tow", 1);
 setprop("/sim/cargo/current-cargo-name", cargoName);
         if (releaseNode.getValue() == 1 and onHookNode.getValue() == 1) {
-            if (onGround or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland.getValue() == 0) {
+            if (onGround.getValue() or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland.getValue() == 0) {
                 onHookNode.setValue(0);
                 releaseNode.setValue(0);
 	            hooked = 0;
