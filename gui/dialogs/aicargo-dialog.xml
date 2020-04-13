@@ -42,6 +42,25 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         var dlgRoot = cmdarg();
         var DIALOG_ROOT  = "/sim/gui/dialogs/aicargo-dialog";
 
+        #Fill in availible cargo sets
+        var cargoset = props.globals.getNode("/sim/cargo", 1).getChildren("sets");
+        var cargosetlist = gui.findElementByName(dlgRoot, "cargosetlist");
+
+        forindex (var cargoset_index; cargoset) {
+            var cs = cargoset[cargoset_index];
+            var cs_id = "unknown";
+            if ((cs.getNode("name") != nil) and (cs.getNode("name").getValue() != nil)) {
+                cs_id = cs.getNode("name").getValue() ~
+                    " " ~ cs.getNode("path").getValue() ~
+                    " " ~ cargoset_index;
+
+                cargosetlist.getNode("value[" ~ cargoset_index ~ "]", 1).setValue(cs_id);
+
+                if (getprop("/sim/cargo/setselected") == cargoset_index)
+                  setprop("/sim/cargo/setselectedname", cs.getNode("name").getValue());
+            }
+        }
+
         # Fill in the cargo names
         var cargo = props.globals.getNode("/models/cargo", 1).getChildren("cargo");
         var list = gui.findElementByName(dlgRoot, "list");
@@ -58,23 +77,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             }
             list.getNode("value[" ~ cargo_index ~ "]", 1).setValue(cg_id);
           }
-        }
-
-        #Fill in availible cargo sets
-        var cargoset = props.globals.getNode("/sim/cargo", 1).getChildren("sets");
-        var cargosetlist = gui.findElementByName(dlgRoot, "cargosetlist");
-
-        forindex (var cargoset_index; cargoset) {
-            var cs = cargoset[cargoset_index];
-            var cs_id = "unknown";
-            if ((cs.getNode("name") != nil) and (cs.getNode("name").getValue() != nil)) {
-                cs_id = cs.getNode("name").getValue() ~
-                    " " ~ cs.getNode("path").getValue() ~
-                    " " ~ cargoset_index;
-
-                cargosetlist.getNode("value[" ~ cargoset_index ~ "]", 1).setValue(cs_id);
-
-            }
         }
 
 		]]></open>
@@ -153,6 +155,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var fname = getprop("addons/addon/path") ~ "/Models/" ~ posparams[1] ~ "/cargoset.nas";
                     io.load_nasal(fname, "CGTOW");
 
+                    setprop("/sim/cargo/setselectedname", posparams[0]);
                     setprop("/sim/cargo/setselected", posparams[2]);
 
                     var args = {'subsystem':'gui'};
@@ -161,6 +164,30 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </script>
             </binding>
         </list>
+    </group>
+
+    <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
+        <live>true</live>
+        <text>
+          <pref-width>150</pref-width>
+	        <halign>left</halign>
+	        <label>Cargo Set Selected</label>
+        </text>
+        <text>
+          <pref-width>170</pref-width>
+          <halign>left</halign>
+          <property>/sim/cargo/setselectedname</property>
+          <format>%s</format>
+          <live>true</live>
+          <color>
+            <red>0.9</red>
+            <green>1</green>
+            <blue>0.2</blue>
+            <alpha>1</alpha>
+          </color>
+        </text>
     </group>
 
     <hrule/>

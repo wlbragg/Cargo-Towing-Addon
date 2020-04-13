@@ -273,6 +273,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           </sets>
 
           <setselected type="string">1</setselected>
+          <setselectedname type="string"></setselectedname>
 
         </cargo>
 

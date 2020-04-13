@@ -67,8 +67,11 @@ var main = func(addon) {
             var cs = cargoset[cargoset_index];
             var cs_id = "unknown";
             if ((cs.getNode("name") != nil) and (cs.getNode("name").getValue() != nil)) {
-              var fname = addon.basePath ~ "/Models/" ~ cs.getNode("path").getValue() ~ "/cargoset.nas";
-              #io.load_nasal(fname, "CGTOW");
+              if (getprop("/sim/cargo/setselected") == cargoset_index) {
+                setprop("/sim/cargo/setselectedname", cs.getNode("name").getValue());
+                var fname = addon.basePath ~ "/Models/" ~ cs.getNode("path").getValue() ~ "/cargoset.nas";
+                io.load_nasal(fname, "CGTOW");
+              }
             }
         }
 
