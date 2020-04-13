@@ -69,7 +69,7 @@ var place_model = func(number, position, desc, path, stack, drop, weight, height
 
 var ai_init = func () {
 
-    var modelNum = 39;
+    var modelNum = 0;
     foreach(var cargoN; props.globals.getNode("/ai/models", 1).getChildren("aircraft")){
 
         var desc = "";
@@ -114,7 +114,8 @@ var cargo_init = func () {
             setprop("sim/cargo/"~cargoN.getNode("callsign").getValue()~"-onhook", 0);
             setprop("controls/release-"~cargoN.getNode("callsign").getValue(), 0);
 
-            if (getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/saved") == 1) {
+            var setselected = getprop("sim/cargo/setselectedname");
+            if (getprop("sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/saved") == 1) {
 
                 #AI
                 var isAI = cargoN.getNode("ai").getValue();
@@ -125,21 +126,21 @@ var cargo_init = func () {
                     setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/orientation/true-heading-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
                 }
 
-                cargoN.getNode("latitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
-                cargoN.getNode("longitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
-                cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
-                cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
-                cargoN.getNode("ai").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai"));
+                cargoN.getNode("latitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
+                cargoN.getNode("longitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
+                cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
+                cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
+                cargoN.getNode("ai").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai"));
                 aircraft.data.add(
-                    "/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
-                    "/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
-                    "/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft",
-                    "/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg",
-                    "/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai",
-                    "/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/saved");
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/saved");
                 aircraft.data.save();
             } else
-                  if (getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/random") == 1) {
+                  if (getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/random") == 1) {
                     var factor = ct + rand() * .001;
 	                  var heading = getprop("orientation/heading-deg") + 90;
                         var x = math.cos(heading*0.0174533);
@@ -612,20 +613,22 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                 setprop("/models/cargo/"~cargoParent~"/elevation-ft", (geo.elevation(latNode.getValue(), lonNode.getValue()) + cargoHeight) * 3.2808);
         }
 
-        if (getprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/saved")  == 1) {
+        var setselected = getprop("sim/cargo/setselectedname");
+
+        if (getprop("/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/saved")  == 1) {
             #gui.popupTip(cargoName~" position saved", 1);
-            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/latitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/latitude-deg"));
-            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/longitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/longitude-deg"));
-            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/altitude-ft", getprop("/models/cargo/" ~ cargoParent ~ "/elevation-ft"));
-            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/orientation/true-heading-deg", getprop("/models/cargo/" ~ cargoParent ~ "/heading-deg"));
-            setprop("/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/ai", getprop("/models/cargo/" ~ cargoParent ~ "/ai"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/position/latitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/latitude-deg"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/position/longitude-deg", getprop("/models/cargo/" ~ cargoParent ~ "/longitude-deg"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/position/altitude-ft", getprop("/models/cargo/" ~ cargoParent ~ "/elevation-ft"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/orientation/true-heading-deg", getprop("/models/cargo/" ~ cargoParent ~ "/heading-deg"));
+            setprop("/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/ai", getprop("/models/cargo/" ~ cargoParent ~ "/ai"));
             aircraft.data.add(
-                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/latitude-deg",
-                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/longitude-deg",
-                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/position/altitude-ft",
-                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/orientation/true-heading-deg",
-                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/ai",
-                "/sim/model/"~aircraftName.getValue()~"/"~cargoName~"/saved");
+                "/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/position/latitude-deg",
+                "/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/position/longitude-deg",
+                "/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/position/altitude-ft",
+                "/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/orientation/true-heading-deg",
+                "/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/ai",
+                "/sim/model/"~aircraftName.getValue()~"/"~setselected~"/"~cargoName~"/saved");
             aircraft.data.save();
         }
         cargoName="";

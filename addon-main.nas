@@ -108,7 +108,9 @@ var main = func(addon) {
 
                     var cargo = getprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo");
                     aic = string.trim(cargo, -1, string.isalpha)-1;
-                    if (aic > 37) {
+                    var setselected = getprop("sim/cargo/setselectedname");
+                    #if (aic > 37) {
+                    if (setselected == "AIScenarios") {
                         setprop("/ai/models/aircraft[" ~ getprop("/models/cargo/cargo["~aic~"]/ai") ~ "]/position/altitude-ft", (click_alt + alt_offset) * 3.28);
                         setprop("/ai/models/aircraft[" ~ getprop("/models/cargo/cargo["~aic~"]/ai") ~ "]/position/latitude-deg", pos_lat);
                         setprop("/ai/models/aircraft[" ~ getprop("/models/cargo/cargo["~aic~"]/ai") ~ "]/position/longitude-deg", pos_lon);
@@ -117,19 +119,19 @@ var main = func(addon) {
 
                     var aircraftName = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
                     if (getprop("/sim/gui/dialogs/aicargo-dialog/save")) {
-                        setprop("/sim/model/"~aircraftName~"/"~cargo~"/saved", 1);
-                        setprop("/sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
-                        setprop("/sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
-                        setprop("/sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
-                        setprop("/sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
-                        setprop("/sim/model/"~aircraftName~"/"~cargo~"/ai", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
+                        setprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/saved", 1);
+                        setprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/position/latitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat"));
+                        setprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/position/longitude-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon"));
+                        setprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/position/altitude-ft", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt"));
+                        setprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/orientation/true-heading-deg", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head"));
+                        setprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/ai", getprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_ai"));
                         aircraft.data.add(
-                            "/sim/model/"~aircraftName~"/"~cargo~"/ai",
-                            "/sim/model/"~aircraftName~"/"~cargo~"/saved",
-                            "/sim/model/"~aircraftName~"/"~cargo~"/position/latitude-deg",
-                            "/sim/model/"~aircraftName~"/"~cargo~"/position/longitude-deg",
-                            "/sim/model/"~aircraftName~"/"~cargo~"/position/altitude-ft",
-                            "/sim/model/"~aircraftName~"/"~cargo~"/orientation/true-heading-deg");
+                            "/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/ai",
+                            "/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/saved",
+                            "/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/position/latitude-deg",
+                            "/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/position/longitude-deg",
+                            "/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/position/altitude-ft",
+                            "/sim/model/"~aircraftName~"/"~setselected~"/"~cargo~"/orientation/true-heading-deg");
                         aircraft.data.save();
                     }
                 } else {
