@@ -252,6 +252,28 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <current-cargo-elevation type="double">0.0</current-cargo-elevation>
           <current-cargo-elevation-two type="double">0.0</current-cargo-elevation-two>
 
+          <sets n="0">
+            <name type="string">Base</name>
+            <path type="string">basecargoset</path>
+          </sets>
+          
+          <sets n="1">
+            <name type="string">Stackable</name>
+            <path type="string">stackablecargoset</path>
+          </sets>
+          
+          <sets n="2">
+            <name type="string">TreeFarm</name>
+            <path type="string">treefarmcargoset</path>
+          </sets>
+
+          <sets n="3">
+            <name type="string">AIScenarios</name>
+            <path type="string">aiscenarios</path>
+          </sets>
+
+          <setselected type="string">1</setselected>
+
         </cargo>
 
         <gui>

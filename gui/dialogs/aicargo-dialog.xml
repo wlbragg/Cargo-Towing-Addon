@@ -44,7 +44,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
         # Fill in the cargo names
         var cargo = props.globals.getNode("/models/cargo", 1).getChildren("cargo");
-
         var list = gui.findElementByName(dlgRoot, "list");
         forindex (var cargo_index; cargo) {
           var cg = cargo[cargo_index];
@@ -56,10 +55,26 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 " " ~ cg.getNode("weight").getValue() ~
                 " " ~ cg.getNode("height").getValue() ~
                 " " ~ cg.getNode("ai").getValue();
-
             }
             list.getNode("value[" ~ cargo_index ~ "]", 1).setValue(cg_id);
           }
+        }
+
+        #Fill in availible cargo sets
+        var cargoset = props.globals.getNode("/sim/cargo", 1).getChildren("sets");
+        var cargosetlist = gui.findElementByName(dlgRoot, "cargosetlist");
+
+        forindex (var cargoset_index; cargoset) {
+            var cs = cargoset[cargoset_index];
+            var cs_id = "unknown";
+            if ((cs.getNode("name") != nil) and (cs.getNode("name").getValue() != nil)) {
+                cs_id = cs.getNode("name").getValue() ~
+                    " " ~ cs.getNode("path").getValue() ~
+                    " " ~ cargoset_index;
+
+                cargosetlist.getNode("value[" ~ cargoset_index ~ "]", 1).setValue(cs_id);
+
+            }
         }
 
 		]]></open>
@@ -73,11 +88,15 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </text>
     <text>
       <halign>left</halign>
-      <label>    1) Select the cargo you wish to process from the drop-down.</label>
+      <label>    1) Select the cargo set you wish to use from the cargo set list.</label>
     </text>
     <text>
       <halign>left</halign>
-      <label>    2) Shift+left-click on ground to position cargo or check</label>
+      <label>    2) Select the cargo you wish to process from the list of cargo.</label>
+    </text>
+    <text>
+      <halign>left</halign>
+      <label>    3) Shift+left-click on ground to position cargo or check</label>
     </text>
     <text>
       <halign>left</halign>
@@ -85,32 +104,85 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </text>
     <text>
       <halign>left</halign>
-      <label>    3) Check "Persistant" to make position persistant.</label>
+      <label>    4) Check "Persistant" to make position persistant.</label>
     </text>
     <text>
       <halign>left</halign>
-      <label>    4) Click "Reset" to hide cargo.</label>
+      <label>    5) Click "Reset" to hide cargo.</label>
     </text>
     <text>
       <halign>left</halign>
-      <label>    5) Change weight or height if needed (for AI models).</label>
+      <label>    6) Change weight or height if needed (for AI models).</label>
     </text>
+
+    <hrule/>
+
+    <!-- Cargo set selector -->
+    <group>
+        <layout>vbox</layout>
+        <halign>left</halign>
+        <default-padding>5</default-padding>
+
+        <text>
+          <halign>left</halign>
+          <label>Select cargo set to use</label>
+        </text>
+
+        <list>
+            <name>cargosetlist</name>
+            <pref-width>360</pref-width>
+            <pref-height>70</pref-height>
+            <halign>fill</halign>
+            <valign>fill</valign>
+            <stretch>true</stretch>
+            <live>true</live>
+            <property>/sim/gui/dialogs/cargo/cargosetlist</property>
+            <binding>
+                <command>dialog-apply</command>
+                <object-name>cargosetlist</object-name>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    props.globals.getNode("models", 1).removeAllChildren();
+                    var posparams = split(" ", getprop("/sim/gui/dialogs/cargo/cargosetlist"));
+                    setprop("sim/gui/dialogs/cargo/cargosetlist/name", posparams[0]);
+                    setprop("sim/gui/dialogs/cargo/cargosetlist/path", posparams[1]);
+                    setprop("sim/gui/dialogs/cargo/cargosetlist/index", posparams[2]);
+
+                    var fname = getprop("addons/addon/path") ~ "/Models/" ~ posparams[1] ~ "/cargoset.nas";
+                    io.load_nasal(fname, "CGTOW");
+
+                    setprop("/sim/cargo/setselected", posparams[2]);
+
+                    var args = {'subsystem':'gui'};
+                    fgcommand("reinit",args);
+
+                </script>
+            </binding>
+        </list>
+    </group>
 
     <hrule/>
 
     <!-- Cargo selector -->
     <group>
-        <layout>hbox</layout>
+        <layout>vbox</layout>
         <halign>left</halign>
         <default-padding>5</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Select cargo to position</label>
+        </text>
 
         <list>
             <name>list</name>
             <pref-width>360</pref-width>
-            <pref-height>260</pref-height>
+            <pref-height>190</pref-height>
             <halign>fill</halign>
             <valign>fill</valign>
             <stretch>true</stretch>
+            <live>true</live>
             <property>/sim/gui/dialogs/cargo/list</property>
             <binding>
                 <command>dialog-apply</command>

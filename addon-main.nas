@@ -61,6 +61,17 @@ var main = func(addon) {
             io.load_nasal(fname, "CGTOW");
         }
 
+        #Fill in availible cargo sets
+        var cargoset = props.globals.getNode("/sim/cargo", 1).getChildren("sets");
+        forindex (var cargoset_index; cargoset) {
+            var cs = cargoset[cargoset_index];
+            var cs_id = "unknown";
+            if ((cs.getNode("name") != nil) and (cs.getNode("name").getValue() != nil)) {
+              var fname = addon.basePath ~ "/Models/" ~ cs.getNode("path").getValue() ~ "/cargoset.nas";
+              #io.load_nasal(fname, "CGTOW");
+            }
+        }
+
     });
 
     setlistener("/sim/gui/show-range", func (node) {      

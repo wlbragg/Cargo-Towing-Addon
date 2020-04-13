@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg (wlbragg)
+Copyright (C) 2020 Wayne Bragg
+basecargoset.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<!--
+  This is the Long Line portion of the cargo hauling capability.
+  Any new cargo must be included here and organized like the current cargo is.
+  It also needs to have its own definition file - see cargo1.xml.
+-->
+
+<PropertyList>
+
+  <model>
+    <path>cub-ground.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo1-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>cubharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo1-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>shipping-container-big.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <or>
+          <property>sim/cargo/cargo2-onhook</property>
+          <property>sim/cargo/cargo3-onhook</property>
+          <property>sim/cargo/cargo4-onhook</property>
+        </or>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>shippingcontainerbigharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <or>
+          <property>sim/cargo/cargo2-onhook</property>
+          <property>sim/cargo/cargo3-onhook</property>
+          <property>sim/cargo/cargo4-onhook</property>
+        </or>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>ground-tank.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo5-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>groundtankharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo5-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>ground-tank-large.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo6-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>groundtanklargeharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo6-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>ground-tank-tall.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo7-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>groundtanktallharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo7-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>tank-stand.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo8-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>tankstandharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo8-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>dump-truck.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo9-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>dumptruckharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo9-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>tower-radio.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo10-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>towerradioharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo10-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>mobile-pod.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo11-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>mobilepodharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo11-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>hvac.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo12-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>hvacharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo12-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>tank.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo13-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>tankstandharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+    </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo13-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>ball.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo14-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+
+</PropertyList>

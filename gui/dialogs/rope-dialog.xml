@@ -648,7 +648,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <list>
             <name>loadpointslist</name>
             <pref-width>340</pref-width>
-            <pref-height>100</pref-height>
+            <pref-height>90</pref-height>
             <halign>fill</halign>
             <valign>fill</valign>
             <stretch>true</stretch>
