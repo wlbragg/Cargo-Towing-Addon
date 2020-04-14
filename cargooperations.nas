@@ -95,7 +95,7 @@ var cargo_tow = func () {
     var pitchNode = props.globals.getNode("orientation/pitch-deg", 1);
     var rollNode = props.globals.getNode("orientation/roll-deg", 1);
 
-    var onGround = props.globals.getNode("gear/gear/wow", 1).getValue() * props.globals.getNode("gear/gear[1]/wow", 1).getValue() * props.globals.getNode("gear/gear[2]/wow", 1).getValue();
+    #var onGround = props.globals.getNode("gear/gear/wow", 1).getValue() * props.globals.getNode("gear/gear[1]/wow", 1).getValue() * props.globals.getNode("gear/gear[2]/wow", 1).getValue();
     var cargoOnGround = props.globals.getNode("sim/cargo/hitsground", 1);
     var overland = getprop("gear/gear/ground-is-solid");
     if (getprop("sim/flight-model") == "jsb")
@@ -374,10 +374,8 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
         if (releaseNode.getValue() == 1 and onHookNode.getValue() == 1) {
         #if ((releaseNode.getValue() == 1 or autoHookNode.getValue() == 1) and onHookNode.getValue() == 1) {
 
-            if (onGround.getValue() or 
-              (longline.getValue() and cargoOnGround.getValue()) or 
-              (stack and stackConnected) or 
-              overland == 0) {
+            #if (onGround.getValue() or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
+            if ((longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
 
 #if (autoHookNode.getValue() == 1) autoHookNode.getValue(0);
                 onHookNode.setValue(0);
