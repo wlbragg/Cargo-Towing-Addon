@@ -131,6 +131,7 @@ var cargo_init = func () {
                 cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
                 cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
                 cargoN.getNode("ai").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai"));
+
                 aircraft.data.add(
                     "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
                     "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
@@ -155,14 +156,14 @@ var cargo_init = func () {
                     cargoN.getNode("elevation-ft").setDoubleValue(elev_m * 3.2808);
                   }
 
-	      print("\nCargo Created:\n" ~
-          cargoN.getNode("callsign").getValue() ~ "\n" ~
-          cargoN.getNode("description").getValue() ~ "\n" ~
-          cargoN.getNode("latitude-deg").getValue() ~ "/" ~
-          cargoN.getNode("longitude-deg").getValue() ~ "\nElev-ft:" ~
-          cargoN.getNode("elevation-ft").getValue() ~ "\nHead:" ~
-          cargoN.getNode("heading-deg").getValue() ~ "\nStack:" ~
-          cargoN.getNode("ai").getValue() ~ "\n");
+	          print("\nCargo Created:\n" ~
+              cargoN.getNode("callsign").getValue() ~ "\n" ~
+              cargoN.getNode("description").getValue() ~ "\n" ~
+              cargoN.getNode("latitude-deg").getValue() ~ "/" ~
+              cargoN.getNode("longitude-deg").getValue() ~ "\nElev-ft:" ~
+              cargoN.getNode("elevation-ft").getValue() ~ "\nHead:" ~
+              cargoN.getNode("heading-deg").getValue() ~ "\nStack:" ~
+              cargoN.getNode("ai").getValue() ~ "\n");
         }
     }
 
