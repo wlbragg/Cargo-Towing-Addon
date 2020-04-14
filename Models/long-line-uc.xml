@@ -15,6 +15,36 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 -->
 
 <PropertyList>
+
+    <model>
+        <path>[addon=org.flightgear.addons.CGTOW]Models/basecargoset/basecargoset.xml</path>
+        <condition>
+            <equals>
+                <property>/sim/cargo/setselected</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </model>
+
+    <model>
+        <path>[addon=org.flightgear.addons.CGTOW]Models/stackablecargoset/stackablecargoset.xml</path>
+        <condition>
+            <equals>
+                <property>/sim/cargo/setselected</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </model>
+
+    <model>
+        <path>[addon=org.flightgear.addons.CGTOW]Models/treefarmcargoset/treefarmcargoset.xml</path>
+        <condition>
+            <equals>
+                <property>/sim/cargo/setselected</property>
+                <value>2</value>
+            </equals>
+        </condition>
+    </model>
  
   <model>
     <path>pullharness.ac</path>

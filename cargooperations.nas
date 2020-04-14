@@ -6,176 +6,6 @@
 # Version 1.0.0 beta 1/21/2020
 # Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
-#################### inject cargo models into the scene (helper) ####################
-
-var place_model = func(number, position, desc, path, stack, drop, weight, height, harness, lat, lon, alt, heading, pitch, roll, ai) {
-
-  var m = props.globals.getNode("models", 1);
-  for (var i = 0; 1; i += 1)
-	  if (m.getChild("model", i, 0) == nil)
-		  break;
-  var model = m.getChild("model", i, 1);
-
-  setprop("/models/cargo/cargo["~position~"]/latitude-deg", lat);
-  setprop("/models/cargo/cargo["~position~"]/longitude-deg", lon);
-  setprop("/models/cargo/cargo["~position~"]/elevation-ft", alt);
-  setprop("/models/cargo/cargo["~position~"]/heading-deg", heading);
-  setprop("/models/cargo/cargo["~position~"]/pitch-deg", pitch);
-  setprop("/models/cargo/cargo["~position~"]/roll-deg", roll);
-  setprop("/models/cargo/cargo["~position~"]/callsign", "cargo"~number);
-  setprop("/models/cargo/cargo["~position~"]/description", desc);
-  setprop("/models/cargo/cargo["~position~"]/weight", weight);
-  setprop("/models/cargo/cargo["~position~"]/height", height);
-  setprop("/models/cargo/cargo["~position~"]/harness", harness);
-  setprop("/models/cargo/cargo["~position~"]/stack", stack);
-  setprop("/models/cargo/cargo["~position~"]/drop", drop);
-  setprop("/models/cargo/cargo["~position~"]/ai", ai);
-
-  var cargomodel = props.globals.getNode("/models/cargo/cargo["~position~"]", 1);
-  var latN = cargomodel.getNode("latitude-deg",1);
-  var lonN = cargomodel.getNode("longitude-deg",1);
-  var altN = cargomodel.getNode("elevation-ft",1);
-  var headN = cargomodel.getNode("heading-deg",1);
-  var pitchN = cargomodel.getNode("pitch-deg",1);
-  var rollN = cargomodel.getNode("roll-deg",1);
-  var callsignN = cargomodel.getNode("callsign",1);
-  var descriptionN = cargomodel.getNode("description",1);
-  var weightN = cargomodel.getNode("weight",1);
-  var heightN = cargomodel.getNode("height",1);
-  var harnessN = cargomodel.getNode("harness",1);
-  var stackN = cargomodel.getNode("stack",1);
-  var dropN = cargomodel.getNode("drop",1);
-  var aiN = cargomodel.getNode("ai",1);
-
-  model.getNode("path", 1).setValue(path~"cargo"~number~".xml");
-  model.getNode("latitude-deg-prop", 1).setValue(latN.getPath());
-  model.getNode("longitude-deg-prop", 1).setValue(lonN.getPath());
-  model.getNode("elevation-ft-prop", 1).setValue(altN.getPath());
-  model.getNode("heading-deg-prop", 1).setValue(headN.getPath());
-  model.getNode("pitch-deg-prop", 1).setValue(pitchN.getPath());
-  model.getNode("roll-deg-prop", 1).setValue(rollN.getPath());
-  model.getNode("callsign-prop", 1).setValue(callsignN.getPath());
-  model.getNode("description-prop", 1).setValue(descriptionN.getPath());
-  model.getNode("weight-prop", 1).setValue(weightN.getPath());
-  model.getNode("height-prop", 1).setValue(heightN.getPath());
-  model.getNode("harness-prop", 1).setValue(harnessN.getPath());
-  model.getNode("stack-prop", 1).setValue(stackN.getPath());
-  model.getNode("drop-prop", 1).setValue(dropN.getPath());
-  model.getNode("ai-prop", 1).setValue(aiN.getPath());
-  model.getNode("load", 1).remove();
-
-  return model;
-}
-
-var ai_init = func () {
-
-    var modelNum = 0;
-    foreach(var cargoN; props.globals.getNode("/ai/models", 1).getChildren("aircraft")){
-
-        var desc = "";
-
-        if ((cargoN.getNode("callsign") != nil) and (cargoN.getNode("callsign").getValue() != nil)) {
-
-            modelNum = modelNum + 1;
-
-            desc = cargoN.getNode("callsign").getValue();
-            if (desc == "") desc = cargoN.getNode("id").getValue();
-
-            var callsign = "cargo"~modelNum;
-            var path = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
-            var stack = 0;
-            var drop = 0.0;
-            var weight = 1000;
-            var height = 0;
-            var harness = 3.5;
-            var lat = cargoN.getNode("position/latitude-deg").getValue();
-            var lon = cargoN.getNode("position/longitude-deg").getValue();
-            var alt = cargoN.getNode("position/altitude-ft").getValue();
-            var heading = cargoN.getNode("orientation/true-heading-deg").getValue();
-            var pitch = cargoN.getNode("orientation/pitch-deg").getValue();
-            var roll = cargoN.getNode("orientation/roll-deg").getValue();
-            var ai = cargoN.getNode("callsign").getParent().getIndex();
-
-            place_model(modelNum, modelNum-1, desc, path, stack, drop, weight, height, harness, lat, lon, alt, heading, pitch, roll, ai);
-
-        }
-    }
-}
-
-var cargo_init = func () {
-
-    var aircraftName = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
-    var ct=0;
-    foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")){
-
-        if (string.match(cargoN.getNode("callsign").getValue(), "cargo*")){
-	        ct+=.001;
-
-            setprop("sim/cargo/"~cargoN.getNode("callsign").getValue()~"-onhook", 0);
-            setprop("controls/release-"~cargoN.getNode("callsign").getValue(), 0);
-
-            var setselected = getprop("sim/cargo/setselectedname");
-            if (getprop("sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/saved") == 1) {
-
-                #AI
-                var isAI = cargoN.getNode("ai").getValue();
-                if (isAI != -1) {
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/latitude-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/longitude-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/altitude-ft", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
-                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/orientation/true-heading-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
-                }
-
-                cargoN.getNode("latitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
-                cargoN.getNode("longitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
-                cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
-                cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
-                cargoN.getNode("ai").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai"));
-
-                aircraft.data.add(
-                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
-                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
-                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft",
-                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg",
-                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai",
-                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/saved");
-                aircraft.data.save();
-            } else
-                  if (getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/random") == 1) {
-                    var factor = ct + rand() * .001;
-	                  var heading = getprop("orientation/heading-deg") + 90;
-                        var x = math.cos(heading*0.0174533);
-                        var y = math.sin(heading*0.0174533);
-                        y = y * -1;
-                        x = x * factor;
-                        y = y * factor;
-                    cargoN.getNode("latitude-deg").setDoubleValue(getprop("position/latitude-deg")+y);
-                    cargoN.getNode("longitude-deg").setDoubleValue(getprop("position/longitude-deg")+x);
-                    cargoN.getNode("heading-deg").setDoubleValue(rand()*360);
-                    var elev_m = geo.elevation(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue());
-                    cargoN.getNode("elevation-ft").setDoubleValue(elev_m * 3.2808);
-                  }
-
-	          print("\nCargo Created:\n" ~
-              cargoN.getNode("callsign").getValue() ~ "\n" ~
-              cargoN.getNode("description").getValue() ~ "\n" ~
-              cargoN.getNode("latitude-deg").getValue() ~ "/" ~
-              cargoN.getNode("longitude-deg").getValue() ~ "\nElev-ft:" ~
-              cargoN.getNode("elevation-ft").getValue() ~ "\nHead:" ~
-              cargoN.getNode("heading-deg").getValue() ~ "\nStack:" ~
-              cargoN.getNode("ai").getValue() ~ "\n");
-        }
-    }
-
-	#gui.fpsDisplay(1);
-    if (!ct) {
-      print("No AI Cargo, exiting cargo.nas!");
-      return;
-    } else {
-      cargo_tow();
-    }
-}
-
 #################### cargo hauling ####################
 
 var AircraftCargo = {};
@@ -187,7 +17,6 @@ var isAI = -1;
 var hookHeight = 15;
 var hooked = 0;
 var cargoReleased = 0;
-var interval = 0;
 var currentYaw = 0;
 var originalYaw = 0;
 var hitchOffset = 1.1;
@@ -339,7 +168,7 @@ if(cargo_comp == 0) {
 		                    if (hookNode.getValue() == 1 or autoHookNode.getValue() == 1) {
 			                    hooked = 1;
 
-						        cargoParent = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
+                                cargoParent = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
                                 cargoName = cargoN.getNode("callsign").getValue();
                                 #maybe condition to only if longline
                                 currentYaw = (headNode.getValue()+(headNode.getValue()-cargoN.getNode("heading-deg").getValue()))-headNode.getValue();
@@ -544,7 +373,12 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
 setprop("/sim/cargo/current-cargo-name", cargoName);
         if (releaseNode.getValue() == 1 and onHookNode.getValue() == 1) {
         #if ((releaseNode.getValue() == 1 or autoHookNode.getValue() == 1) and onHookNode.getValue() == 1) {
-            if (onGround.getValue() or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
+
+            if (onGround.getValue() or 
+              (longline.getValue() and cargoOnGround.getValue()) or 
+              (stack and stackConnected) or 
+              overland == 0) {
+
 #if (autoHookNode.getValue() == 1) autoHookNode.getValue(0);
                 onHookNode.setValue(0);
                 releaseNode.setValue(0);
@@ -653,7 +487,180 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
     longline_animation(0, cargoWeight, seg_length.getValue());
 
-    settimer(cargo_tow, interval);
+    #settimer(cargo_tow, interval);
+}
+var interval = 0;
+var cargotimer = maketimer(interval, cargo_tow);
+
+#################### inject cargo models into the scene (helper) ####################
+
+var place_model = func(number, position, desc, path, stack, drop, weight, height, harness, lat, lon, alt, heading, pitch, roll, ai) {
+
+  var m = props.globals.getNode("models", 1);
+  for (var i = 0; 1; i += 1)
+	  if (m.getChild("model", i, 0) == nil)
+		  break;
+  var model = m.getChild("model", i, 1);
+
+  setprop("/models/cargo/cargo["~position~"]/latitude-deg", lat);
+  setprop("/models/cargo/cargo["~position~"]/longitude-deg", lon);
+  setprop("/models/cargo/cargo["~position~"]/elevation-ft", alt);
+  setprop("/models/cargo/cargo["~position~"]/heading-deg", heading);
+  setprop("/models/cargo/cargo["~position~"]/pitch-deg", pitch);
+  setprop("/models/cargo/cargo["~position~"]/roll-deg", roll);
+  setprop("/models/cargo/cargo["~position~"]/callsign", "cargo"~number);
+  setprop("/models/cargo/cargo["~position~"]/description", desc);
+  setprop("/models/cargo/cargo["~position~"]/weight", weight);
+  setprop("/models/cargo/cargo["~position~"]/height", height);
+  setprop("/models/cargo/cargo["~position~"]/harness", harness);
+  setprop("/models/cargo/cargo["~position~"]/stack", stack);
+  setprop("/models/cargo/cargo["~position~"]/drop", drop);
+  setprop("/models/cargo/cargo["~position~"]/ai", ai);
+
+  var cargomodel = props.globals.getNode("/models/cargo/cargo["~position~"]", 1);
+  var latN = cargomodel.getNode("latitude-deg",1);
+  var lonN = cargomodel.getNode("longitude-deg",1);
+  var altN = cargomodel.getNode("elevation-ft",1);
+  var headN = cargomodel.getNode("heading-deg",1);
+  var pitchN = cargomodel.getNode("pitch-deg",1);
+  var rollN = cargomodel.getNode("roll-deg",1);
+  var callsignN = cargomodel.getNode("callsign",1);
+  var descriptionN = cargomodel.getNode("description",1);
+  var weightN = cargomodel.getNode("weight",1);
+  var heightN = cargomodel.getNode("height",1);
+  var harnessN = cargomodel.getNode("harness",1);
+  var stackN = cargomodel.getNode("stack",1);
+  var dropN = cargomodel.getNode("drop",1);
+  var aiN = cargomodel.getNode("ai",1);
+
+  model.getNode("path", 1).setValue(path~"cargo"~number~".xml");
+  model.getNode("latitude-deg-prop", 1).setValue(latN.getPath());
+  model.getNode("longitude-deg-prop", 1).setValue(lonN.getPath());
+  model.getNode("elevation-ft-prop", 1).setValue(altN.getPath());
+  model.getNode("heading-deg-prop", 1).setValue(headN.getPath());
+  model.getNode("pitch-deg-prop", 1).setValue(pitchN.getPath());
+  model.getNode("roll-deg-prop", 1).setValue(rollN.getPath());
+  model.getNode("callsign-prop", 1).setValue(callsignN.getPath());
+  model.getNode("description-prop", 1).setValue(descriptionN.getPath());
+  model.getNode("weight-prop", 1).setValue(weightN.getPath());
+  model.getNode("height-prop", 1).setValue(heightN.getPath());
+  model.getNode("harness-prop", 1).setValue(harnessN.getPath());
+  model.getNode("stack-prop", 1).setValue(stackN.getPath());
+  model.getNode("drop-prop", 1).setValue(dropN.getPath());
+  model.getNode("ai-prop", 1).setValue(aiN.getPath());
+  model.getNode("load", 1).remove();
+
+  return model;
+}
+
+var ai_init = func () {
+
+    var modelNum = 0;
+    foreach(var cargoN; props.globals.getNode("/ai/models", 1).getChildren("aircraft")){
+
+        var desc = "";
+
+        if ((cargoN.getNode("callsign") != nil) and (cargoN.getNode("callsign").getValue() != nil)) {
+
+            modelNum = modelNum + 1;
+
+            desc = cargoN.getNode("callsign").getValue();
+            if (desc == "") desc = cargoN.getNode("id").getValue();
+
+            var callsign = "cargo"~modelNum;
+            var path = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
+            var stack = 0;
+            var drop = 0.0;
+            var weight = 1000;
+            var height = 0;
+            var harness = 3.5;
+            var lat = cargoN.getNode("position/latitude-deg").getValue();
+            var lon = cargoN.getNode("position/longitude-deg").getValue();
+            var alt = cargoN.getNode("position/altitude-ft").getValue();
+            var heading = cargoN.getNode("orientation/true-heading-deg").getValue();
+            var pitch = cargoN.getNode("orientation/pitch-deg").getValue();
+            var roll = cargoN.getNode("orientation/roll-deg").getValue();
+            var ai = cargoN.getNode("callsign").getParent().getIndex();
+
+            place_model(modelNum, modelNum-1, desc, path, stack, drop, weight, height, harness, lat, lon, alt, heading, pitch, roll, ai);
+
+        }
+    }
+    cargotimer.restart(0);
+}
+
+var cargo_init = func () {
+
+    var aircraftName = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
+    var ct=0;
+    foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")){
+
+        if (string.match(cargoN.getNode("callsign").getValue(), "cargo*")){
+	        ct+=.001;
+
+            setprop("sim/cargo/"~cargoN.getNode("callsign").getValue()~"-onhook", 0);
+            setprop("controls/release-"~cargoN.getNode("callsign").getValue(), 0);
+
+            var setselected = getprop("sim/cargo/setselectedname");
+            if (getprop("sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/saved") == 1) {
+
+                #AI
+                var isAI = cargoN.getNode("ai").getValue();
+                if (isAI != -1) {
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/latitude-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/longitude-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/position/altitude-ft", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
+                    setprop("/ai/models/aircraft[" ~ getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/ai") ~ "]/orientation/true-heading-deg", getprop("/sim/model/"~aircraftName~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
+                }
+
+                cargoN.getNode("latitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg"));
+                cargoN.getNode("longitude-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg"));	
+                cargoN.getNode("elevation-ft").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft"));
+                cargoN.getNode("heading-deg").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg"));
+                cargoN.getNode("ai").setDoubleValue(getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai"));
+
+                aircraft.data.add(
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/latitude-deg",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/longitude-deg",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/position/altitude-ft",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/orientation/true-heading-deg",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/ai",
+                    "/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/saved");
+                aircraft.data.save();
+            } else
+                  if (getprop("/sim/model/"~aircraftName~"/"~setselected~"/"~cargoN.getNode("callsign").getValue()~"/random") == 1) {
+                    var factor = ct + rand() * .001;
+	                  var heading = getprop("orientation/heading-deg") + 90;
+                        var x = math.cos(heading*0.0174533);
+                        var y = math.sin(heading*0.0174533);
+                        y = y * -1;
+                        x = x * factor;
+                        y = y * factor;
+                    cargoN.getNode("latitude-deg").setDoubleValue(getprop("position/latitude-deg")+y);
+                    cargoN.getNode("longitude-deg").setDoubleValue(getprop("position/longitude-deg")+x);
+                    cargoN.getNode("heading-deg").setDoubleValue(rand()*360);
+                    var elev_m = geo.elevation(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue());
+                    cargoN.getNode("elevation-ft").setDoubleValue(elev_m * 3.2808);
+                  }
+
+            print("\nCargo Created:\n" ~
+              cargoN.getNode("callsign").getValue() ~ "\n" ~
+              cargoN.getNode("description").getValue() ~ "\n" ~
+              cargoN.getNode("latitude-deg").getValue() ~ "/" ~
+              cargoN.getNode("longitude-deg").getValue() ~ "\nElev-ft:" ~
+              cargoN.getNode("elevation-ft").getValue() ~ "\nHead:" ~
+              cargoN.getNode("heading-deg").getValue() ~ "\nStack:" ~
+              cargoN.getNode("ai").getValue() ~ "\n");
+        }
+    }
+
+	#gui.fpsDisplay(1);
+    if (!ct) {
+      print("No AI Cargo, exiting cargo.nas!");
+      return;
+    } else {
+      cargotimer.restart(0);
+    }
 }
 
 #degrees to radians

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!--
+Cargo Towing - Cargo Towing Addon for Flightgear
+Written and developed by Wayne Bragg (wlbragg)
+Copyright (C) 2020 Wayne Bragg
+cargo1.xml
+Version 1.0.0 beta 1/21/2020
+Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
+-->
+
+<!--
   This is the model injected into the scene for the cargo hauling capability.
   Any new cargo must be have a file like this one and a definition in Cargo-Hauling/long-line.xml.
 -->
