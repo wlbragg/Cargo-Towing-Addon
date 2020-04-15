@@ -154,8 +154,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     setprop("sim/cargo/setselectedname", posparams[0]);
                     setprop("sim/cargo/setselected", posparams[2]);
 
-                    var fname = getprop("addons/addon/path") ~ "/Models/" ~ posparams[1] ~ "/cargoset.nas";
                     var args = {'subsystem':'gui'};
+                    var fname = getprop("addons/addon/path") ~ "/Models/" ~ posparams[1] ~ "/cargoset.nas";
                     io.load_nasal(fname, "CGTOW");
                     fgcommand("reinit",args);
                 </script>
