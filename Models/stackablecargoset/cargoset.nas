@@ -1,7 +1,7 @@
 # Cargo Towing - Cargo Towing capability for Flightgear
 # Written and developer by Wayne Bragg (wlbragg)
 # Copyright (C) 2020 Wayne Bragg
-# cargoset.nas
+# stackablecargoset/cargoset.nas
 # Version 1.0.0 beta 1/21/2020
 # Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
@@ -36,8 +36,6 @@ var cargo26 = {};
 var cargo27 = {};
 var cargo28 = {};
 
-#setlistener("/sim/signals/fdm-initialized", func (n) {
-
   #set initial position of the cargo models out of site and out of range
   var lat = getprop("/position/latitude-deg")-.0002;
   var lon = getprop("/position/longitude-deg")-.0002;
@@ -46,7 +44,7 @@ var cargo28 = {};
   #property tree location of cargo models
   var model_path = "[addon=org.flightgear.addons.CGTOW]Models/stackablecargoset/";
 
-  #                            offset ft    cargoheight m     harnessheight m
+  #                  offset ft          cargoheight m     harnessheight m
   #container-big    -3.879 m = 12.72        2.66              6.10
   #cub-ground       -3.209 m = 10.53        1.83              5.98
   #ground-tank      -3.737 m = 12.26        2.42              6.44
@@ -113,5 +111,3 @@ var cargo28 = {};
   cargo28 = place_model("28",   27, "tank",             model_path,  6,     1.00,    500, 3.00, 6.08, lat, lon, alt-90, 0, 0, 0, -1);
 
   cargo_init();
-
-#});

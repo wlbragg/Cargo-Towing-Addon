@@ -166,9 +166,9 @@ if(cargo_comp == 0) {
                         cargoGroundElevFt = geo.elevation(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue()) * 3.28;
                         if (cargoN.getNode("elevation-ft").getValue() > -999){
                             gui.popupTip(cargoN.getNode("callsign").getValue()~" in range", 1);
-		                    if (hookNode.getValue() == 1 or autoHookNode.getValue() == 1) {
-			                    hooked = 1;
-
+		                        if (hookNode.getValue() == 1 or autoHookNode.getValue() == 1) {
+			                          hooked = 1;
+                                autoHookNode.setValue(0);
                                 cargoParent = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
                                 cargoName = cargoN.getNode("callsign").getValue();
                                 #maybe condition to only if longline
@@ -252,8 +252,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 			    setprop("sim/cargo/"~cargoName~"-onhook", 0);
             }
         } else {
-            if (longline.getValue() and !cargoOnGround.getValue()) {
-
+            if (longline.getValue() and cargoOnGround.getValue() == 0) {
                 rope_damping.setValue(0.1);
                 load_damping.setValue(0.9);
                 pulling_cargo.setValue(0);
@@ -282,7 +281,8 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                     setprop("/ai/models/aircraft[" ~ isAI ~ "]/position/longitude-deg", currentLon);
                 }
 
-                if (stack > 0) {
+                #if (stack > 0) {
+if (stack > -1) {
                     var cargoBaseHeight = (aircraft_alt_ft + offset.getValue()) - ((ropeLength + cargoHarness + cargoHeight) * 3.28);
                     var stackTopHeight = getprop("/models/cargo/cargo[" ~ stack ~ "]/elevation-ft");
 
@@ -372,31 +372,25 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
         }
         #gui.popupTip(cargoName~" in tow", 1);
 setprop("/sim/cargo/current-cargo-name", cargoName);
-        if (releaseNode.getValue() == 1 and onHookNode.getValue() == 1) {
-        #if ((releaseNode.getValue() == 1 or autoHookNode.getValue() == 1) and onHookNode.getValue() == 1) {
-
-            #if (onGround.getValue() or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
+        if ((releaseNode.getValue() == 1 or autoHookNode.getValue() == 1) and onHookNode.getValue() == 1) {            
             if (onGround or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
-            #if ((longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
-
-#if (autoHookNode.getValue() == 1) autoHookNode.getValue(0);
                 onHookNode.setValue(0);
                 releaseNode.setValue(0);
-	            hooked = 0;
+	              hooked = 0;
                 hookNode.setValue(0);
-	            cargoReleased = 1;
+	              cargoReleased = 1;
                 if (pulling_cargo.getValue() == 2) {
 	                  gui.popupTip("Drag force exceeded", 3);
                 } else 
                     gui.popupTip("Cargo released", 3);
                 pulling_cargo.setValue(0);
-	            setprop("sim/cargo/"~cargoName~"-onhook", 0);
-	            setprop("controls/release-"~cargoName, 1);
+	              setprop("sim/cargo/"~cargoName~"-onhook", 0);
+	              setprop("controls/release-"~cargoName, 1);
                 if (stackConnected)
                     gui.popupTip(cargoName~" Connected", 1);
-            }
-        else {
-                gui.popupTip("Cargo not on ground or out of position", 1);
+            } else {
+                if (autoHookNode.getValue() == 0)
+                    gui.popupTip("Cargo not on ground or out of position", 1);
                 releaseNode.setValue(cargoReleased = 0);
             }
         }
@@ -414,6 +408,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
         aircraftPointmass.setValue(existingPointWeight.getValue());
         aircraftPointlimit.setValue(existingPointLimit.getValue());
         load_weight.setValue(0);
+        autoHookNode.setValue(0);
 
         rope_damping.setValue(0.6);
         load_damping.setValue(1.0);
@@ -468,16 +463,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
         }
         cargoName="";
         cargoReleased=0;
-        autoHookNode.setValue(0);
 
-        #TODO: Make this to update GUI correctly 
-        #var aic = getprop("/sim/gui/dialogs/aicargo-dialog/ai-path");
-        #if (aic != nil and aic == cargoParent) {
-        #  setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lat", getprop("/models/cargo" ~ cargoParent ~ "/position/latitude-deg"));#new location not AI
-        #  setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_lon", getprop("/ai/models/" ~ cargoParent ~ "/position/longitude-deg"));
-        #  setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_alt", getprop("/ai/models/" ~ cargoParent ~ "/position/altitude-ft"));
-        #  setprop("/sim/gui/dialogs/aicargo-dialog/selected_cargo_head", getprop("/ai/models/" ~ cargoParent ~ "/orientation/true-heading-deg"));
-        #}
     }
 
     if (hookNode.getValue())
@@ -487,7 +473,6 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
     longline_animation(0, cargoWeight, seg_length.getValue());
 
-    #settimer(cargo_tow, interval);
 }
 var interval = 0;
 var cargotimer = maketimer(interval, cargo_tow);
@@ -551,42 +536,6 @@ var place_model = func(number, position, desc, path, stack, drop, weight, height
   model.getNode("load", 1).remove();
 
   return model;
-}
-
-var ai_init = func () {
-
-    var modelNum = 0;
-    foreach(var cargoN; props.globals.getNode("/ai/models", 1).getChildren("aircraft")){
-
-        var desc = "";
-
-        if ((cargoN.getNode("callsign") != nil) and (cargoN.getNode("callsign").getValue() != nil)) {
-
-            modelNum = modelNum + 1;
-
-            desc = cargoN.getNode("callsign").getValue();
-            if (desc == "") desc = cargoN.getNode("id").getValue();
-
-            var callsign = "cargo"~modelNum;
-            var path = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
-            var stack = 0;
-            var drop = 0.0;
-            var weight = 1000;
-            var height = 0;
-            var harness = 3.5;
-            var lat = cargoN.getNode("position/latitude-deg").getValue();
-            var lon = cargoN.getNode("position/longitude-deg").getValue();
-            var alt = cargoN.getNode("position/altitude-ft").getValue();
-            var heading = cargoN.getNode("orientation/true-heading-deg").getValue();
-            var pitch = cargoN.getNode("orientation/pitch-deg").getValue();
-            var roll = cargoN.getNode("orientation/roll-deg").getValue();
-            var ai = cargoN.getNode("callsign").getParent().getIndex();
-
-            place_model(modelNum, modelNum-1, desc, path, stack, drop, weight, height, harness, lat, lon, alt, heading, pitch, roll, ai);
-
-        }
-    }
-    cargotimer.restart(0);
 }
 
 var cargo_init = func () {

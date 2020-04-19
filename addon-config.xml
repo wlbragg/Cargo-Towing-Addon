@@ -272,6 +272,11 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <path type="string">aiscenarios</path>
           </sets>
 
+          <!--sets n="4">
+            <name type="string">Military</name>
+            <path type="string">militarycargoset</path>
+          </sets-->
+
           <setselected type="string">1</setselected>
           <setselectedname type="string"></setselectedname>
 
