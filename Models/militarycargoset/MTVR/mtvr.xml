@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>mtvr.ac</path>
+  
+ 
+ <!--
+ 
+Manufacturer: Oshkosh Corporation 
+Also called MTVR 
+
+Production :1998-present 
+
+Body and chassis
+Class: Truck 
+
+Layout: AWD 6x6 
+
+Powertrain:
+Engine
+Caterpillar C13 440 hp 12.8 L,
+Caterpillar C9 400 hp 8.8 L 
+
+Transmission
+Allison 4700 SP 7-speed automatic 
+
+Dimensions
+Wheelbase
+183.6 in (4,663 mm) (MK23) 
+
+Length
+315.6 in (8,016 mm) (MK23) 
+
+Width
+98.4 in (2,500 mm) (MK23) 
+
+Height
+144.0 in (3,658 mm) 
+
+Mass	29,100 lbs (curb w/fuel)
+-->
+
+</PropertyList>

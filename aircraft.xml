@@ -189,17 +189,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     <aircraft n="16">
         <!--weight x="-0.662" y="0.0" z="-0.546" mass-prop="/sim/weight[7]/weight-lb"/-->
         <name type="string">ch53e</name>
-        <x-pos type="double">2.2</x-pos>
-        <y-pos type="double">0.0</y-pos>
-        <z-pos type="double">0.584</z-pos>
-        <offset type="double">3.247</offset>
-        <diameter type="double">1</diameter>
-        <wincharm type="int">0</wincharm>
-        <loadpoint type="int">7</loadpoint>
-    </aircraft>
-    <!--aircraft n="16"-->
-        <!--weight x="-0.662" y="0.0" z="-0.546" mass-prop="/sim/weight[7]/weight-lb"/-->
-        <!--name type="string">ch53e</name>
         <x-pos type="double">-0.662</x-pos>
         <y-pos type="double">0.0</y-pos>
         <z-pos type="double">-0.546</z-pos>
@@ -207,7 +196,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
         <loadpoint type="int">7</loadpoint>
-    </aircraft-->
+    </aircraft>
     <aircraft n="17">
         <!--weight x="1.104" y="1.364" z="2.143" mass-prop="/sim/weight[6]/weight-lb"/-->
         <name type="string">s58</name>
@@ -318,6 +307,17 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <diameter type="double">1</diameter>
         <wincharm type="int">0</wincharm>
         <loadpoint type="int">3</loadpoint>
+    </aircraft>
+    <aircraft n="27">
+        <!--weight x="-0.662" y="0.0" z="-0.546" mass-prop="/sim/weight[7]/weight-lb"/-->
+        <name type="string">ch53eSuperStallion</name>
+        <x-pos type="double">2.2</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">0.584</z-pos>
+        <offset type="double">3.247</offset>
+        <diameter type="double">1</diameter>
+        <wincharm type="int">0</wincharm>
+        <loadpoint type="int">7</loadpoint>
     </aircraft>
   
 </PropertyList>

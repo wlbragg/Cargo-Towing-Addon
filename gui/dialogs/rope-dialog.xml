@@ -50,13 +50,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
               var ac_id = "unknown";
                 if ((ac.getNode("name") != nil) and (ac.getNode("name").getValue() != nil)) {
                   ac_id = ac.getNode("name").getValue() ~
-                    " " ~ ac.getNode("x-pos").getValue() ~
-                    " " ~ ac.getNode("y-pos").getValue() ~
-                    " " ~ ac.getNode("z-pos").getValue() ~
-                    " " ~ ac.getNode("offset").getValue() ~
-                    " " ~ ac.getNode("diameter").getValue() ~
-                    " " ~ ac.getNode("wincharm").getValue() ~
-                    " " ~ ac.getNode("loadpoint").getValue();
+                    "_" ~ ac.getNode("x-pos").getValue() ~
+                    "_" ~ ac.getNode("y-pos").getValue() ~
+                    "_" ~ ac.getNode("z-pos").getValue() ~
+                    "_" ~ ac.getNode("offset").getValue() ~
+                    "_" ~ ac.getNode("diameter").getValue() ~
+                    "_" ~ ac.getNode("wincharm").getValue() ~
+                    "_" ~ ac.getNode("loadpoint").getValue();
                 }
                 list.getNode("value[" ~ aircraft_index ~ "]", 1).setValue(ac_id);
             }
@@ -71,9 +71,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 var lp_id = "unknown";
                 if ((lp.getNode("name") != nil) and (lp.getNode("name").getValue() != nil)) {
                     lp_id = lp.getNode("name").getValue() ~
-                        " " ~ lp.getNode("weight-lb").getValue() ~
-                        " " ~ lp.getNode("max-lb").getValue() ~
-                        " " ~ loadpoints_index;
+                        "_" ~ lp.getNode("weight-lb").getValue() ~
+                        "_" ~ lp.getNode("max-lb").getValue() ~
+                        "_" ~ loadpoints_index;
 
                     loadpointslist.getNode("value[" ~ loadpoints_index ~ "]", 1).setValue(lp_id);
                 }
@@ -276,7 +276,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <binding>
                     <command>nasal</command>
                     <script>
-                        var posparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/aircraft/list"));
+                        var posparams = split("_", getprop("/sim/gui/dialogs/rope-dialog/aircraft/list"));
                         setprop("sim/gui/dialogs/rope-dialog/settings/name", posparams[0]);
                         setprop("sim/gui/dialogs/rope-dialog/settings/x-pos", posparams[1]);
                         setprop("sim/gui/dialogs/rope-dialog/settings/y-pos", posparams[2]);
@@ -674,7 +674,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         var lp = loadpoints[loadpoints_index];
                         setprop(location~"/weight["~loadpoints_index~"]/weight-lb", getprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/weight-lb"));
                     }
-                    var lpparams = split(" ", getprop("/sim/gui/dialogs/rope-dialog/loadpoints/list"));
+                    var lpparams = split("_", getprop("/sim/gui/dialogs/rope-dialog/loadpoints/list"));
                     setprop("/sim/gui/dialogs/rope-dialog/settings/pointname", lpparams[0]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/weight-lb", lpparams[1]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/max-lb", lpparams[2]);
@@ -690,7 +690,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <group>
             <layout>vbox</layout>
             <halign>left</halign>
-            <pref-width>40</pref-width>
+            <pref-width>100</pref-width>
             <text>
 	            <halign>left</halign>
 	            <label>Aircraft</label>
@@ -710,7 +710,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <group>
             <layout>vbox</layout>
             <halign>left</halign>
-            <pref-width>120</pref-width>
+            <pref-width>80</pref-width>
             <text>
 	            <halign>left</halign>
 	            <label>Weight Point Name</label>
@@ -730,7 +730,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <group>
             <layout>vbox</layout>
             <halign>left</halign>
-            <pref-width>30</pref-width>
+            <pref-width>10</pref-width>
             <text>
 	            <halign>left</halign>
 	            <label>Weight</label>
@@ -751,7 +751,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
        <group>
             <layout>vbox</layout>
             <halign>left</halign>
-            <pref-width>20</pref-width>
+            <pref-width>10</pref-width>
             <text>
 	            <halign>left</halign>
 	            <label>Max LB</label>

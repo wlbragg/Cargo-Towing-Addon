@@ -51,8 +51,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             var cs_id = "unknown";
             if ((cs.getNode("name") != nil) and (cs.getNode("name").getValue() != nil)) {
                 cs_id = cs.getNode("name").getValue() ~
-                    " " ~ cs.getNode("path").getValue() ~
-                    " " ~ cargoset_index;
+                    "_" ~ cs.getNode("path").getValue() ~
+                    "_" ~ cargoset_index;
 
                 cargosetlist.getNode("value[" ~ cargoset_index ~ "]", 1).setValue(cs_id);
 
@@ -70,10 +70,10 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           if (string.match(cg.getNode("callsign").getValue(), "cargo*")){
             if ((cg.getNode("callsign") != nil) and (cg.getNode("callsign").getValue() != nil)) {
               cg_id = cg.getNode("callsign").getValue() ~
-                " " ~ cg.getNode("description").getValue() ~
-                " " ~ cg.getNode("weight").getValue() ~
-                " " ~ cg.getNode("height").getValue() ~
-                " " ~ cg.getNode("ai").getValue();
+                "_" ~ cg.getNode("description").getValue() ~
+                "_" ~ cg.getNode("weight").getValue() ~
+                "_" ~ cg.getNode("height").getValue() ~
+                "_" ~ cg.getNode("ai").getValue();
             }
             list.getNode("value[" ~ cargo_index ~ "]", 1).setValue(cg_id);
           }
@@ -147,7 +147,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <command>nasal</command>
                 <script>
                     props.globals.getNode("models", 1).removeAllChildren();
-                    var posparams = split(" ", getprop("/sim/gui/dialogs/cargo/cargosetlist"));
+                    var posparams = split("_", getprop("/sim/gui/dialogs/cargo/cargosetlist"));
                     setprop("sim/gui/dialogs/cargo/cargosetlist/name", posparams[0]);
                     setprop("sim/gui/dialogs/cargo/cargosetlist/path", posparams[1]);
                     setprop("sim/gui/dialogs/cargo/cargosetlist/index", posparams[2]);
@@ -216,7 +216,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <command>nasal</command>
                 <script>
                     var aircraftName = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
-                    var cargoparams = split(" ", getprop("/sim/gui/dialogs/cargo/list"));
+                    var cargoparams = split("_", getprop("/sim/gui/dialogs/cargo/list"));
                     setprop("/sim/gui/dialogs/aicargo-dialog/selected-cargo", cargoparams[0]);
                     var cargo = string.trim(cargoparams[0], -1, string.isalpha)-1;
                     var aic_id = "none";

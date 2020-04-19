@@ -46,7 +46,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         </condition>
     </model>
 
-    <!--model>
+    <model>
         <path>[addon=org.flightgear.addons.CGTOW]Models/militarycargoset/militarycargoset.xml</path>
         <condition>
             <equals>
@@ -54,7 +54,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 <value>4</value>
             </equals>
         </condition>
-    </model-->
+    </model>
  
   <model>
     <path>pullharness.ac</path>
