@@ -13,6 +13,7 @@ var cargo3 = {};
 var cargo4 = {};
 var cargo5 = {};
 var cargo6 = {};
+var cargo7 = {};
 
 #setlistener("/sim/signals/fdm-initialized", func (n) {
 
@@ -47,12 +48,13 @@ var cargo6 = {};
 
   #inject new cargo models into the scene                           stack   drop         height                              
   #                     itemnum index name              location    index   height  weight      harness                 
-  cargo1 =  place_model( "1",    0, "MVTR",             model_path,  0,      .5,   29100,  3     ,16.9, lat, lon, alt-90, 0, 0, 0, -1);
- cargo2 =  place_model( "2",    1, "Hummvee",           model_path,  0,      .5,   5200,   1.9    ,6.23, lat, lon, alt-90, 0, 0, 0, -1);
- cargo3 =  place_model( "3",    2, "105mm",             model_path,  0,      .5,   4096,   1.4    ,6.1, lat, lon, alt-90, 0, 0, 0, -1);
- cargo4 =  place_model( "4",    3, "Scimitar",          model_path,  0,      .5,   15600,  2.1   ,6.0, lat, lon, alt-90, 0, 0, 0, -1);
- cargo5 =  place_model( "5",    4, "Jackal",            model_path,  0,      .5,   14896,  2.35  ,6.0, lat, lon, alt-90, 0, 0, 0, -1);
- cargo6 =  place_model( "6",    5, "WMIK",              model_path,  0,      .5,   6613,  2.0    ,6.0, lat, lon, alt-90, 0, 0, 0, -1);
+ cargo1 =  place_model( "1",    0, "MVTR",              model_path,  -1,      0,   29100,  3.09  ,16.77,lat, lon, alt-90, 0, 0, 0, -1);
+ cargo2 =  place_model( "2",    1, "Hummvee",           model_path,  -1,      0,   5200,   1.86  ,6.23, lat, lon, alt-90, 0, 0, 0, -1);
+ cargo3 =  place_model( "3",    2, "105mm",             model_path,  -1,      0,   4096,   1.38  ,6.1,  lat, lon, alt-90, 0, 0, 0, -1);
+ cargo4 =  place_model( "4",    3, "Scimitar",          model_path,  -1,      0,   15600,  2.4   ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
+ cargo5 =  place_model( "5",    4, "Jackal",            model_path,  -1,      0,   14896,  2.33  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
+ cargo6 =  place_model( "6",    5, "WMIK",              model_path,  -1,      0,   6613,   1.98  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
+ cargo7 =  place_model( "7",    6, "Stryker",           model_path,  -1,      0,   36320,  3.14  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
   cargo_init();
 
 #});

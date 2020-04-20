@@ -18,6 +18,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
   <model>
     <path>MTVR/mtvr.xml</path>
+    <name>cargo</name>
      <offsets>
       <x-m>-0.18 </x-m>
       <y-m>0.2 </y-m>
@@ -50,10 +51,11 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
   <model>
     <path>hummvee/Hummer.xml</path>
+    <name>cargo</name>
      <offsets>
-      <x-m>-2.48 </x-m>
-      <y-m>0 </y-m>
-      <z-m>-22 </z-m>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m>1.9 </z-m>
      </offsets>
     <condition>
       <and>
@@ -65,9 +67,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
   <model>
     <path>hummvee/hummveeharness.ac</path>
      <offsets>
-      <x-m>-0.20 </x-m>
-      <y-m>0.2 </y-m>
-      <z-m> 1.30 </z-m>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
      </offsets>
     <condition>
       <and>
@@ -79,13 +81,14 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </and>
     </condition>
   </model>
-  
+
    <model>
     <path>/105mm/105mm.xml</path>
+    <name>cargo</name>
      <offsets>
-      <x-m>-2.4 </x-m>
-      <y-m>0 </y-m>
-      <z-m>-22.5 </z-m>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m>1.38</z-m>
      </offsets>
     <condition>
       <and>
@@ -94,14 +97,12 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </and>
     </condition>
   </model>
-  
-   <model>
+  <model>
     <path>105mm/gunharness.ac</path>
      <offsets>
-      <x-m>-0.20 </x-m>
-      <y-m>2 </y-m>
-      <z-m> 1.40 </z-m>
-	  <heading-deg>90</heading-deg>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
      </offsets>
     <condition>
       <and>
@@ -113,14 +114,14 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </and>
     </condition>
   </model>
- 
  
   <model>
     <path>/FV107/fv107.xml</path>
+    <name>cargo</name>
      <offsets>
-      <x-m>-2.4 </x-m>
-      <y-m>0 </y-m>
-      <z-m>-22.5 </z-m>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m>2.04</z-m>
      </offsets>
     <condition>
       <and>
@@ -129,14 +130,12 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </and>
     </condition>
   </model>
-  
-   <model>
+  <model>
     <path>/FV107/scimitarharness.ac</path>
      <offsets>
-      <x-m>-0.2 </x-m>
-      <y-m>2.17 </y-m>
-      <z-m> 1.40 </z-m>
-	   <heading-deg>90</heading-deg>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
      </offsets>
     <condition>
       <and>
@@ -145,32 +144,31 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <not>
           <property>sim/cargo/rope/pulling</property>
         </not>
-      </and>
-    </condition>
-  </model>
-  
-    <model>
-    <path>/Jackal/jackal.xml</path>
-     <offsets>
-      <x-m>-3 </x-m>
-      <y-m>0 </y-m>
-      <z-m>-22 </z-m>
-     </offsets>
-    <condition>
-      <and>
-        <property>sim/cargo/cargo5-onhook</property>
-        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
       </and>
     </condition>
   </model>
   
   <model>
+    <path>/Jackal/jackal.xml</path>
+    <name>cargo</name>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m>2.33</z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo5-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
     <path>/Jackal/jackalharness.ac</path>
      <offsets>
-      <x-m>-0.2 </x-m>
-      <y-m>2.5 </y-m>
-      <z-m> 1.40 </z-m>
-	   <heading-deg>90</heading-deg>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
      </offsets>
     <condition>
       <and>
@@ -183,13 +181,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </condition>
   </model>
   
-  
-   <model>
+  <model>
     <path>/wmik/wmik.xml</path>
+    <name>cargo</name>
      <offsets>
-      <x-m>-2.3 </x-m>
-      <y-m>0 </y-m>
-      <z-m>-22 </z-m>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m>1.98</z-m>
      </offsets>
     <condition>
       <and>
@@ -198,18 +196,49 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       </and>
     </condition>
   </model>
-  
    <model>
     <path>/wmik/wmikharness.ac</path>
      <offsets>
-      <x-m>-0.2 </x-m>
-      <y-m>2.25 </y-m>
-      <z-m> 1.40 </z-m>
-	   <heading-deg>90</heading-deg>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
      </offsets>
     <condition>
       <and>
         <property>sim/cargo/cargo6-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
+  <model>
+    <path>/stryker/stryker.xml</path>
+    <name>cargo</name>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 3.14</z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo7-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+   <model>
+    <path>/stryker/strykerharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo7-onhook</property>
         <property>sim/gui/dialogs/aicargo-dialog/connection</property>
         <not>
           <property>sim/cargo/rope/pulling</property>

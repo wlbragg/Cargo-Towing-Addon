@@ -17,7 +17,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 <PropertyList>
 
   <model>
-    <path>hummvee/hum.ac</path>
+    <path>hummvee/Hummer.xml</path>
     <name>Hummvee</name>
     <condition>
       <and>

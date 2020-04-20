@@ -17,7 +17,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 <PropertyList>
 
   <model>
-    <path>MTVR/mtvr.ac</path>
+    <path>MTVR/mtvr.xml</path>
     <name>MTVR</name>
     <condition>
       <and>
