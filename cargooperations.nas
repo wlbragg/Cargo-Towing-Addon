@@ -612,6 +612,65 @@ var cargo_init = func () {
     }
 }
 
+var place_model = func(number, position, desc, path, stack, drop, weight, height, harness, lat, lon, alt, heading, pitch, roll, ai) {
+
+  var m = props.globals.getNode("models", 1);
+  for (var i = 0; 1; i += 1)
+	  if (m.getChild("model", i, 0) == nil)
+		  break;
+  var model = m.getChild("model", i, 1);
+
+  setprop("/models/cargo/cargo["~position~"]/latitude-deg", lat);
+  setprop("/models/cargo/cargo["~position~"]/longitude-deg", lon);
+  setprop("/models/cargo/cargo["~position~"]/elevation-ft", alt);
+  setprop("/models/cargo/cargo["~position~"]/heading-deg", heading);
+  setprop("/models/cargo/cargo["~position~"]/pitch-deg", pitch);
+  setprop("/models/cargo/cargo["~position~"]/roll-deg", roll);
+  setprop("/models/cargo/cargo["~position~"]/callsign", "cargo"~number);
+  setprop("/models/cargo/cargo["~position~"]/description", desc);
+  setprop("/models/cargo/cargo["~position~"]/weight", weight);
+  setprop("/models/cargo/cargo["~position~"]/height", height);
+  setprop("/models/cargo/cargo["~position~"]/harness", harness);
+  setprop("/models/cargo/cargo["~position~"]/stack", stack);
+  setprop("/models/cargo/cargo["~position~"]/drop", drop);
+  setprop("/models/cargo/cargo["~position~"]/ai", ai);
+
+  var cargomodel = props.globals.getNode("/models/cargo/cargo["~position~"]", 1);
+  var latN = cargomodel.getNode("latitude-deg",1);
+  var lonN = cargomodel.getNode("longitude-deg",1);
+  var altN = cargomodel.getNode("elevation-ft",1);
+  var headN = cargomodel.getNode("heading-deg",1);
+  var pitchN = cargomodel.getNode("pitch-deg",1);
+  var rollN = cargomodel.getNode("roll-deg",1);
+  var callsignN = cargomodel.getNode("callsign",1);
+  var descriptionN = cargomodel.getNode("description",1);
+  var weightN = cargomodel.getNode("weight",1);
+  var heightN = cargomodel.getNode("height",1);
+  var harnessN = cargomodel.getNode("harness",1);
+  var stackN = cargomodel.getNode("stack",1);
+  var dropN = cargomodel.getNode("drop",1);
+  var aiN = cargomodel.getNode("ai",1);
+
+  model.getNode("path", 1).setValue(path~"cargo"~number~".xml");
+  model.getNode("latitude-deg-prop", 1).setValue(latN.getPath());
+  model.getNode("longitude-deg-prop", 1).setValue(lonN.getPath());
+  model.getNode("elevation-ft-prop", 1).setValue(altN.getPath());
+  model.getNode("heading-deg-prop", 1).setValue(headN.getPath());
+  model.getNode("pitch-deg-prop", 1).setValue(pitchN.getPath());
+  model.getNode("roll-deg-prop", 1).setValue(rollN.getPath());
+  model.getNode("callsign-prop", 1).setValue(callsignN.getPath());
+  model.getNode("description-prop", 1).setValue(descriptionN.getPath());
+  model.getNode("weight-prop", 1).setValue(weightN.getPath());
+  model.getNode("height-prop", 1).setValue(heightN.getPath());
+  model.getNode("harness-prop", 1).setValue(harnessN.getPath());
+  model.getNode("stack-prop", 1).setValue(stackN.getPath());
+  model.getNode("drop-prop", 1).setValue(dropN.getPath());
+  model.getNode("ai-prop", 1).setValue(aiN.getPath());
+  model.getNode("load", 1).remove();
+
+  return model;
+}
+
 #degrees to radians
 var deg2rad = func (deg) {
 	var rad = deg * math.pi/180;

@@ -285,12 +285,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <gui>
             <dialogs>
                 <aicargo-dialog>
-                </aicargo-dialog>
-                <rope-dialog>
                     <longline type="bool">true</longline>
                     <connection type="bool">true</connection>
+                </aicargo-dialog>
+                <rope-dialog>
                     <alt-origin type="bool">false</alt-origin>
                     <settings include="aircraft.xml">
+                        <aircraft-name type="string"></aircraft-name>
                         <size type="double">1</size>
                         <x-pos type="double">2.2</x-pos>
                         <y-pos type="double">0.0</y-pos>
@@ -318,7 +319,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <path>/sim/gui/dialogs/aicargo-dialog/longline</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connection</path>
           <path>/sim/gui/dialogs/rope-dialog/settings/wincharm</path>
-          <path>/sim/gui/dialogs/aicargo-dialog/alt-origin</path>
+          <path>/sim/gui/dialogs/rope-dialog/alt-origin</path>
           <path>/sim/gui/show-range</path>
           <path>/sim/cargo/setselected</path>
         </aircraft-data> 

@@ -38,10 +38,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
 	<nasal>
 		<open><![CDATA[
-
             var dlgRoot = cmdarg();
             var DIALOG_ROOT  = "/sim/gui/dialogs/rope-dialog";
-
             # Fill in the pre-configured aircraft names
             var aircraft = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings", 1).getChildren("aircraft");
             var list = gui.findElementByName(dlgRoot, "list");
@@ -60,7 +58,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 }
                 list.getNode("value[" ~ aircraft_index ~ "]", 1).setValue(ac_id);
             }
-
             #Fill in availible pointmass
             var location = "/sim";
             if (getprop("sim/flight-model") == "jsb") location = "/payload";
@@ -74,32 +71,27 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         "_" ~ lp.getNode("weight-lb").getValue() ~
                         "_" ~ lp.getNode("max-lb").getValue() ~
                         "_" ~ loadpoints_index;
-
                     loadpointslist.getNode("value[" ~ loadpoints_index ~ "]", 1).setValue(lp_id);
                 }
             }
-
             # Cargo Hauling option
             var p = getprop("sim/gui/dialogs/aicargo-dialog/connection");
             setprop("/sim/cargo/cargo_connection_flag_0", 0);
             setprop("/sim/cargo/cargo_connection_flag_1", 0);
             setprop("/sim/cargo/cargo_connection_flag_" ~ p, 1);
-
             # Long Line option
             p = getprop("sim/gui/dialogs/aicargo-dialog/longline");
             setprop("/sim/cargo/longline_flag_0",0);
-	        setprop("/sim/cargo/longline_flag_1",0);
+	          setprop("/sim/cargo/longline_flag_1",0);
             setprop("/sim/cargo/longline_flag_" ~ p, 1);
-
             # Winch Arm option
             p = getprop("sim/gui/dialogs/rope-dialog/settings/wincharm");
             setprop("/sim/cargo/wincharm_flag_0",0);
-	        setprop("/sim/cargo/wincharm_flag_1",0);
-	        setprop("/sim/cargo/wincharm_flag_2",0);
-	        setprop("/sim/cargo/wincharm_flag_3",0);
-	        setprop("/sim/cargo/wincharm_flag_4",0);
+            setprop("/sim/cargo/wincharm_flag_1",0);
+            setprop("/sim/cargo/wincharm_flag_2",0);
+            setprop("/sim/cargo/wincharm_flag_3",0);
+            setprop("/sim/cargo/wincharm_flag_4",0);
             setprop("/sim/cargo/wincharm_flag_" ~ p, 1);
-
 		]]></open>
 		<close><![CDATA[
 		]]></close>
@@ -127,6 +119,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </and>
             </enable>
             <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
                 <command>nasal</command>
                 <script>
                     var p = "sim/gui/dialogs/aicargo-dialog/connection";
@@ -152,6 +147,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     </not>
                 </and>
             </enable>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
             <binding>
                 <command>nasal</command>
                 <script>
@@ -186,6 +184,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </and>
             </enable>
             <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
                 <command>nasal</command>
                 <script>
                     var p = "sim/gui/dialogs/aicargo-dialog/longline";
@@ -208,6 +209,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     </not>
                 </and>
             </enable>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
             <binding>
                 <command>nasal</command>
                 <script>
@@ -511,6 +515,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </and>
             </enable>
             <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
                 <command>nasal</command>
                 <script>
                     var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
@@ -536,6 +543,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     </not>
                 </and>
             </enable>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
             <binding>
                 <command>nasal</command>
                 <script>
@@ -563,6 +573,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </and>
             </enable>
             <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
                 <command>nasal</command>
                 <script>
                     var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
@@ -589,6 +602,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                 </and>
             </enable>
             <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
                 <command>nasal</command>
                 <script>
                     var p = "sim/gui/dialogs/rope-dialog/settings/wincharm";
@@ -614,6 +630,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     </not>
                 </and>
             </enable>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
             <binding>
                 <command>nasal</command>
                 <script>

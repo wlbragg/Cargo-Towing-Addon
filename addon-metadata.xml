@@ -31,7 +31,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       <maintainer>
         <name type="string">Wayne Bragg (wlbragg)</name>
         <url type="string">
-          https://github.com/wlbragg/AirCrane
+          https://github.com/wlbragg/Cargo-Towing-Addon
         </url>
       </maintainer>
     </maintainers>
@@ -64,19 +64,19 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
     <urls>
       <home-page type="string">
-        https://github.com/wlbragg/AirCrane
+        https://github.com/wlbragg/Cargo-Towing-Addon
       </home-page>
 
       <download type="string">
-        https://github.com/wlbragg/AirCrane
+        https://github.com/wlbragg/Cargo-Towing-Addon
       </download>
 
       <support type="string">
-        https://github.com/wlbragg/AirCrane
+        https://github.com/wlbragg/Cargo-Towing-Addon
       </support>
 
       <code-repository type="string">
-        https://github.com/wlbragg/AirCrane
+        https://github.com/wlbragg/Cargo-Towing-Addon
       </code-repository>
     </urls>
 

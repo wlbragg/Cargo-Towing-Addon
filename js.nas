@@ -6,9 +6,9 @@
 # Version 1.0.0 beta 1/21/2020
 # Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
-var autostart = func (msg=1) {
-      js.autostart();
-};
+#var autostart = func (msg=1) {
+#      js.autostart();
+#};
 
 var slewProp = func(prop, delta) {
     #delta *= getprop("/sim/time/delta-realtime-sec");

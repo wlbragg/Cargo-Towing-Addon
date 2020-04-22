@@ -15,8 +15,6 @@ var cargo5 = {};
 var cargo6 = {};
 var cargo7 = {};
 
-#setlistener("/sim/signals/fdm-initialized", func (n) {
-
   #set initial position of the cargo models out of site and out of range
   var lat = getprop("/position/latitude-deg")-.0002;
   var lon = getprop("/position/longitude-deg")-.0002;
@@ -55,6 +53,5 @@ var cargo7 = {};
  cargo5 =  place_model( "5",    4, "Jackal",            model_path,  -1,      0,   14896,  2.33  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
  cargo6 =  place_model( "6",    5, "WMIK",              model_path,  -1,      0,   6613,   1.98  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
  cargo7 =  place_model( "7",    6, "Stryker",           model_path,  -1,      0,   36320,  2.50  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
-  cargo_init();
 
-#});
+ cargo_init();
