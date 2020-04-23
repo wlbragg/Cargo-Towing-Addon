@@ -141,7 +141,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <property>/sim/gui/dialogs/cargo/cargosetlist</property>
             <binding>
                 <command>dialog-apply</command>
-                <object-name>cargosetlist</object-name>
             </binding>
             <binding>
                 <command>nasal</command>
@@ -157,6 +156,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     var args = {'subsystem':'gui'};
                     var fname = getprop("addons/addon/path") ~ "/Models/" ~ posparams[1] ~ "/cargoset.nas";
                     io.load_nasal(fname, "CGTOW");
+
                     fgcommand("reinit",args);
                 </script>
             </binding>
@@ -210,7 +210,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <property>/sim/gui/dialogs/cargo/list</property>
             <binding>
                 <command>dialog-apply</command>
-                <object-name>list</object-name>
             </binding>
             <binding>
                 <command>nasal</command>

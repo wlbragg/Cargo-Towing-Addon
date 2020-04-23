@@ -299,7 +299,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         <offset type="double">2.860</offset>
                         <diameter type="double">1</diameter>
                         <aircraft>
-                            <list type="string">ch42 2.2 0.0 0.0 2.860</list>
+                            <list type="string"></list>
                         </aircraft>
                         <loadpoints>
                             <list type="string">Default</list>
