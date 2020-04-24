@@ -570,7 +570,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <command>nasal</command>
             <script>
               var weight = getprop("/sim/gui/dialogs/cargo/weight");
-              setprop("/models//cargo/"~getprop("/sim/gui/dialogs/aicargo-dialog/ai-path")~"/weight", weight);
+              setprop("/models/cargo/"~getprop("/sim/gui/dialogs/aicargo-dialog/ai-path")~"/weight", weight);
             </script>
           </binding>
         </input>
@@ -592,7 +592,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <command>nasal</command>
             <script>
               var height = getprop("/sim/gui/dialogs/cargo/height");
-              setprop("/models//cargo/"~getprop("/sim/gui/dialogs/aicargo-dialog/ai-path")~"/height", height);
+              setprop("/models/cargo/"~getprop("/sim/gui/dialogs/aicargo-dialog/ai-path")~"/height", height);
             </script>
           </binding>
         </input>
