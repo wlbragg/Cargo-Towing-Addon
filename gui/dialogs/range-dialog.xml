@@ -39,6 +39,11 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
               var range_loop = func {
 
+                  if (getprop("sim/cargo/cargo-on-hook") == 1)
+                      text.setColor(0,1,0);
+                  else
+                      text.setColor(1,1,1);
+
                   text.setText( "Name "~getprop("/sim/cargo/current-cargo-name")~"\n"~
                                 "Range "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-distance"))~"\n"~
                                 "ConnDist "~sprintf("%4.0f", getprop("/sim/cargo/current-connection-distance"))~"\n"~

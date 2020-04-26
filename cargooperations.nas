@@ -145,6 +145,7 @@ var cargo_closest=0;
 
 setprop("/sim/cargo/current-cargo-elevation", cargoElevation - cargoGroundElevFt);
 setprop("/sim/cargo/current-cargo-elevation-two", altNode - ropeLength);
+setprop("/sim/cargo/current-cargo-name", cargoName);
 
                 if (string.match(cargoN.getNode("callsign").getValue(), "cargo*")){
                     cargo_pos.set_latlon(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue());
@@ -160,6 +161,7 @@ if(cargo_comp == 0) {
     cargo_last = cargo_dist;
   }
   setprop("/sim/cargo/current-cargo-distance", cargo_closest);
+
 }
 
                     if (cargo_dist <= (hookHeight + 5)/3.281) {
@@ -217,8 +219,10 @@ if(cargo_comp == 0) {
             }
         } #for
     }
-setprop("/sim/cargo/current-cargo-name", cargoName);
     if (hooked == 1) {
+
+setprop("/sim/cargo/current-cargo-name", cargoName);
+
         cargoHeight = getprop("/models/cargo/" ~ cargoParent ~ "/height");
         isAI = getprop("/models/cargo/" ~ cargoParent ~ "/ai");
 
@@ -377,7 +381,9 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
             }
         }
         #gui.popupTip(cargoName~" in tow", 1);
-setprop("/sim/cargo/current-cargo-name", cargoName);
+
+#setprop("/sim/cargo/current-cargo-name", cargoName);
+
         if ((releaseNode.getValue() == 1 or autoHookNode.getValue() == 1) and onHookNode.getValue() == 1) {            
             if (onGround or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
                 onHookNode.setValue(0);

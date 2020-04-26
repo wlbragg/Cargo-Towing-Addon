@@ -51,7 +51,7 @@ var cargo7 = {};
  cargo3 =  place_model( "3",    2, "105mm",             model_path,  -1,      0,   4096,   1.38  ,6.1,  lat, lon, alt-90, 0, 0, 0, -1);
  cargo4 =  place_model( "4",    3, "Scimitar",          model_path,  -1,      0,   15600,  2.4   ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
  cargo5 =  place_model( "5",    4, "Jackal",            model_path,  -1,      0,   14896,  2.33  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
- cargo6 =  place_model( "6",    5, "WMIK",              model_path,  -1,      0,   6613,   1.98  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
+ cargo6 =  place_model( "6",    5, "WMIK",              model_path,  -1,      0,   6613,   2.07  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
  cargo7 =  place_model( "7",    6, "Stryker",           model_path,  -1,      0,   36320,  2.50  ,6.0,  lat, lon, alt-90, 0, 0, 0, -1);
 
  cargo_init();
