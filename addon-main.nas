@@ -35,21 +35,23 @@ var main = func(addon) {
                 setprop("/sim/gui/dialogs/rope-dialog/settings/y-pos", ac.getNode("y-pos").getValue());
                 setprop("/sim/gui/dialogs/rope-dialog/settings/z-pos", ac.getNode("z-pos").getValue());
                 setprop("/sim/gui/dialogs/rope-dialog/settings/offset", ac.getNode("offset").getValue());
-                setprop("sim/gui/dialogs/rope-dialog/settings/diameter", ac.getNode("diameter").getValue());
-                setprop("sim/gui/dialogs/rope-dialog/settings/wincharm", ac.getNode("wincharm").getValue());
-                setprop("sim/gui/dialogs/rope-dialog/settings/loadpoint", ac.getNode("loadpoint").getValue());
+                setprop("/sim/gui/dialogs/rope-dialog/settings/diameter", ac.getNode("diameter").getValue());
+                setprop("/sim/gui/dialogs/rope-dialog/settings/wincharm", ac.getNode("wincharm").getValue());
+                setprop("/sim/gui/dialogs/rope-dialog/settings/loadpoint", ac.getNode("loadpoint").getValue());
 
                 setprop("/sim/cargo/rope/offset", ac.getNode("offset").getValue());
 
-                # Save assigned weights for availible pointmass
+                #Save assigned weights for default pointmass
                 var location = "/sim";
                 if (getprop("sim/flight-model") == "jsb") location = "/payload";
                 var loadpoints = props.globals.getNode(location, 1).getChildren("weight");
                 forindex (var loadpoints_index; loadpoints) {
                     var lp = loadpoints[loadpoints_index];
-                    setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/"~name, lp.getNode("name").getValue());
-                    setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/weight-lb", lp.getNode("weight-lb").getValue());
-                    setprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/max-lb", lp.getNode("max-lb").getValue());
+                    if (loadpoints_index == getprop("sim/gui/dialogs/rope-dialog/settings/loadpoint")){
+                        setprop("/sim/model/weight-points/pointname/name", lp.getNode("name").getValue());
+                        setprop("/sim/model/weight-points/pointname/weight-lb", lp.getNode("weight-lb").getValue());
+                        setprop("/sim/model/weight-points/pointname/max-lb", lp.getNode("max-lb").getValue());
+                    }
                 }
             }
         }

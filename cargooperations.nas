@@ -52,9 +52,9 @@ var location = "sim";
 var fdm = getprop("sim/flight-model");
 if (fdm == "jsb") location = "payload";
 
-var existingPointWeight = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
+var existingPointWeight = props.globals.getNode("sim/model/weight-points/pointname/weight-lb", 1);
 var aircraftPointmass = props.globals.getNode(location~"/weight["~index.getValue()~"]/weight-lb", 1);
-var existingPointLimit = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/max-lb", 1);
+var existingPointLimit = props.globals.getNode("sim/model/weight-points/pointname/max-lb", 1);
 var aircraftPointlimit = props.globals.getNode(location~"/weight["~index.getValue()~"]/max-lb", 1);
 
 var rope_length = props.globals.getNode("sim/cargo/rope/length", 1);

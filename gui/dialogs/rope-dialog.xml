@@ -74,6 +74,12 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                     loadpointslist.getNode("value[" ~ loadpoints_index ~ "]", 1).setValue(lp_id);
                 }
             }
+            #fill in default loadpoint
+            var aircraftName = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
+            setprop("/sim/gui/dialogs/rope-dialog/settings/pointname", getprop("sim/model/weight-points/pointname/name"));
+            setprop("/sim/gui/dialogs/rope-dialog/settings/weight-lb", getprop("sim/model/weight-points/pointname/weight-lb"));
+            setprop("/sim/gui/dialogs/rope-dialog/settings/max-lb", getprop("sim/model/weight-points/pointname/max-lb"));
+            setprop("/sim/gui/dialogs/rope-dialog/settings/index", getprop("sim/gui/dialogs/rope-dialog/settings/loadpoint"));
             # Cargo Hauling option
             var p = getprop("sim/gui/dialogs/aicargo-dialog/connection");
             setprop("/sim/cargo/cargo_connection_flag_0", 0);
@@ -684,20 +690,26 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                         gui.popupTip("Unhitch cargo to change load point!");
                         return;
                     }
-                    var name = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
+
+                    #var name = getprop("/sim/gui/dialogs/rope-dialog/settings/aircraft-name");
                     # Re assign original weights for availible pointmass
-                    var location = "/sim";
-                    if (getprop("sim/flight-model") == "jsb") location = "/payload";
-                    var loadpoints = props.globals.getNode(location, 1).getChildren("weight");
-                    forindex (var loadpoints_index; loadpoints) {
-                        var lp = loadpoints[loadpoints_index];
-                        setprop(location~"/weight["~loadpoints_index~"]/weight-lb", getprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/weight-lb"));
-                    }
+                    #var location = "/sim";
+                    #if (getprop("sim/flight-model") == "jsb") location = "/payload";
+                    #var loadpoints = props.globals.getNode(location, 1).getChildren("weight");
+                    #forindex (var loadpoints_index; loadpoints) {
+                    #    var lp = loadpoints[loadpoints_index];
+                    #    setprop(location~"/weight["~loadpoints_index~"]/weight-lb", getprop("/sim/model/"~name~"/weight-points/pointname["~loadpoints_index~"]/weight-lb"));
+                    #}
+
                     var lpparams = split("_", getprop("/sim/gui/dialogs/rope-dialog/loadpoints/list"));
                     setprop("/sim/gui/dialogs/rope-dialog/settings/pointname", lpparams[0]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/weight-lb", lpparams[1]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/max-lb", lpparams[2]);
                     setprop("/sim/gui/dialogs/rope-dialog/settings/index", lpparams[3]);
+
+                    setprop("/sim/model/weight-points/pointname/name", lpparams[0]);
+                    setprop("/sim/model/weight-points/pointname/weight-lb", lpparams[1]);
+                    setprop("/sim/model/weight-points/pointname/max-lb", lpparams[2]);
                 </script>
             </binding>
         </list>

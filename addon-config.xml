@@ -23,6 +23,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
             <hitch>
                 <openhook type="bool">false</openhook>
             </hitch>
+            <weight-points>
+                <pointname>
+                    <name type="string"></name>
+                    <weight-lb type="double"></weight-lb>
+                    <max-lb type="double"></max-lb>
+                </pointname>
+            </weight-points>
         </model>
         <model>
             <path>[addon=org.flightgear.addons.CGTOW]cargotow.xml</path>
@@ -285,8 +292,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <gui>
             <dialogs>
                 <aicargo-dialog>
-                    <longline type="bool">true</longline>
-                    <connection type="bool">false</connection>
+                    <longline type="int">1</longline>
+                    <connection type="int">0</connection>
                 </aicargo-dialog>
                 <rope-dialog>
                     <alt-origin type="bool">false</alt-origin>
@@ -319,14 +326,6 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <path>/sim/gui/dialogs/aicargo-dialog/longline</path>
           <path>/sim/gui/dialogs/aicargo-dialog/connection</path>
           <path>/sim/gui/dialogs/rope-dialog/alt-origin</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/name</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/x-pos</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/y-pos</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/z-pos</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/offset</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/diameter</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/wincharm</path>
-          <path>/sim/gui/dialogs/rope-dialog/settings/loadpoint</path>
           <path>/sim/gui/show-range</path>
           <path>/sim/cargo/setselected</path>
         </aircraft-data> 

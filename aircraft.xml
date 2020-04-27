@@ -78,7 +78,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </aircraft>
     <aircraft n="6">
         <!--weight x="-3.5" y="0"    z="-0.275" mass-prop="/sim/weight[5]/weight-lb"/-->
-        <name type="string">ec135P2</name>
+        <name type="string">ec135p2</name>
         <x-pos type="double">3.800</x-pos>
         <y-pos type="double">1.667</y-pos>
         <z-pos type="double">1.800</z-pos>
