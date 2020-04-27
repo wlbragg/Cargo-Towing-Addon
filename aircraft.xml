@@ -77,7 +77,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <loadpoint type="int">5</loadpoint>
     </aircraft>
     <aircraft n="6">
-        <!--weight x="-4.481" y="-1.234" z="1.83"   mass-prop="/sim/weight[6]/weight-lb"/-->
+        <!--weight x="-3.5" y="0"    z="-0.275" mass-prop="/sim/weight[5]/weight-lb"/-->
         <name type="string">ec135P2</name>
         <x-pos type="double">3.800</x-pos>
         <y-pos type="double">1.667</y-pos>
@@ -85,7 +85,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <offset type="double">5.733</offset>
         <diameter type="double">.75</diameter>
         <wincharm type="int">4</wincharm>
-        <loadpoint type="int">6</loadpoint>
+        <loadpoint type="int">5</loadpoint>
     </aircraft>
     <aircraft n="7">
         <!--weight x="2.533" y="0" z="0.195" mass-prop="/sim/weight[4]/weight-lb"/-->
@@ -319,5 +319,17 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <wincharm type="int">0</wincharm>
         <loadpoint type="int">7</loadpoint>
     </aircraft>
+    <aircraft n="28">
+        <!--weight x="0" y="0.00" z="-2" mass-prop="/sim/weight[0]/weight-lb"/-->
+        <name type="string">Merlin-HM1</name>
+        <x-pos type="double">2.333</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">-0.667</z-pos>
+        <offset type="double">2.0</offset>
+        <diameter type="double">1</diameter>
+        <wincharm type="int">0</wincharm>
+        <loadpoint type="int">0</loadpoint>
+    </aircraft>
+
   
 </PropertyList>
