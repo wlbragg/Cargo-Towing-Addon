@@ -133,9 +133,9 @@ var cargo_closest=0;
         #gui.popupTip("In ranging", 1);
         foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")) {
 
-            existingPointWeight = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/weight-lb", 1);
+            existingPointWeight = props.globals.getNode("sim/model/weight-points/pointname/weight-lb", 1);
             aircraftPointmass = props.globals.getNode(location~"/weight["~index.getValue()~"]/weight-lb", 1);
-            existingPointLimit = props.globals.getNode("sim/model/"~aircraftName.getValue()~"/weight-points/pointname["~index.getValue()~"]/max-lb", 1);
+            existingPointLimit = props.globals.getNode("sim/model/weight-points/pointname/max-lb", 1);
             aircraftPointlimit = props.globals.getNode(location~"/weight["~index.getValue()~"]/max-lb", 1);
 
             cargoElevation = cargoN.getNode("elevation-ft").getValue();

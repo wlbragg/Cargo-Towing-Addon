@@ -292,8 +292,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <gui>
             <dialogs>
                 <aicargo-dialog>
-                    <longline type="int">1</longline>
-                    <connection type="int">0</connection>
+                    <longline type="bool">true</longline>
+                    <connection type="bool">false</connection>
                 </aicargo-dialog>
                 <rope-dialog>
                     <alt-origin type="bool">false</alt-origin>
