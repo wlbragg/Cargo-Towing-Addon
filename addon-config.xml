@@ -256,6 +256,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <current-cargo-distance type="double">0.0</current-cargo-distance>
           <current-connection-distance type="double">0.0</current-connection-distance>
           <current-cargo-name type="string">Name</current-cargo-name>
+          <current-cargo-desc type="string">Desc</current-cargo-desc>
           <current-cargo-elevation type="double">0.0</current-cargo-elevation>
           <current-cargo-elevation-two type="double">0.0</current-cargo-elevation-two>
 
@@ -328,6 +329,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
           <path>/sim/gui/dialogs/rope-dialog/alt-origin</path>
           <path>/sim/gui/show-range</path>
           <path>/sim/cargo/setselected</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/x-pos</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/y-pos</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/z-pos</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/offset</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/diameter</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/wincharm</path>
+          <path>/sim/gui/dialogs/rope-dialog/settings/loadpoint</path>
         </aircraft-data> 
 
         <multiplay>

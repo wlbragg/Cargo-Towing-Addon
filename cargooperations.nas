@@ -12,6 +12,7 @@ var AircraftCargo = {};
 var parents = [AircraftCargo];
 var cargoParent = "";
 var cargoName = "";
+var cargoDesc = "";
 var isAI = -1;
 #hookHeight (in meters)
 var hookHeight = 15;
@@ -57,6 +58,7 @@ var aircraftPointmass = props.globals.getNode(location~"/weight["~index.getValue
 var existingPointLimit = props.globals.getNode("sim/model/weight-points/pointname/max-lb", 1);
 var aircraftPointlimit = props.globals.getNode(location~"/weight["~index.getValue()~"]/max-lb", 1);
 
+# global for aircraft instruments
 var rope_length = props.globals.getNode("sim/cargo/rope/length", 1);
 var load_weight = props.globals.getNode("sim/cargo/load/weight", 1);
 
@@ -70,6 +72,8 @@ var cargo_alt = props.globals.getNode("sim/cargo/cargoalt", 1);
 var harness_alt = props.globals.getNode("sim/cargo/harnessalt", 1);
 
 var current_yaw = props.globals.getNode("sim/cargo/currentyaw", 1);
+
+var cargo_closest=-1;
 
 var cargo_tow = func () {
 
@@ -124,11 +128,9 @@ var cargo_tow = func () {
         hookHeight = 15;
     }
 
-	if(onHookNode.getValue() == 0 and cargoReleased == 0 and hooked == 0) {
+	  if(onHookNode.getValue() == 0 and cargoReleased == 0 and hooked == 0) {
 
-var cargo_last=0;
-var cargo_comp=0;
-var cargo_closest=0;
+        cargo_closest=-1;
 
         #gui.popupTip("In ranging", 1);
         foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")) {
@@ -141,28 +143,24 @@ var cargo_closest=0;
             cargoElevation = cargoN.getNode("elevation-ft").getValue();
             #cargoGroundElevFt = cargoElevation - cargoN.getNode("height").getValue();
 
-            if (altNode - (hookHeight + offset.getValue()) < cargoElevation - cargoGroundElevFt) {
+            if (string.match(cargoN.getNode("callsign").getValue(), "cargo*") and cargoN.getNode("elevation-ft").getValue() > -999){
+                cargo_pos.set_latlon(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue());
+                cargo_dist = aircraft_pos.distance_to(cargo_pos);
+                if(cargo_closest == -1 or cargo_dist < cargo_closest) {
+                    cargo_closest=cargo_dist;
+                    cargoName = cargoN.getNode("callsign").getValue();
+                    cargoDesc = cargoN.getNode("description").getValue();
+                    setprop("/sim/cargo/current-cargo-distance", cargo_closest);
+                    setprop("/sim/cargo/current-cargo-name", cargoName);
+                    setprop("/sim/cargo/current-cargo-desc", cargoDesc);
+                }
+            }
 
-setprop("/sim/cargo/current-cargo-elevation", cargoElevation - cargoGroundElevFt);
-setprop("/sim/cargo/current-cargo-elevation-two", altNode - ropeLength);
-setprop("/sim/cargo/current-cargo-name", cargoName);
+            if (altNode - (hookHeight + offset.getValue()) < cargoElevation - cargoGroundElevFt) {
 
                 if (string.match(cargoN.getNode("callsign").getValue(), "cargo*")){
                     cargo_pos.set_latlon(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue());
                     cargo_dist = aircraft_pos.distance_to(cargo_pos);
-
-if(cargo_comp == 0) {
-  cargo_last = cargo_dist;
-  cargo_comp = 1;
-} else {
-  if(cargo_dist < cargo_last) {
-    cargo_closest=cargo_dist;
-  } else {    
-    cargo_last = cargo_dist;
-  }
-  setprop("/sim/cargo/current-cargo-distance", cargo_closest);
-
-}
 
                     if (cargo_dist <= (hookHeight + 5)/3.281) {
                         cargoGroundElevFt = geo.elevation(cargoN.getNode("latitude-deg").getValue(), cargoN.getNode("longitude-deg").getValue()) * 3.28;
@@ -172,7 +170,8 @@ if(cargo_comp == 0) {
 			                          hooked = 1;
                                 autoHookNode.setValue(0);
                                 cargoParent = cargoN.getNode("callsign").getParent().getName() ~ "[" ~ cargoN.getNode("callsign").getParent().getIndex() ~ "]";
-                                cargoName = cargoN.getNode("callsign").getValue();
+                                #cargoName = cargoN.getNode("callsign").getValue();
+                                #cargoDesc = cargoN.getNode("description").getValue();
                                 #maybe condition to only if longline
                                 currentYaw = (headNode.getValue()+(headNode.getValue()-cargoN.getNode("heading-deg").getValue()))-headNode.getValue();
                                 originalYaw = cargoN.getNode("heading-deg").getValue();
@@ -213,15 +212,16 @@ if(cargo_comp == 0) {
                                 setprop("sim/cargo/"~cargoName~"-onhook", 1);
                                 onHookNode.setValue(1);
                             }
-					    }
-				    }
-			    }
+					              }
+				            }
+			          }
             }
         } #for
-    }
+    } #onHookNode.getValue()
     if (hooked == 1) {
 
-setprop("/sim/cargo/current-cargo-name", cargoName);
+        setprop("/sim/cargo/current-cargo-name", cargoName);
+        setprop("/sim/cargo/current-cargo-desc", cargoDesc);
 
         cargoHeight = getprop("/models/cargo/" ~ cargoParent ~ "/height");
         isAI = getprop("/models/cargo/" ~ cargoParent ~ "/ai");
@@ -239,6 +239,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
                 aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
                 aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
+                # global for aircraft instruments
                 load_weight.setValue(cargoWeight);
 
                 props.globals.getNode("/models/cargo/" ~ cargoParent ~ "/elevation-ft").setDoubleValue(elvPos);
@@ -253,7 +254,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                 hooked = 0;
                 hookNode.setValue(0);
                 onHookNode.setValue(0);
-			    setprop("sim/cargo/"~cargoName~"-onhook", 0);
+			          setprop("sim/cargo/"~cargoName~"-onhook", 0);
             }
         } else {
             if (longline.getValue() and cargoOnGround.getValue() == 0) {
@@ -271,13 +272,8 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
 
                 aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
                 aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
+                # global for aircraft instruments
                 load_weight.setValue(cargoWeight);
-
-#setprop("aircraftPointmass", aircraftPointmass.getValue());
-#setprop("aircraftPointlimit", aircraftPointlimit.getValue());
-#setprop("aircraftexistingPointWeight", existingPointWeight.getValue());
-#setprop("aircraftexistingPointLimit", existingPointLimit.getValue());
-#setprop("aircraftLoadweight", load_weight.getValue());
 
                 currentLat = latNode.getValue();
                 currentLon = lonNode.getValue();
@@ -291,8 +287,7 @@ setprop("/sim/cargo/current-cargo-name", cargoName);
                     setprop("/ai/models/aircraft[" ~ isAI ~ "]/position/longitude-deg", currentLon);
                 }
 
-                #if (stack > 0) {
-if (stack > -1) {
+                if (stack > -1) {
                     var cargoBaseHeight = (aircraft_alt_ft + offset.getValue()) - ((ropeLength + cargoHarness + cargoHeight) * 3.28);
                     var stackTopHeight = getprop("/models/cargo/cargo[" ~ stack ~ "]/elevation-ft");
 
@@ -304,7 +299,7 @@ if (stack > -1) {
                     cargo_pos.set_latlon(currentLat, currentLon);
                     cargo_dist = cargo_pos.distance_to(stack_pos);
 
-setprop("/sim/cargo/current-connection-distance", cargo_dist);
+                    setprop("/sim/cargo/current-connection-distance", cargo_dist);
 
                     if (cargo_dist <= 10 and (verticalDist > -1 and verticalDist < 2)) {
                         gui.popupTip(cargoName~" Connection in range", 1);
@@ -327,6 +322,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
                
                 aircraftPointmass.setValue(existingPointWeight.getValue());
                 aircraftPointlimit.setValue(existingPointLimit.getValue());
+                # global for aircraft instruments
                 load_weight.setValue(0);
 
                 cargo_pos.set_latlon(currentLat, currentLon);
@@ -350,6 +346,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
 
                     aircraftPointmass.setValue(cargoWeight+existingPointWeight.getValue());
                     aircraftPointlimit.setValue(cargoWeight+existingPointLimit.getValue());
+                    # global for aircraft instruments
                     load_weight.setValue(cargoWeight);
            
                     #x and y transformation to move cargo (incrementally) towards aircraft as rope is taut and pulling cargo
@@ -381,9 +378,6 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
             }
         }
         #gui.popupTip(cargoName~" in tow", 1);
-
-#setprop("/sim/cargo/current-cargo-name", cargoName);
-
         if ((releaseNode.getValue() == 1 or autoHookNode.getValue() == 1) and onHookNode.getValue() == 1) {            
             if (onGround or (longline.getValue() and cargoOnGround.getValue()) or (stack and stackConnected) or overland == 0) {
                 onHookNode.setValue(0);
@@ -419,6 +413,7 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
     if (cargoReleased == 1) {
         aircraftPointmass.setValue(existingPointWeight.getValue());
         aircraftPointlimit.setValue(existingPointLimit.getValue());
+        # global for aircraft instruments
         load_weight.setValue(0);
         autoHookNode.setValue(0);
 
@@ -433,7 +428,6 @@ setprop("/sim/cargo/current-connection-distance", cargo_dist);
         #y = y * .0000239;
 
         if (!longline.getValue()) {
-
             if (stack == -1) {
                 setprop("/models/cargo/"~cargoParent~"/elevation-ft", (getprop("/position/altitude-ft") + 13.8) - (cargoHeight * 3.28));
                 setprop("/models/cargo/"~cargoParent~"/heading-deg", headNode.getValue());

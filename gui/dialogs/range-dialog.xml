@@ -20,8 +20,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       <valign>fill</valign>
       <halign>fill</halign>
       <stretch>true</stretch>
-      <pref-width>300</pref-width>
-      <pref-height>200</pref-height>
+      <pref-width>320</pref-width>
+      <pref-height>210</pref-height>
       <nasal>      
           <load>
               <![CDATA[
@@ -32,9 +32,9 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                   .setText("0")
                   .setTranslation(20, 20)
                   .setAlignment("left-top")
-                  .setFontSize(30)
+                  .setFontSize(26)
                   .setFont("LiberationFonts/LiberationSans-Regular.ttf")
-                  .set("max-width", 300)
+                  .set("max-width", 320)
                   .setColor(1,1,1);
 
               var range_loop = func {
@@ -44,11 +44,13 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                   else
                       text.setColor(1,1,1);
 
-                  text.setText( "Name "~getprop("/sim/cargo/current-cargo-name")~"\n"~
-                                "Range "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-distance"))~"\n"~
-                                "ConnDist "~sprintf("%4.0f", getprop("/sim/cargo/current-connection-distance"))~"\n"~
-                                "CargoElev "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-elevation-two"))~"\n"~
-                                "StackElev "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-elevation")));
+                  text.setText( "Name: "~getprop("/sim/cargo/current-cargo-desc")~"\n"~
+                                "Object: "~getprop("/sim/cargo/current-cargo-name")~"\n"~
+                                "Range: "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-distance"))~"\n"~
+                                "ConnDist: "~sprintf("%4.0f", getprop("/sim/cargo/current-connection-distance"))~"\n"~
+                                "Stack Information \n"~
+                                "CargoElev: "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-elevation-two"))~"\n"~
+                                "StackElev: "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-elevation")));
               }
 
               var range_timer = maketimer(0.25, func{range_loop()});
