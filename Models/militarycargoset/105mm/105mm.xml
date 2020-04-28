@@ -3,6 +3,7 @@
 <PropertyList>
 
   <path>105.ac</path>
+  <texture-path>../</texture-path>
   
   <!--
 Model by camokid11
