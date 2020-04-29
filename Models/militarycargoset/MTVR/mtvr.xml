@@ -3,7 +3,7 @@
 <PropertyList>
 
   <path>mtvr.ac</path>
-  
+  <texture-path>../</texture-path>
  
  <!--
  

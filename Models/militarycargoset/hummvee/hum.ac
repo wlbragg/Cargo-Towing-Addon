@@ -1,8 +1,9 @@
 AC3Db
 MATERIAL "Material #2.001" rgb 0.584 0.584 0.584  amb 0.500 0.500 0.500  emis 0.000 0.000 0.000  spec 1.000 1.000 1.000  shi 32 trans 0.000
-MATERIAL "Material #2.002" rgb 0.584 0.584 0.584  amb 0.500 0.500 0.500  emis 0.000 0.000 0.000  spec 1.000 1.000 1.000  shi 32 trans 0.000
-MATERIAL "Material #2.003" rgb 0.584 0.584 0.584  amb 0.500 0.500 0.500  emis 0.000 0.000 0.000  spec 1.000 1.000 1.000  shi 32 trans 0.000
-MATERIAL "Material #2" rgb 0.584 0.584 0.584  amb 0.500 0.500 0.500  emis 0.000 0.000 0.000  spec 1.000 1.000 1.000  shi 32 trans 0.000
+MATERIAL "hummvee" rgb 0.640 0.640 0.640  amb 1.000 1.000 1.000  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 12 trans 0.000
+MATERIAL "interior" rgb 0.640 0.640 0.640  amb 1.000 1.000 1.000  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 12 trans 0.000
+MATERIAL "wheels" rgb 0.640 0.640 0.640  amb 1.000 1.000 1.000  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 12 trans 0.000
+MATERIAL "hum-wind" rgb 0.640 0.640 0.640  amb 1.000 1.000 1.000  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 12 trans 0.000
 OBJECT world
 name "Blender_exporter_v2.26__hum.ac"
 kids 24
@@ -35,6 +36,8 @@ name "HMMWV_Material #0"
 data 17
 HMMWV_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 3695
 -3.17813 -1.3907 1.04319
 -1.3527 -1.40739 1.04288
@@ -27012,6 +27015,8 @@ name "HMMWV_Material #1"
 data 17
 HMMWV_Material #1
 crease 30.0
+texture "Iterier.jpg"
+texrep 1 1
 numvert 1196
 -2.82739 -0.51764 0.95389
 -2.7637 -0.76753 0.95507
@@ -34576,6 +34581,8 @@ name "Object01_Material #2"
 data 20
 Object01_Material #2
 crease 30.0
+texture "Wheels.jpg"
+texrep 1 1
 numvert 319
 -1.02941 -1.4263 0.73286
 -1.01508 -1.54838 0.73344
@@ -36607,6 +36614,8 @@ name "Object02_Material #2"
 data 20
 Object02_Material #2
 crease 30.0
+texture "Wheels.jpg"
+texrep 1 1
 numvert 319
 -4.19018 -1.28988 -0.97593
 -4.19018 -1.28988 -0.97593
@@ -38638,6 +38647,8 @@ name "Object02_Material #2.001"
 data 24
 Object02_Material #2.001
 crease 30.0
+texture "Wheels.jpg"
+texrep 1 1
 numvert 319
 -1.02933 -1.41802 -0.69542
 -1.015 -1.5401 -0.69484
@@ -40669,6 +40680,8 @@ name "Object04_Material #2"
 data 20
 Object04_Material #2
 crease 30.0
+texture "Wheels.jpg"
+texrep 1 1
 numvert 319
 -4.22881 -1.39706 0.73341
 -4.21449 -1.51913 0.73399
@@ -42700,6 +42713,8 @@ name "Object05_Material #7"
 data 20
 Object05_Material #7
 crease 30.0
+texture "hummerwd.jpg"
+texrep 1 1
 numvert 4
 -1.97032 -0.30504 0.96819
 -1.97037 -0.30621 0.72128
@@ -42707,13 +42722,13 @@ numvert 4
 -2.12673 -0.30478 0.72131
 numsurf 2
 SURF 0X10
-mat 0
+mat 4
 refs 3
 2 0.057797 0.528681
 0 0.057796 0.278123
 3 0.453425 0.528679
 SURF 0X10
-mat 0
+mat 4
 refs 3
 0 0.057796 0.278123
 1 0.453424 0.278122
@@ -42724,6 +42739,8 @@ name "Object06_Material #7"
 data 20
 Object06_Material #7
 crease 30.0
+texture "hummerwd.jpg"
+texrep 1 1
 numvert 4
 -2.13516 -1.22398 0.59541
 -1.97879 -1.22541 0.59539
@@ -42731,13 +42748,13 @@ numvert 4
 -2.13521 -1.22516 0.34851
 numsurf 2
 SURF 0X10
-mat 0
+mat 4
 refs 3
 3 0.949894 0.278124
 2 0.949893 0.528681
 1 0.554265 0.528679
 SURF 0X10
-mat 0
+mat 4
 refs 3
 1 0.554265 0.528679
 0 0.554266 0.278122
@@ -42748,6 +42765,8 @@ name "Object07_Material #7"
 data 20
 Object07_Material #7
 crease 30.0
+texture "hummerwd.jpg"
+texrep 1 1
 numvert 4
 -2.0024 -1.20181 1.04204
 -2.17427 -1.17179 1.04193
@@ -42755,13 +42774,13 @@ numvert 4
 -1.9984 -0.76376 1.03995
 numsurf 2
 SURF 0X10
-mat 0
+mat 4
 refs 3
 3 0.497649 0.613543
 2 0.497649 0.796344
 1 0.062658 0.796344
 SURF 0X10
-mat 0
+mat 4
 refs 3
 1 0.062658 0.796344
 0 0.032452 0.613543
@@ -42772,6 +42791,8 @@ name "Object08_Material #7"
 data 20
 Object08_Material #7
 crease 30.0
+texture "hummerwd.jpg"
+texrep 1 1
 numvert 4
 -2.13508 -1.22219 0.97259
 -1.97871 -1.22362 0.97257
@@ -42779,13 +42800,13 @@ numvert 4
 -2.13513 -1.22336 0.72569
 numsurf 2
 SURF 0X10
-mat 0
+mat 4
 refs 3
 3 0.453424 0.278121
 2 0.453423 0.528679
 1 0.057796 0.528678
 SURF 0X10
-mat 0
+mat 4
 refs 3
 1 0.057796 0.528678
 0 0.057797 0.27812
@@ -42796,6 +42817,8 @@ name "Object09_Material #7"
 data 20
 Object09_Material #7
 crease 30.0
+texture "hummerwd.jpg"
+texrep 1 1
 numvert 4
 -1.9704 -0.30683 0.59101
 -1.97045 -0.30801 0.34411
@@ -42803,13 +42826,13 @@ numvert 4
 -2.12681 -0.30658 0.34413
 numsurf 2
 SURF 0X10
-mat 0
+mat 4
 refs 3
 2 0.554266 0.528679
 0 0.554265 0.278121
 3 0.949894 0.528677
 SURF 0X10
-mat 0
+mat 4
 refs 3
 0 0.554265 0.278121
 1 0.949893 0.278119
@@ -42820,6 +42843,8 @@ name "Object10_Material #0"
 data 20
 Object10_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 86
 -2.84703 -1.18087 -1.01282
 -2.84101 -0.52257 -1.01595
@@ -43670,6 +43695,8 @@ name "Object10_Material #1"
 data 20
 Object10_Material #1
 crease 30.0
+texture "Iterier.jpg"
+texrep 1 1
 numvert 32
 -2.20289 -0.52815 -0.96686
 -2.20007 -0.2208 -0.9191
@@ -43794,6 +43821,8 @@ name "Object11_Material #0"
 data 20
 Object11_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 90
 -1.95281 -0.53067 -1.01659
 -1.94962 -0.18368 -0.9625
@@ -44684,6 +44713,8 @@ name "Object11_Material #1"
 data 20
 Object11_Material #1
 crease 30.0
+texture "Iterier.jpg"
+texrep 1 1
 numvert 34
 -1.36243 -0.53587 -0.96723
 -1.35961 -0.22848 -0.91973
@@ -44822,6 +44853,8 @@ name "Object12_Material #0"
 data 20
 Object12_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 86
 -2.84659 -1.17104 1.04807
 -2.83741 -0.16626 0.98754
@@ -45672,6 +45705,8 @@ name "Object12_Material #1"
 data 20
 Object12_Material #1
 crease 30.0
+texture "Iterier.jpg"
+texrep 1 1
 numvert 32
 -2.20247 -0.5188 0.99562
 -2.19967 -0.21191 0.94494
@@ -45796,6 +45831,8 @@ name "Object13_Material #0"
 data 20
 Object13_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 90
 -1.9584 -1.18 1.04841
 -1.94919 -0.17438 0.98787
@@ -46686,6 +46723,8 @@ name "Object13_Material #1"
 data 20
 Object13_Material #1
 crease 30.0
+texture "Iterier.jpg"
+texrep 1 1
 numvert 34
 -1.362 -0.52652 0.9957
 -1.35921 -0.21959 0.94527
@@ -46824,6 +46863,8 @@ name "Object14_Material #0"
 data 20
 Object14_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 26
 -1.07886 -0.12348 -0.60881
 -0.04622 -0.4865 -0.60731
@@ -47002,6 +47043,8 @@ name "Object14_Material #1"
 data 20
 Object14_Material #1
 crease 30.0
+texture "Iterier.jpg"
+texrep 1 1
 numvert 9
 0.05143 -0.59115 0.637
 -1.1185 -0.15545 0.63517
@@ -47043,6 +47086,8 @@ name "Object15_Material #0"
 data 20
 Object15_Material #0
 crease 30.0
+texture "Humvee.jpg"
+texrep 1 1
 numvert 37
 0.17309 -0.64643 0.65125
 0.16986 -0.99975 0.65293
@@ -47352,6 +47397,8 @@ name "Object16_Material #2"
 data 20
 Object16_Material #2
 crease 30.0
+texture "Wheels.jpg"
+texrep 1 1
 numvert 319
 -4.22912 -1.40386 -0.69542
 -4.21479 -1.52594 -0.69484

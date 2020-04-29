@@ -3,6 +3,7 @@
 <PropertyList>
 
   <path>scimitar.ac</path>
+  <texture-path>../</texture-path>
   
   <!--
 FV-107 Scimiter

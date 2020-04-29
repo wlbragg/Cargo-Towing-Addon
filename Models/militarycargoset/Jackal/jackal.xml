@@ -3,6 +3,7 @@
 <PropertyList>
 
   <path>jackal.ac</path>
+  <texture-path>../</texture-path>
   
   <!--
   Jackal 2
