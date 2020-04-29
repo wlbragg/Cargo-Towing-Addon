@@ -47,8 +47,8 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
                   text.setText( "Name: "~getprop("/sim/cargo/current-cargo-desc")~"\n"~
                                 "Object: "~getprop("/sim/cargo/current-cargo-name")~"\n"~
                                 "Range: "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-distance"))~"\n"~
-                                "ConnDist: "~sprintf("%4.0f", getprop("/sim/cargo/current-connection-distance"))~"\n"~
                                 "Stack Information \n"~
+                                "ConnDist: "~sprintf("%4.0f", getprop("/sim/cargo/current-connection-distance"))~"\n"~
                                 "CargoElev: "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-elevation-two"))~"\n"~
                                 "StackElev: "~sprintf("%4.0f", getprop("/sim/cargo/current-cargo-elevation")));
               }
