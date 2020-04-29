@@ -47,7 +47,7 @@ var offset = props.globals.getNode("sim/cargo/rope/coil-angle", 1);
 var ropeLength = (ropeSegments.getValue() - n_seg_reeled.getValue()) * seg_length.getValue();
 
 var aircraftName = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/aircraft-name", 1);
-var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/index", 1);
+var index = props.globals.getNode("sim/gui/dialogs/rope-dialog/settings/loadpoint", 1);
 
 var location = "sim";
 var fdm = getprop("sim/flight-model");
@@ -218,6 +218,14 @@ var cargo_tow = func () {
             }
         } #for
     } #onHookNode.getValue()
+
+    if (autoHookNode.getValue() == 1) {
+        if (hooked == 1)
+            gui.popupTip("Auto disconnect engaged", 1);
+        else
+            gui.popupTip("Auto connect engaged", 1);
+    }
+
     if (hooked == 1) {
 
         setprop("/sim/cargo/current-cargo-name", cargoName);
@@ -401,9 +409,6 @@ var cargo_tow = func () {
             }
         }
     } else {
-        if (autoHookNode.getValue() == 1) {
-            gui.popupTip("Auto hook engaged", 1);
-        }
         #release auto.hook by pressing hook
         if (hookNode.getValue() == 1 and autoHookNode.getValue() == 1) {
             autoHookNode.setValue(0);
