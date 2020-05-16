@@ -39,8 +39,11 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
               var range_loop = func {
 
+                  if (getprop("sim/cargo/cargo-auto-hook") == 1)
+                      text.setColor(1,1,.2);
+                  else
                   if (getprop("sim/cargo/cargo-on-hook") == 1)
-                      text.setColor(0,1,0);
+                      text.setColor(.2,1,.2);
                   else
                       text.setColor(1,1,1);
 

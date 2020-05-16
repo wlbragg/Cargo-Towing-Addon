@@ -198,12 +198,12 @@ var cargo_tow = func () {
         } #for
     } #onHookNode.getValue()
 
-    if (autoHookNode.getValue() == 1) {
-        if (hooked == 1)
-            gui.popupTip("Auto disconnect engaged", 1);
-        else
-            gui.popupTip("Auto connect engaged", 1);
-    }
+    #if (autoHookNode.getValue() == 1) {
+    #    if (hooked == 1)
+    #        gui.popupTip("Auto disconnect engaged", 1);
+    #    else
+    #        gui.popupTip("Auto connect engaged", 1);
+    #}
 
     if (hooked == 1) {
         cargoHeight = getprop("/models/cargo/" ~ cargoParent ~ "/height");
