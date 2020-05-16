@@ -35,6 +35,7 @@ var longline_animation = func (reset, cargoWeight, segment_length) {
     if (getprop("sim/flight-model") == "jsb")
         overland = getprop("fdm/jsbsim/ground/solid");
 
+    #cargo affects rope or not
     if (getprop("sim/gui/dialogs/rope-dialog/alt-origin"))
         var altitude = getprop("/position/altitude-agl-ft") - 13.3;
     else
