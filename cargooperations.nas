@@ -109,7 +109,7 @@ var cargo_tow = func () {
     var aircraftPos = props.globals.getNode("position/altitude-ft", 1);
     #var altNode = getprop("/position/altitude-agl-ft"); can't use because of collision #
     var aircraft_alt_ft = aircraftPos.getValue() - offset.getValue();
-    var true_grnd_elev_ft = geo.elevation(latNode.getValue(), lonNode.getValue()) * 3.28;
+    var true_grnd_elev_ft = (geo.elevation(latNode.getValue(), lonNode.getValue()) * 3.28) or 0;
     var altNode =  aircraft_alt_ft - true_grnd_elev_ft;
 
     var aircraftTrueAgl = props.globals.getNode("position/true-agl-ft", 1);
