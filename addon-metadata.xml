@@ -41,7 +41,7 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </short-description>
 
     <long-description type="string">
-      Provides support for Cargo Towing adaptable for any FlightGear helocopter.
+      Provides support for Cargo Towing adaptable for any FlightGear helicopter .
     </long-description>
 
     <license>

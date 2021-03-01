@@ -247,4 +247,37 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </condition>
   </model>
 
+  <model>
+    <path>/rhib/rhib.xml</path>
+    <name>cargo</name>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 3.14</z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo8-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+   <model>
+    <path>/rhib/rhibharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo8-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
 </PropertyList>

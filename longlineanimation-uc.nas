@@ -101,6 +101,8 @@ var longline_animation = func (reset, cargoWeight, segment_length) {
       reset = 0;
     }
 
+setprop("sim/model/cargo/ground-distance", (((alt_agl+1.6) - ((n_segments - n_segments_reeled) * segment_length)) + cargo_harness + cargo_height));
+
   if (overland)
     {
       if ((((alt_agl+1.6) - ((n_segments - n_segments_reeled) * segment_length)) + cargo_harness + cargo_height) < 0.0)

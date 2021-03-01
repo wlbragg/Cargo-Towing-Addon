@@ -631,4 +631,38 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
     </condition>
   </model>
 
+  <model>
+    <path>radio-tower-sec-test.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 2.0 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <or>
+          <property>sim/cargo/cargo29-onhook</property>
+        </or>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+      </and>
+    </condition>
+  </model>
+  <model>
+    <path>radiotowersecharness.ac</path>
+     <offsets>
+      <x-m>-0.175 </x-m>
+      <y-m>-0.1 </y-m>
+      <z-m> 1.5 </z-m>
+     </offsets>
+    <condition>
+      <and>
+        <property>sim/cargo/cargo29-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+  </model>
+
 </PropertyList>

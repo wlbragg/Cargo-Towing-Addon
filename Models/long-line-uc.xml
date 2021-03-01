@@ -9811,6 +9811,39 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
       <z>1</z>
     </axis>
   </animation>
+
+
+  <animation>
+    <type>rotate</type>
+    <object-name>cargo</object-name>
+    <property>sim/model/cargo/ground-distance</property>
+    <condition>
+      <and>
+        <less-than>
+          <property>sim/model/cargo/ground-distance</property>
+          <value>21</value>
+        </less-than>
+        <property>sim/cargo/cargo29-onhook</property>
+        <property>sim/gui/dialogs/aicargo-dialog/connection</property>
+        <not>
+          <property>sim/cargo/rope/pulling</property>
+        </not>
+      </and>
+    </condition>
+    <factor>-4</factor>
+    <center>
+      <x-m> -2.10464 </x-m>
+      <y-m> -0.0181  </y-m>
+      <z-m> -16.3493 </z-m>
+    </center>
+    <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+    </axis>
+  </animation>
+
+
   <animation>
     <type>translate</type>
     <object-name>cargoharness</object-name>

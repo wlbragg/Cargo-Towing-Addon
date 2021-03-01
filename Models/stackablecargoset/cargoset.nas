@@ -35,6 +35,7 @@ var cargo25 = {};
 var cargo26 = {};
 var cargo27 = {};
 var cargo28 = {};
+var cargo29 = {};
 
   #set initial position of the cargo models out of site and out of range
   var lat = getprop("/position/latitude-deg")-.0002;
@@ -109,5 +110,6 @@ var cargo28 = {};
   cargo26 = place_model("26",   25, "wind-tower-gen",   model_path, 24,     4.90,   1200, 4.90, 8.52, lat, lon, alt-90, 0, 0, 0, -1);
   cargo27 = place_model("27",   26, "wind-tower-hub",   model_path, 25,    37.83,   1200,60.91, 8.52, lat, lon, alt-90, 0, 0, 0, -1);
   cargo28 = place_model("28",   27, "tank",             model_path,  6,     1.00,    500, 3.00, 6.08, lat, lon, alt-90, 0, 0, 0, -1);
+  cargo29 = place_model("29",   28, "tower-lift",       model_path,  0,      0.0,    500, 5.36, 8.52, lat, lon, alt-90, 0, 0, 0, -1);
 
   cargo_init();

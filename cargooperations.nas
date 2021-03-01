@@ -6,6 +6,19 @@
 # Version 1.0.0 beta 1/21/2020
 # Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
 
+var tankfilltimer = 0;
+var tankfill_timer = maketimer(0.25, func{tank_fill()});
+
+var tank_fill = func () {
+
+	var hopperweight = getprop("sim/weight[3]/weight-lb");
+  var capacity = 115.91;
+	
+  if (hopperweight < 20000) hopperweight = hopperweight + capacity;
+	setprop("sim/weight[3]/weight-lb", hopperweight);
+
+}
+
 #################### cargo hauling ####################
 
 var AircraftCargo = {};
@@ -80,6 +93,7 @@ var cargo_tow = func () {
     existingPointLimit.getValue();
     aircraftPointlimit.getValue();
 
+	ropeLength = (ropeSegments.getValue() - n_seg_reeled.getValue()) * seg_length.getValue();
     # global for aircraft instruments
     rope_length.setValue(ropeLength * 3.28);
 
@@ -106,7 +120,7 @@ var cargo_tow = func () {
     var aircraftPos = props.globals.getNode("position/altitude-ft", 1);
     #var altNode = getprop("/position/altitude-agl-ft"); #can't use because of collision
     var aircraft_alt_ft = aircraftPos.getValue() - offset.getValue();
-    var true_grnd_elev_ft = geo.elevation(aircraft_pos.lat(), aircraft_pos.lon()) * 3.28;
+    var true_grnd_elev_ft = (geo.elevation(aircraft_pos.lat(), aircraft_pos.lon()) * 3.28) or 0;
 
     var altNode =  aircraft_alt_ft - true_grnd_elev_ft;
 
@@ -119,6 +133,9 @@ var cargo_tow = func () {
 
     var elvPos = aircraftGrndElevFt.getValue() + aircraftGrndAltAglFt.getValue() - 3.9;
 
+    var snorkelPos = aircraft_pos;
+    snorkelPos.set_alt(aircraftPos.getValue() + 17);
+
     if (longline.getValue()){
         hookHeight = ropeLength * 3.28;
     }else{
@@ -128,9 +145,10 @@ var cargo_tow = func () {
 	  if(onHookNode.getValue() == 0 and cargoReleased == 0 and hooked == 0) {
 
         cargo_closest=-1;
+        var cargo = props.globals.getNode("/models/cargo", 1).getChildren("cargo");
 
         #gui.popupTip("In ranging", 1);
-        foreach(var cargoN; props.globals.getNode("/models/cargo", 1).getChildren("cargo")) {
+        foreach(var cargoN; cargo) {
 
             existingPointWeight = props.globals.getNode("sim/model/weight-points/pointname/weight-lb", 1);
             aircraftPointmass = props.globals.getNode(location~"/weight["~index.getValue()~"]/weight-lb", 1);
@@ -148,6 +166,18 @@ var cargo_tow = func () {
                     setprop("/sim/cargo/current-cargo-distance", cargo_closest);
                     setprop("/sim/cargo/current-cargo-name", cargoName);
                     setprop("/sim/cargo/current-cargo-desc", cargoDesc);
+
+                    if ((cargoDesc == "ground-tank" or cargoDesc == "ground-tank-lg"  or cargoDesc == "ground-tank-tall") and (snorkelPos.direct_distance_to(cargo_pos) < 18)) {
+                        if (!tankfilltimer) {
+                            tankfill_timer.start();
+                            tankfilltimer = 1;
+                        }
+                    } else
+                        if (tankfilltimer) {
+                            tankfill_timer.stop();
+                            tankfilltimer = 0;
+                        }
+
                     if (cargo_dist < 15) {
                         gui.popupTip(cargoDesc~" in range", 1);
                         if ((hookNode.getValue() == 1 or autoHookNode.getValue() == 1) and hooked == 0) {
@@ -192,7 +222,11 @@ var cargo_tow = func () {
                             setprop("sim/cargo/"~cargoName~"-onhook", 1);
                             onHookNode.setValue(1);
                         }
-                    }
+                    } else
+                        if (tankfilltimer) {
+                            tankfill_timer.stop();
+                            tankfilltimer = 0;
+                        }
 			          }
             }
         } #for

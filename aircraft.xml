@@ -330,6 +330,27 @@ Cargo Towing is licensed under the Gnu Public License v3+ (GPLv3+)
         <wincharm type="int">0</wincharm>
         <loadpoint type="int">0</loadpoint>
     </aircraft>
+    <aircraft n="29">
+        <!--weight x="2.6" y="0" z="-1.2" mass-prop="/sim/weight[3]/weight-lb"/-->
+        <name type="string">aircrane-e</name>
+        <x-pos type="double">0.0</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">0.0</z-pos>
+        <offset type="double">2.87</offset>
+        <diameter type="double">1</diameter>
+        <wincharm type="int">0</wincharm>
+        <loadpoint type="int">3</loadpoint>
+    </aircraft>
+      <aircraft n="30">
+        <!--weight x="2.6" y="0" z="-1.2" mass-prop="/sim/weight[3]/weight-lb"/-->
+        <name type="string">aircrane-f</name>
+        <x-pos type="double">0.0</x-pos>
+        <y-pos type="double">0.0</y-pos>
+        <z-pos type="double">0.0</z-pos>
+        <offset type="double">2.87</offset>
+        <diameter type="double">1</diameter>
+        <wincharm type="int">0</wincharm>
+        <loadpoint type="int">3</loadpoint>
+    </aircraft>
 
-  
 </PropertyList>
